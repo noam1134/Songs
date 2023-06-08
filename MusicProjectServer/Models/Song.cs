@@ -7,12 +7,18 @@
         private string text;
         private string link;
 
+        public Song()
+        {
+            SongName = "";
+            Text = "";
+            Link = "";
+        }
         public Song(int songId, string songName, string text, string link)
         {
-            this.SongId = songId;
-            this.SongName = songName;
-            this.Text = text;
-            this.Link = link;
+            SongId = songId;
+            SongName = songName;
+            Text = text;
+            Link = link;
         }
 
         public int SongId { get => songId; set => songId = value; }
