@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MusicProjectServer.Models;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -10,9 +11,11 @@ namespace MusicProjectServer.Controllers
     {
         // GET: api/<SongsController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public List<Song> Get()
         {
-            return new string[] { "value1", "value2" };
+            Song song_1 = new Song(1, "Nuni", "Lehem Havita!", "https:" + "//" + "youtu.be" + "/" + "_RFUj-sGCp8");
+            Song song_2 = new Song(2, "Poki", "Poki Pok!", "https:" + "//" + "youtu.be" + "/" + "_RFUj-sGCp8");
+            return new List<Song> { song_1, song_2 };
         }
 
         // GET api/<SongsController>/5
