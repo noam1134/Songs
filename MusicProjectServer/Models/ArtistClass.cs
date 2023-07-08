@@ -8,8 +8,14 @@ namespace MusicProjectServer.Models
 
         public ArtistClass()
 		{
-
+			Name = "";
 		}
+
+        public ArtistClass(string name, int id)
+        {
+            Name = name;
+            Id = id;
+        }
     }
 }
 
