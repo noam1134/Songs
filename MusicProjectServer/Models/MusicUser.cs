@@ -3,6 +3,7 @@
     public class MusicUser
     {
         private int id;
+        private DateTime dateOfRegistration;
         private string firstName;
         private string lastName;
         private string email;
