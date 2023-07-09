@@ -13,8 +13,9 @@ namespace MusicProjectServer.Controllers
         [HttpGet]
         public List<Song> Get()
         {
-            Song song_1 = new Song(1, "Nuni", "Lehem Havita!", "https:" + "//" + "youtu.be" + "/" + "_RFUj-sGCp8");
-            Song song_2 = new Song(2, "Poki", "Poki Pok!", "https:" + "//" + "youtu.be" + "/" + "_RFUj-sGCp8");
+            ArtistClass ron = new ArtistClass("Ron Azar",1,69);
+            Song song_1 = new Song(ron,1, "Nuni", "Lehem Havita!", "https:" + "//" + "youtu.be" + "/" + "_RFUj-sGCp8");
+            Song song_2 = new Song(ron, 2, "Poki", "Poki Pok!", "https:" + "//" + "youtu.be" + "/" + "_RFUj-sGCp8");
             return new List<Song> { song_1, song_2 };
         }
 
