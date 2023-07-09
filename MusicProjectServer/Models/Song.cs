@@ -6,7 +6,7 @@
         private string songName; //saved in excell as 'song'
         private string lyrics; //saved in excell as 'text'
         private string link;
-        private ArtistClass artist;
+        private ArtistClass artist = new ArtistClass();
 
         public Song()
         {
@@ -15,7 +15,7 @@
             Link = "";
             Artist = new ArtistClass();
         }
-        public Song(ArtistClass artist,int songId, string songName, string text, string link)
+        public Song(ArtistClass artist, int songId, string songName, string text, string link)
         {
             Artist = artist;
             SongId = songId;
@@ -24,7 +24,7 @@
             Link = link;
         }
 
-        public ArtistClass Artist { get => artist; set => artist = value; }
+        public ArtistClass Artist { get; set; }
         public int SongId { get => songId; set => songId = value; }
         public string SongName { get => songName; set => songName = value; }
         public string Lyrics { get => lyrics; set => lyrics = value; }
