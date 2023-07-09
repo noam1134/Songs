@@ -9,7 +9,7 @@ namespace MusicProjectServer.Models
 
         public ArtistClass()
 		{
-			Name = "vbxv";
+			Name = "";
             Popularity = 0; 
 		}
 
