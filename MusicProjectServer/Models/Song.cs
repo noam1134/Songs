@@ -6,7 +6,7 @@
         private string songName; //saved in excell as 'song'
         private string lyrics; //saved in excell as 'text'
         private string link;
-        private ArtistClass artist = new ArtistClass();
+        private ArtistClass artist = m;
 
         public Song()
         {
