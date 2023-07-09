@@ -13,10 +13,14 @@ namespace MusicProjectServer.Controllers
         [HttpGet]
         public List<Song> Get()
         {
+<<<<<<< HEAD
+            return new List<Song> { };
+=======
             //ArtistClass ron = new ArtistClass("Ron Azar",1,69);
             Song song_1 = new Song(new ArtistClass("Ron Azar",1,69), 1, "Nuni", "Lehem Havita!", "https:" + "//" + "youtu.be" + "/" + "_RFUj-sGCp8");
-            Song song_2 = new Song(new ArtistClass("Ron Azar", 2, 69), 2, "Poki", "Poki Pok!", "https:" + "//" + "youtu.be" + "/" + "_RFUj-sGCp8");
+            Song song_2 = new Song(new ArtistClass("Ron Azar", 1, 69), 2, "Poki", "Poki Pok!", "https:" + "//" + "youtu.be" + "/" + "_RFUj-sGCp8");
             return new List<Song> { song_1, song_2 };
+>>>>>>> 7169472754e33bcd2fef465f1d35f8ab96b3ff25
         }
 
         // GET api/<SongsController>/5
@@ -28,8 +32,9 @@ namespace MusicProjectServer.Controllers
 
         // POST api/<SongsController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public bool Post(Song sng)
         {
+            return Song.AddSong(sng);
         }
 
         // PUT api/<SongsController>/5

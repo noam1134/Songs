@@ -6,6 +6,7 @@ using System.Data.SqlClient;
 using System.Data;
 using System.Text;
 using System.Reflection.Metadata.Ecma335;
+using MusicProjectServer.Models;
 
 /// <summary>
 /// DBServices is a class created by me to provides some DataBase Services
@@ -33,6 +34,56 @@ public class DBservices
         SqlConnection con = new SqlConnection(cStr);
         con.Open();
         return con;
+    }
+
+    //--------------------------------------------------------------------------------------------------
+    // This method Add Song to DB
+    //--------------------------------------------------------------------------------------------------
+    public bool AddSong(Song sng)
+    {
+
+        SqlConnection con;
+        SqlCommand cmd;
+
+        try
+        {
+            con = connect("myProjDB"); // create the connection
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+
+        Dictionary<string, object> paramDic = new Dictionary<string, object>();
+        paramDic.Add("@songName", sng.SongName);
+        paramDic.Add("@lyrics", sng.Lyrics);
+        paramDic.Add("@link", sng.Link);
+        paramDic.Add("@artistId", sng.ArtistId);
+
+        cmd = CreateCommandWithStoredProcedure("SPAddSong", con, paramDic);// create the command
+
+        int numEffected = cmd.ExecuteNonQuery(); // execute the command
+        if (numEffected == 0)
+        {
+            throw new Exception("Please make sure song name and Artist Id exist.");
+        }
+        try
+        {
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
+        finally
+        {
+            if (con != null)
+            {
+                // close the db connection
+                con.Close();
+            }
+        }
     }
 
     //---------------------------------------------------------------------------------

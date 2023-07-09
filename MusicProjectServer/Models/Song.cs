@@ -8,6 +8,8 @@
         public string Link { get; set; }
         public int ArtistId { get; set; }
 
+        static DBservices dBservices = new DBservices();
+
         public Song()
         {
             SongName = "";
@@ -23,6 +25,11 @@
             Lyrics = lyrics;
             Link = link;
             ArtistId = artistId;
+        }
+
+        public static bool AddSong(Song sng)
+        {
+            return dBservices.AddSong(sng);
         }
     }
 }
