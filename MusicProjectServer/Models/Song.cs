@@ -2,32 +2,27 @@
 {
     public class Song
     {
-        private int songId;
-        private string songName; //saved in excell as 'song'
-        private string lyrics; //saved in excell as 'text'
-        private string link;
-        private ArtistClass artist = m;
+        public int SongId { get; set; }
+        public string SongName { get; set; }
+        public string Lyrics { get; set; }
+        public string Link { get; set; }
+        public int ArtistId { get; set; }
 
         public Song()
         {
             SongName = "";
             Lyrics = "";
             Link = "";
-            Artist = new ArtistClass();
-        }
-        public Song(ArtistClass artist, int songId, string songName, string text, string link)
-        {
-            Artist = artist;
-            SongId = songId;
-            SongName = songName;
-            Lyrics = text;
-            Link = link;
+            ArtistId = 0;
         }
 
-        public ArtistClass Artist { get; set; }
-        public int SongId { get => songId; set => songId = value; }
-        public string SongName { get => songName; set => songName = value; }
-        public string Lyrics { get => lyrics; set => lyrics = value; }
-        public string Link { get => link; set => link = value; }
+        public Song(int songId, string songName, string lyrics, string link, int artistId)
+        {
+            SongId = songId;
+            SongName = songName;
+            Lyrics = lyrics;
+            Link = link;
+            ArtistId = artistId;
+        }
     }
 }
