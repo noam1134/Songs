@@ -13,10 +13,7 @@ namespace MusicProjectServer.Controllers
         [HttpGet]
         public List<Song> Get()
         {
-            //ArtistClass ron = new ArtistClass("Ron Azar",1,69);
-            Song song_1 = new Song(new ArtistClass("Ron Azar",1,69), 1, "Nuni", "Lehem Havita!", "https:" + "//" + "youtu.be" + "/" + "_RFUj-sGCp8");
-            Song song_2 = new Song(new ArtistClass("Ron Azar", 2, 69), 2, "Poki", "Poki Pok!", "https:" + "//" + "youtu.be" + "/" + "_RFUj-sGCp8");
-            return new List<Song> { song_1, song_2 };
+            return new List<Song> {};
         }
 
         // GET api/<SongsController>/5
