@@ -22,6 +22,7 @@ GO
 -- =============================================
 CREATE PROCEDURE signUp_SP
 	-- Add the parameters for the stored procedure here
+	@userName varchar(30),
 	@firstName varchar(30),
 	@lastname varchar(30),
 	@email varchar(50),
@@ -35,8 +36,8 @@ BEGIN
 	SET NOCOUNT ON;
 
     -- Insert statements for procedure here
-	INSERT INTO MusicUsers (firstName, lastName, email, userPassword, phone)
-	VALUES (@firstName, @lastname, @email, @userPassword, @phone)
+	INSERT INTO MusicUsers (userName, firstName, lastName, email, userPassword, phone)
+	VALUES (@userName, @firstName, @lastname, @email, @userPassword, @phone)
 	
 END
 GO

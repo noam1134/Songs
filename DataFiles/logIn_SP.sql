@@ -28,9 +28,16 @@ AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
 	-- interfering with SELECT statements.
-	SET NOCOUNT ON;
+	-- SET NOCOUNT ON;
 
     -- Insert statements for procedure here
-	SELECT * from MusicUsers where email = @email and userPassword = @userPassword
+	if exists (SELECT * from MusicUsers where (email = @email or userName = @email) and userPassword = @userPassword)
+		begin 
+			SELECT * from MusicUsers where (email = @email or userName = @email) and userPassword = @userPassword
+		end
+	else
+		begin
+			THROW 50003, 'wrong password or user does not exist', 1
+		end
 END
 GO
