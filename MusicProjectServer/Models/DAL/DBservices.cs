@@ -37,6 +37,114 @@ public class DBservices
     }
 
     //--------------------------------------------------------------------------------------------------
+    // This method Registers a User to the Users table 
+    //--------------------------------------------------------------------------------------------------
+    public bool Register(MusicUser user)
+    {
+
+        SqlConnection con;
+        SqlCommand cmd;
+
+        try
+        {
+            con = connect("myProjDB"); // create the connection
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+
+        Dictionary<string, object> paramDic = new Dictionary<string, object>();
+        paramDic.Add("@firstName", user.FirstName);
+        paramDic.Add("@lastname", user.LastName);
+        paramDic.Add("@email", user.Email);
+        paramDic.Add("@userPassword", user.Password);
+        paramDic.Add("@phone", user.Phone);
+
+        cmd = CreateCommandWithStoredProcedure("signUp_SP", con, paramDic);             // create the command
+
+        try
+        {
+            int numEffected = cmd.ExecuteNonQuery(); // execute the command
+            if (numEffected == 0)
+            {
+                return false;
+            }
+            return true;
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+
+        finally
+        {
+            if (con != null)
+            {
+                // close the db connection
+                con.Close();
+            }
+        }
+    }
+    //--------------------------------------------------------------------------------------------------
+    // This method Log in by user mail, password
+    //--------------------------------------------------------------------------------------------------
+    public MusicUser LogInByEmailAndPassword(string emailToLogin, string passwordToLogin)
+    {
+        SqlConnection con;
+        SqlCommand cmd;
+
+        try
+        {
+            con = connect("myProjDB"); // create the connection
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+
+        Dictionary<string, object> paramDic = new Dictionary<string, object>();
+        paramDic.Add("@email", emailToLogin);
+        paramDic.Add("@password", passwordToLogin);
+
+        cmd = CreateCommandWithStoredProcedure("logIn_SP", con, paramDic);// create the command
+
+        MusicUser user = new MusicUser();
+
+        try
+        {
+            SqlDataReader dataReader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+            while (dataReader.Read())
+            {
+                user.Id = Convert.ToInt32(dataReader["Id"]);
+                user.FirstName = dataReader["firstName"].ToString();
+                user.LastName = dataReader["lastName"].ToString();
+                user.Email = dataReader["email"].ToString();
+                user.Password = dataReader["userPassword"].ToString();
+                user.Phone = dataReader["phone"].ToString();
+            }
+
+            return user;
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+        finally
+        {
+            if (con != null)
+            {
+                // close the db connection
+                con.Close();
+            }
+        }
+    }
+    //--------------------------------------------------------------------------------------------------
     // This method Add Song to DB
     //--------------------------------------------------------------------------------------------------
     public bool AddSong(Song sng)
