@@ -399,6 +399,66 @@ public class DBservices
     }
 
     //--------------------------------------------------------------------------------------------------
+    // This method returns all songs that include the song name
+    //--------------------------------------------------------------------------------------------------
+    public List<Song> GetSongsByName(string songName)
+    {
+        SqlConnection con;
+        SqlCommand cmd;
+
+        try
+        {
+            con = connect("myProjDB"); // create the connection
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+
+        Dictionary<string, object> paramDic = new Dictionary<string, object>();
+        paramDic.Add("@songName", songName);
+
+        cmd = CreateCommandWithStoredProcedure("SP_GetSongsByName", con, paramDic);// create the command
+
+        List<Song> songs = new List<Song>();
+
+        try
+        {
+            SqlDataReader dataReader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+            while (dataReader.Read())
+            {
+                Song song = new Song();
+                song.SongId = Convert.ToInt32(dataReader["songId"]);
+                song.SongName = dataReader["songName"].ToString();
+                song.Lyrics = dataReader["lyrics"].ToString();
+                song.Link = dataReader["link"].ToString();
+                song.ArtistId = Convert.ToInt32(dataReader["artistId"]);
+                songs.Add(song);
+            }
+
+            // Close the dataReader before executing the next command
+            dataReader.Close();
+
+            return songs;
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+        finally
+        {
+            if (con != null)
+            {
+                // close the db connection
+                con.Close();
+            }
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------
     // This method returns all Artists
     //--------------------------------------------------------------------------------------------------
     public List<ArtistClass> GetAllArtists()

@@ -11,9 +11,10 @@ namespace MusicProjectServer.Controllers
     {
         // GET: api/<SongsController>
         [HttpGet]
-        public List<Song> Get()
+        [Route("GetSongsByName")]
+        public List<Song> GetSongsByName(string songName)
         {
-            return null;
+            return Song.GetSongsByName(songName);
         }
 
         // POST api/<SongsController>

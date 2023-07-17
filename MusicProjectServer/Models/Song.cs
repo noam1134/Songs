@@ -32,5 +32,10 @@
         {
             return dBservices.AddSong(sng);
         }
+
+        public static List<Song> GetSongsByName(string songName)
+        {
+            return dBservices.GetSongsByName(songName);
+        }
     }
 }
