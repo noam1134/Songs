@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using MusicProjectServer.Models;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -27,8 +28,10 @@ namespace MusicProjectServer.Controllers
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody]string value)
+        [Route("AddArtist")]
+        public bool AddArtist(ArtistClass art)
         {
+            return ArtistClass.AddArtist(art);
         }
 
         // PUT api/values/5

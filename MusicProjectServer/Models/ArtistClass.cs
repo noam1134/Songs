@@ -3,9 +3,11 @@ namespace MusicProjectServer.Models
 {
 	public class ArtistClass
 	{
-        private string Name { get; set; }
-		private int Id { get; set; }
-        private int Popularity { get; set; } //number of times in users favorites
+        public string Name { get; set; }
+        public int Id { get; set; }
+        public int Popularity { get; set; } //number of times in users favorites
+
+        static DBservices dBservices = new DBservices();
 
         public ArtistClass()
 		{
@@ -19,6 +21,11 @@ namespace MusicProjectServer.Models
             Id = id;
             Popularity = popularity;
             
+        }
+
+        public static bool AddArtist(ArtistClass art)
+        {
+            return dBservices.AddArtist(art);
         }
     }
 }

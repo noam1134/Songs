@@ -194,6 +194,54 @@ public class DBservices
         }
     }
 
+    //--------------------------------------------------------------------------------------------------
+    // This method Add Artist to DB
+    //--------------------------------------------------------------------------------------------------
+    public bool AddArtist(ArtistClass art)
+    {
+
+        SqlConnection con;
+        SqlCommand cmd;
+
+        try
+        {
+            con = connect("myProjDB"); // create the connection
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+
+        Dictionary<string, object> paramDic = new Dictionary<string, object>();
+        paramDic.Add("@artistName", art.Name);
+        paramDic.Add("@popularity", art.Popularity);
+
+        cmd = CreateCommandWithStoredProcedure("SPAddArtist", con, paramDic);// create the command
+
+        int numEffected = cmd.ExecuteNonQuery(); // execute the command
+        if (numEffected == 0)
+        {
+            throw new Exception("Please make all parameters valid!");
+        }
+        try
+        {
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
+        finally
+        {
+            if (con != null)
+            {
+                // close the db connection
+                con.Close();
+            }
+        }
+    }
+
     //---------------------------------------------------------------------------------
     // Create the SqlCommand using a stored procedure
     //---------------------------------------------------------------------------------
