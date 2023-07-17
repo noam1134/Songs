@@ -29,6 +29,10 @@ BEGIN
 	-- SET NOCOUNT ON;
 
     -- Insert statements for procedure here
+	if not exists (select * from Songs where songId = @songId)
+	begin
+		throw 50000, 'This song does not exist!', 1
+	end
 	SELECT COUNT(*) AS CountOfValue
 	FROM Favorites
 	WHERE songId = @songId;
