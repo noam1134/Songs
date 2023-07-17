@@ -266,9 +266,54 @@ public class DBservices
         paramDic.Add("@userId", userId);
         paramDic.Add("@songId", songId);
 
-        cmd = CreateCommandWithStoredProcedure("SP_addFavorite", con, paramDic);// create the command
+        cmd = CreateCommandWithStoredProcedure("SP_RemoveFromFavorites", con, paramDic);// create the command
 
-        MusicUser user = new MusicUser();
+        int numEffected = cmd.ExecuteNonQuery(); // execute the command
+        if (numEffected == 0)
+        {
+            throw new Exception("Song not added to favorites");
+        }
+        try
+        {
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
+        finally
+        {
+            if (con != null)
+            {
+                // close the db connection
+                con.Close();
+            }
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------
+    // This method removes a song from the user's favorites
+    //--------------------------------------------------------------------------------------------------
+    public bool RemoveFromFavorites(int userId, int songId)
+    {
+        SqlConnection con;
+        SqlCommand cmd;
+
+        try
+        {
+            con = connect("myProjDB"); // create the connection
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+
+        Dictionary<string, object> paramDic = new Dictionary<string, object>();
+        paramDic.Add("@userId", userId);
+        paramDic.Add("@songId", songId);
+
+        cmd = CreateCommandWithStoredProcedure("SP_RemoveFromFavorites", con, paramDic);// create the command
 
         int numEffected = cmd.ExecuteNonQuery(); // execute the command
         if (numEffected == 0)

@@ -54,5 +54,9 @@
         {
             return dBservices.GetFavorites(userId);
         }
+        public static bool RemoveFromFavorites(int userId, int songId)
+        {
+            return dBservices.RemoveFromFavorites(userId, songId);
+        }
     }
 }
