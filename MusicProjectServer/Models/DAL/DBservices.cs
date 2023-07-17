@@ -321,8 +321,7 @@ public class DBservices
         try
         {
             SqlDataReader dataReader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
-            int numEffected = cmd.ExecuteNonQuery(); // execute the command
-            
+
             while (dataReader.Read())
             {
                 Song song = new Song();
@@ -333,6 +332,10 @@ public class DBservices
                 song.ArtistId = Convert.ToInt32(dataReader["artistId"]);
                 songs.Add(song);
             }
+
+            // Close the dataReader before executing the next command
+            dataReader.Close();
+
             return songs;
         }
         catch (Exception ex)
