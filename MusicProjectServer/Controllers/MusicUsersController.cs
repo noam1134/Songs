@@ -9,20 +9,6 @@ namespace MusicProjectServer.Controllers
     [ApiController]
     public class MusicUsersController : ControllerBase
     {
-        // GET: api/<MusicUsersController>
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET api/<MusicUsersController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
         // POST api/<MusicUsersController>
         [HttpPost]
         [Route("Registration")]
@@ -50,18 +36,6 @@ namespace MusicProjectServer.Controllers
         public List<Song> GetFavorites(int userId)
         {
             return MusicUser.GetFavorites(userId);
-        }
-
-        // PUT api/<MusicUsersController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<MusicUsersController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
         }
 
         [HttpPost]

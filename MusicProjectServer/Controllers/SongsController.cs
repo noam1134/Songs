@@ -16,31 +16,12 @@ namespace MusicProjectServer.Controllers
             return null;
         }
 
-        // GET api/<SongsController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
         // POST api/<SongsController>
         [HttpPost]
         [Route("AddSong")]
         public bool AddSong(Song sng)
         {
             return Song.AddSong(sng);
-        }
-
-        // PUT api/<SongsController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<SongsController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
         }
     }
 }
