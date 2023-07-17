@@ -47,5 +47,10 @@
         {
             return dBservices.GetAllSongsByLyrics(lyrics);
         }
+
+        public static int GetSongPopularityBySongId(int songId)
+        {
+            return dBservices.GetSongPopularityBySongId(songId);
+        }
     }
 }

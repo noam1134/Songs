@@ -32,6 +32,13 @@ namespace MusicProjectServer.Controllers
             return Song.GetAllSongsByLyrics(lyrics);
         }
 
+        [HttpGet]
+        [Route("GetSongPopularityBySongId")]
+        public int GetSongPopularityBySongId(int songId)
+        {
+            return Song.GetSongPopularityBySongId(songId);
+        }
+
 
         // POST api/<SongsController>
         [HttpPost]
