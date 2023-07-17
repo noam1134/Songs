@@ -61,6 +61,7 @@ public class DBservices
         Dictionary<string, object> paramDic = new Dictionary<string, object>();
         paramDic.Add("@firstName", user.FirstName);
         paramDic.Add("@lastname", user.LastName);
+        paramDic.Add("@userName", user.UserName);
         paramDic.Add("@email", user.Email);
         paramDic.Add("@userPassword", user.Password);
         paramDic.Add("@phone", user.Phone);
@@ -94,7 +95,7 @@ public class DBservices
     //--------------------------------------------------------------------------------------------------
     // This method Log in by user mail, password
     //--------------------------------------------------------------------------------------------------
-    public MusicUser LogInByEmailAndPassword(string emailToLogin, string passwordToLogin)
+    public MusicUser LogInByEmailAndPassword(string emailOrUserNameToLogin, string passwordToLogin)
     {
         SqlConnection con;
         SqlCommand cmd;
@@ -110,7 +111,7 @@ public class DBservices
         }
 
         Dictionary<string, object> paramDic = new Dictionary<string, object>();
-        paramDic.Add("@email", emailToLogin);
+        paramDic.Add("@email", emailOrUserNameToLogin);
         paramDic.Add("@userPassword", passwordToLogin);
 
         cmd = CreateCommandWithStoredProcedure("logIn_SP", con, paramDic);// create the command
@@ -126,6 +127,7 @@ public class DBservices
                 user.Id = Convert.ToInt32(dataReader["Id"]);
                 user.FirstName = dataReader["firstName"].ToString();
                 user.LastName = dataReader["lastName"].ToString();
+                user.UserName = dataReader["userName"].ToString();
                 user.Email = dataReader["email"].ToString();
                 user.Password = dataReader["userPassword"].ToString();
                 user.Phone = dataReader["phone"].ToString();

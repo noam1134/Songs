@@ -46,9 +46,9 @@
         {
             return dBservices.Register(this);
         }
-        public static MusicUser LogIn(string emailToLogin, string passwordToLogin)
+        public static MusicUser LogIn(string emailOrUserNameToLogin, string passwordToLogin)
         {
-            return dBservices.LogInByEmailAndPassword(emailToLogin, passwordToLogin);
+            return dBservices.LogInByEmailAndPassword(emailOrUserNameToLogin, passwordToLogin);
         }
         public static bool AddToFavorites(int userId, int songId)
         {
