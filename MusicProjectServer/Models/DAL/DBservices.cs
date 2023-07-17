@@ -269,7 +269,7 @@ public class DBservices
         paramDic.Add("@userId", userId);
         paramDic.Add("@songId", songId);
 
-        cmd = CreateCommandWithStoredProcedure("SP_RemoveFromFavorites", con, paramDic);// create the command
+        cmd = CreateCommandWithStoredProcedure("SP_addFavorite", con, paramDic);// create the command
 
         int numEffected = cmd.ExecuteNonQuery(); // execute the command
         if (numEffected == 0)
@@ -725,7 +725,7 @@ public class DBservices
 
             while (dataReader.Read())
             {
-                retPopularity = Convert.ToInt32(dataReader["artistName"]);
+                retPopularity = Convert.ToInt32(dataReader["CountOfValue"]);
             }
             // Close the dataReader before executing the next command
             dataReader.Close();
