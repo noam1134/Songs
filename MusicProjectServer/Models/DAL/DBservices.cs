@@ -353,6 +353,120 @@ public class DBservices
         }
     }
 
+    //--------------------------------------------------------------------------------------------------
+    // This method returns all Artists
+    //--------------------------------------------------------------------------------------------------
+    public List<ArtistClass> GetAllArtists()
+    {
+        SqlConnection con;
+        SqlCommand cmd;
+
+        try
+        {
+            con = connect("myProjDB"); // create the connection
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+
+        Dictionary<string, object> paramDic = new Dictionary<string, object>();
+
+        cmd = CreateCommandWithStoredProcedure("SP_GetAllArtist", con, paramDic);// create the command
+
+        List<ArtistClass> artists = new List<ArtistClass>();
+
+        try
+        {
+            SqlDataReader dataReader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+            while (dataReader.Read())
+            {
+                ArtistClass art = new ArtistClass();
+                art.Id = Convert.ToInt32(dataReader["artistId"]);
+                art.Name = dataReader["artistName"].ToString();
+                art.Popularity = Convert.ToInt32(dataReader["popularity"]);
+                artists.Add(art);
+            }
+
+            // Close the dataReader before executing the next command
+            dataReader.Close();
+
+            return artists;
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+        finally
+        {
+            if (con != null)
+            {
+                // close the db connection
+                con.Close();
+            }
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------
+    // This method returns Artist info by ID
+    //--------------------------------------------------------------------------------------------------
+    public ArtistClass GetArtistById(int artId)
+    {
+        SqlConnection con;
+        SqlCommand cmd;
+
+        try
+        {
+            con = connect("myProjDB"); // create the connection
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+
+        Dictionary<string, object> paramDic = new Dictionary<string, object>();
+        paramDic.Add("@artistId", artId);
+
+        cmd = CreateCommandWithStoredProcedure("SP_GetArtistById", con, paramDic);// create the command
+
+        ArtistClass art = new ArtistClass();
+
+        try
+        {
+            SqlDataReader dataReader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+            while (dataReader.Read())
+            {
+                
+
+                art.Id = Convert.ToInt32(dataReader["artistId"]);
+                art.Name = dataReader["artistName"].ToString();
+                art.Popularity = Convert.ToInt32(dataReader["popularity"]);
+            }
+            // Close the dataReader before executing the next command
+            dataReader.Close();
+
+            return art;
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+        finally
+        {
+            if (con != null)
+            {
+                // close the db connection
+                con.Close();
+            }
+        }
+    }
+
     //---------------------------------------------------------------------------------
     // Create the SqlCommand using a stored procedure
     //---------------------------------------------------------------------------------

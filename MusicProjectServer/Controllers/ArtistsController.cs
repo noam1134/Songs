@@ -14,9 +14,17 @@ namespace MusicProjectServer.Controllers
     {
         // GET: api/values
         [HttpGet]
-        public IEnumerable<string> Get()
+        [Route("GetArtistById")]
+        public ArtistClass GetArtistById(int artistId)
         {
-            return new string[] { "value1", "value2" };
+            return ArtistClass.GetArtistById(artistId);
+        }
+
+        [HttpGet]
+        [Route("GetAllArtists")]
+        public List<ArtistClass> GetAllArtists()
+        {
+            return ArtistClass.GetAllArtists();
         }
 
         // GET api/values/5
