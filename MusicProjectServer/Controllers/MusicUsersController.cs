@@ -40,9 +40,9 @@ namespace MusicProjectServer.Controllers
 
         [HttpPost]
         [Route("LogIn")]
-        public MusicUser LogIn(string emailToLogin, string passwordToLogin)
+        public MusicUser LogIn(string emailOrUserNameToLogin, string passwordToLogin)
         {
-            return MusicUser.LogIn(emailToLogin, passwordToLogin);
+            return MusicUser.LogIn(emailOrUserNameToLogin, passwordToLogin);
         }
     }
 }

@@ -24,15 +24,15 @@ GO
 CREATE PROCEDURE GetAllSongsByLyrics
     @searchLyrics VARCHAR(MAX)
 AS
-BEGIN
-BEGIN TRY
+BEGIN 
     -- Retrieve all songs that contain the specified lyrics
-    SELECT * FROM Songs
-		WHERE lyrics LIKE '%' + @searchLyrics + '%';
-    END TRY
-    BEGIN CATCH
-        -- Handle the exception
-        THROW 50001, 'Song not found!', 1;
-    END CATCH;
+	if Not exists (SELECT * FROM Songs
+		WHERE lyrics LIKE '%' + @searchLyrics + '%')
+		BEGIN
+			 -- Handle the exception
+			THROW 50001, 'Song not found!', 1;
+		END 
+	SELECT * FROM Songs
+		WHERE lyrics LIKE '%' + @searchLyrics + '%'
 END;
 GO
