@@ -37,5 +37,15 @@
         {
             return dBservices.GetSongsByName(songName);
         }
+
+        public static List<Song> GetAllSongsByArtistName(string artistName)
+        {
+            return dBservices.GetAllSongsByArtistName(artistName);
+        }
+
+        public static List<Song> GetAllSongsByLyrics(string lyrics)
+        {
+            return dBservices.GetAllSongsByLyrics(lyrics);
+        }
     }
 }

@@ -17,6 +17,22 @@ namespace MusicProjectServer.Controllers
             return Song.GetSongsByName(songName);
         }
 
+        [HttpGet]
+        [Route("GetAllSongsByArtistName")]
+        public List<Song> GetAllSongsByArtistName(string artistName)
+        {
+            return Song.GetAllSongsByArtistName(artistName);
+        }
+
+
+        [HttpGet]
+        [Route("GetAllSongsByLyrics")]
+        public List<Song> GetAllSongsByLyrics(string lyrics)
+        {
+            return Song.GetAllSongsByLyrics(lyrics);
+        }
+
+
         // POST api/<SongsController>
         [HttpPost]
         [Route("AddSong")]

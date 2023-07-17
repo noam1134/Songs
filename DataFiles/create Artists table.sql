@@ -1,4 +1,3 @@
-drop table if exists Songs
 drop table if exists Artists
 go
 create table Artists(

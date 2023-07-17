@@ -1,6 +1,5 @@
-drop PROCEDURE if exists SP_GetAllArtist
+drop PROCEDURE if exists GetAllSongsByLyrics
 go
-
 -- ================================================
 -- Template generated from Template Explorer using:
 -- Create Procedure (New Menu).SQL
@@ -21,15 +20,19 @@ GO
 -- Create date: <Create Date,,>
 -- Description:	<Description,,>
 -- =============================================
-CREATE PROCEDURE SP_GetAllArtist
-	-- Add the parameters for the stored procedure here
+-- Create the stored procedure
+CREATE PROCEDURE GetAllSongsByLyrics
+    @searchLyrics VARCHAR(MAX)
 AS
 BEGIN
-	-- SET NOCOUNT ON added to prevent extra result sets from
-	-- interfering with SELECT statements.
-	SET NOCOUNT ON;
-
-    -- Insert statements for procedure here
-	SELECT * from Artists
-END
+BEGIN TRY
+    -- Retrieve all songs that contain the specified lyrics
+    SELECT * FROM Songs
+		WHERE lyrics LIKE '%' + @searchLyrics + '%';
+    END TRY
+    BEGIN CATCH
+        -- Handle the exception
+        THROW 50001, 'Song not found!', 1;
+    END CATCH;
+END;
 GO
