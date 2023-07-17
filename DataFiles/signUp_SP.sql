@@ -33,11 +33,15 @@ AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
 	-- interfering with SELECT statements.
-	SET NOCOUNT ON;
-
+	-- SET NOCOUNT ON;
+	if exists (select * from MusicUsers where email = @email or userName = @userName)
+	begin
+		throw 50000, 'User Name/Email already exists.', 1
+	end
     -- Insert statements for procedure here
-	INSERT INTO MusicUsers (userName, firstName, lastName, email, userPassword, phone)
-	VALUES (@userName, @firstName, @lastname, @email, @userPassword, @phone)
+	INSERT INTO MusicUsers (userName, firstName, lastName, email, userPassword, phone, dateOfRegistration)
+	VALUES (@userName, @firstName, @lastname, @email, @userPassword, @phone, GETDATE())
+	
 	
 END
 GO

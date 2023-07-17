@@ -1,5 +1,4 @@
 DROP TABLE IF EXISTS Songs;
-DROP TABLE IF EXISTS Artists;
 go
 
 CREATE TABLE Songs (
