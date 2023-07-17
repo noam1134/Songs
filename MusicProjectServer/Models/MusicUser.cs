@@ -41,6 +41,7 @@
         public string Password { get => password; set => password = value; }
         public string Phone { get => phone; set => phone = value; }
         public string UserName { get => userName; set => userName = value; }
+        public DateTime DateOfRegistration { get => dateOfRegistration; set => dateOfRegistration = value; }
 
         public bool Registration()
         {

@@ -131,6 +131,7 @@ public class DBservices
                 user.Email = dataReader["email"].ToString();
                 user.Password = dataReader["userPassword"].ToString();
                 user.Phone = dataReader["phone"].ToString();
+                user.DateOfRegistration = Convert.ToDateTime(dataReader["dateOfRegistration"]);
             }
 
             return user;
