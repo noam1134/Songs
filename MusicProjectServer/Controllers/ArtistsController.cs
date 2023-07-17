@@ -29,9 +29,9 @@ namespace MusicProjectServer.Controllers
         // POST api/values
         [HttpPost]
         [Route("AddArtist")]
-        public bool AddArtist(ArtistClass art)
+        public bool AddArtist(string artName)
         {
-            return ArtistClass.AddArtist(art);
+            return ArtistClass.AddArtist(artName);
         }
 
         // PUT api/values/5

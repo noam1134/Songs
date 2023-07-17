@@ -1,4 +1,5 @@
 drop table if exists MusicUsers
+go
 
 create table MusicUsers(
 	id int identity primary key,

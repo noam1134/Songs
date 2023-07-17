@@ -197,7 +197,7 @@ public class DBservices
     //--------------------------------------------------------------------------------------------------
     // This method Add Artist to DB
     //--------------------------------------------------------------------------------------------------
-    public bool AddArtist(ArtistClass art)
+    public bool AddArtist(string artName)
     {
 
         SqlConnection con;
@@ -214,8 +214,7 @@ public class DBservices
         }
 
         Dictionary<string, object> paramDic = new Dictionary<string, object>();
-        paramDic.Add("@artistName", art.Name);
-        paramDic.Add("@popularity", art.Popularity);
+        paramDic.Add("@artistName", artName);
 
         cmd = CreateCommandWithStoredProcedure("SPAddArtist", con, paramDic);// create the command
 

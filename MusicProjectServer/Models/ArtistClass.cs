@@ -23,9 +23,9 @@ namespace MusicProjectServer.Models
             
         }
 
-        public static bool AddArtist(ArtistClass art)
+        public static bool AddArtist(string artName)
         {
-            return dBservices.AddArtist(art);
+            return dBservices.AddArtist(artName);
         }
     }
 }
