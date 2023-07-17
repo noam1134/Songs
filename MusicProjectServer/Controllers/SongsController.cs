@@ -25,7 +25,8 @@ namespace MusicProjectServer.Controllers
 
         // POST api/<SongsController>
         [HttpPost]
-        public bool Post(Song sng)
+        [Route("AddSong")]
+        public bool AddSong(Song sng)
         {
             return Song.AddSong(sng);
         }
