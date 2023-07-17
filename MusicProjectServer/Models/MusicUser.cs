@@ -6,15 +6,17 @@
         private DateTime dateOfRegistration;
         private string firstName;
         private string lastName;
+        private string userName;
         private string email;
         private string password;
         private string phone;
 
-        public MusicUser(int id, string firstName, string lastName, string email, string password, string phone)
+        public MusicUser(int id, string firstName, string lastName, string userName, string email, string password, string phone)
         {
             Id = id;
             FirstName = firstName;
             LastName = lastName;
+            UserName = userName;
             Email = email;
             Password = password;
             Phone = phone;
@@ -24,6 +26,7 @@
         {
             FirstName = "";
             LastName = "";
+            UserName = "";
             Email = "";
             Password = "";
             Phone = "";
@@ -37,6 +40,7 @@
         public string Email { get => email; set => email = value; }
         public string Password { get => password; set => password = value; }
         public string Phone { get => phone; set => phone = value; }
+        public string UserName { get => userName; set => userName = value; }
 
         public bool Registration()
         {
