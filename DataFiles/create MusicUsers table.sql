@@ -2,7 +2,7 @@ drop table if exists MusicUsers
 go
 
 create table MusicUsers(
-	id int identity primary key,
+	id int identity (1,1) primary key,
 	firstName varchar(30),
 	lastname varchar(30),
 	email varchar(50),

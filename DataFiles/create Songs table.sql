@@ -1,9 +1,11 @@
-drop table if exists Songs
+DROP TABLE IF EXISTS Songs;
+go
 
 CREATE TABLE Songs (
-    songId INT PRIMARY KEY,
+    songId INT IDENTITY (1,1) PRIMARY KEY,
     songName VARCHAR(255),
     lyrics TEXT,
     link VARCHAR(255),
-    artistId INT
+    artistId INT,
+    FOREIGN KEY (artistId) REFERENCES Artists(artistId)
 );

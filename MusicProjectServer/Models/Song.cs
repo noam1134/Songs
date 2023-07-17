@@ -12,6 +12,7 @@
 
         public Song()
         {
+            SongId = 0;
             SongName = "";
             Lyrics = "";
             Link = "";

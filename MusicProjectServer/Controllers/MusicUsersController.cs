@@ -31,6 +31,20 @@ namespace MusicProjectServer.Controllers
             return user.Registration();
         }
 
+        [HttpPost]
+        [Route("AddToFavorites")]
+        public bool AddToFavorites(int userId, int songId)
+        {
+            return MusicUser.AddToFavorites(userId, songId);
+        }
+
+        [HttpPost]
+        [Route("GetFavorites")]
+        public List<Song> GetFavorites(int userId)
+        {
+            return MusicUser.GetFavorites(userId);
+        }
+
         // PUT api/<MusicUsersController>/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)

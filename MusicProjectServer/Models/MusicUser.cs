@@ -46,5 +46,13 @@
         {
             return dBservices.LogInByEmailAndPassword(emailToLogin, passwordToLogin);
         }
+        public static bool AddToFavorites(int userId, int songId)
+        {
+            return dBservices.AddToFavorites(userId, songId);
+        }
+        public static List<Song> GetFavorites(int userId)
+        {
+            return dBservices.GetFavorites(userId);
+        }
     }
 }

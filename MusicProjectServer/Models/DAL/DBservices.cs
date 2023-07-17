@@ -7,6 +7,9 @@ using System.Data;
 using System.Text;
 using System.Reflection.Metadata.Ecma335;
 using MusicProjectServer.Models;
+using System.Collections;
+using System.Collections.Generic;
+
 
 /// <summary>
 /// DBServices is a class created by me to provides some DataBase Services
@@ -230,6 +233,112 @@ public class DBservices
         catch
         {
             return false;
+        }
+        finally
+        {
+            if (con != null)
+            {
+                // close the db connection
+                con.Close();
+            }
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------
+    // This method add a song to the user's favorites
+    //--------------------------------------------------------------------------------------------------
+    public bool AddToFavorites(int userId, int songId)
+    {
+        SqlConnection con;
+        SqlCommand cmd;
+
+        try
+        {
+            con = connect("myProjDB"); // create the connection
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+
+        Dictionary<string, object> paramDic = new Dictionary<string, object>();
+        paramDic.Add("@userId", userId);
+        paramDic.Add("@songId", songId);
+
+        cmd = CreateCommandWithStoredProcedure("SP_addFavorite", con, paramDic);// create the command
+
+        MusicUser user = new MusicUser();
+
+        int numEffected = cmd.ExecuteNonQuery(); // execute the command
+        if (numEffected == 0)
+        {
+            throw new Exception("Song not added to favorites");
+        }
+        try
+        {
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
+        finally
+        {
+            if (con != null)
+            {
+                // close the db connection
+                con.Close();
+            }
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------
+    // This method returns all favorites songs of a user
+    //--------------------------------------------------------------------------------------------------
+    public List<Song> GetFavorites(int userId)
+    {
+        SqlConnection con;
+        SqlCommand cmd;
+
+        try
+        {
+            con = connect("myProjDB"); // create the connection
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+
+        Dictionary<string, object> paramDic = new Dictionary<string, object>();
+        paramDic.Add("@userId", userId);
+
+        cmd = CreateCommandWithStoredProcedure("SP_getFavorites", con, paramDic);// create the command
+
+        List<Song> songs = new List<Song>();
+
+        try
+        {
+            SqlDataReader dataReader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+            int numEffected = cmd.ExecuteNonQuery(); // execute the command
+            
+            while (dataReader.Read())
+            {
+                Song song = new Song();
+                song.SongId = Convert.ToInt32(dataReader["songId"]);
+                song.SongName = dataReader["songName"].ToString();
+                song.Lyrics = dataReader["lyrics"].ToString();
+                song.Link = dataReader["link"].ToString();
+                song.ArtistId = Convert.ToInt32(dataReader["artistId"]);
+                songs.Add(song);
+            }
+            return songs;
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
         }
         finally
         {
