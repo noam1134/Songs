@@ -108,7 +108,7 @@ public class DBservices
 
         Dictionary<string, object> paramDic = new Dictionary<string, object>();
         paramDic.Add("@email", emailToLogin);
-        paramDic.Add("@password", passwordToLogin);
+        paramDic.Add("@userPassword", passwordToLogin);
 
         cmd = CreateCommandWithStoredProcedure("logIn_SP", con, paramDic);// create the command
 
