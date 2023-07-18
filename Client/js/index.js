@@ -1,4 +1,5 @@
 url = "https://localhost:7061/";
+addToFavorite = url + "api/MusicUsers/AddToFavorites?userId=";
 getAllSongsApi = url + "api/Songs/GetAllSongs";
 
 function renderAllSongs() {
@@ -101,7 +102,13 @@ function renderSong(song) {
   imgFavorite.setAttribute("class", "favClass");
   imgFavorite.src = "images/like.png";
   imgFavorite.onclick = function () {
-    alert("shalom! " + song.songId);
+    ajaxCall(
+        "POST",
+        addToFavorite + song.songId,
+        "",
+        GetAllSongsSuccess,
+        ErrorGetAllSongs
+      );
   };
 
   faveDiv.appendChild(imgFavorite);
