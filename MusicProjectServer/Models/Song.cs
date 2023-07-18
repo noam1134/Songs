@@ -56,5 +56,9 @@
         {
             return dBservices.DeleteAllArtistsAndSongs();
         }
+        public static List<Song> GetAllSongs()
+        {
+            return dBservices.GetAllSongs();
+        }
     }
 }
