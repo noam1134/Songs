@@ -68,5 +68,10 @@
             return dBservices.DeleteAllFavsAndUsers();
         }
 
+        public static bool UpdateUserDetails(MusicUser user)
+        {
+            return dBservices.UpdateUser(user);
+        }
+
     }
 }
