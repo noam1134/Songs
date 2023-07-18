@@ -18,6 +18,13 @@ namespace MusicProjectServer.Controllers
         }
 
         [HttpGet]
+        [Route("GetAllSongs")]
+        public List<Song> GetAllSongs()
+        {
+            return Song.GetAllSongs();
+        }
+
+        [HttpGet]
         [Route("GetAllSongsByArtistName")]
         public List<Song> GetAllSongsByArtistName(string artistName)
         {
