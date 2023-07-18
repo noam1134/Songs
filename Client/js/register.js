@@ -19,6 +19,8 @@ $(document).ready(function () {
         icon: "warning",
         title: "Please enter a valid user name",
         showConfirmButton: false,
+        scrollbarPadding: false,
+        heightAuto: false,
         timer: 2500,
       });
       return;
@@ -30,6 +32,8 @@ $(document).ready(function () {
         icon: "warning",
         title: "Please enter a valid first name",
         showConfirmButton: false,
+        scrollbarPadding: false,
+        heightAuto: false,
         timer: 2500,
       });
       return;
@@ -41,6 +45,8 @@ $(document).ready(function () {
         icon: "warning",
         title: "Please enter a vali last name",
         showConfirmButton: false,
+        scrollbarPadding: false,
+        heightAuto: false,
         timer: 2500,
       });
       return;
@@ -52,6 +58,8 @@ $(document).ready(function () {
         icon: "warning",
         title: "Please enter a valid email address",
         showConfirmButton: false,
+        scrollbarPadding: false,
+        heightAuto: false,
         timer: 2500,
       });
       return;
@@ -61,6 +69,8 @@ $(document).ready(function () {
         icon: "warning",
         title: "Please enter a valid email address.",
         showConfirmButton: false,
+        scrollbarPadding: false,
+        heightAuto: false,
         timer: 2500,
       });
       return;
@@ -75,6 +85,8 @@ $(document).ready(function () {
         icon: "warning",
         title: "Please enter a valid 10-digit phone number...",
         showConfirmButton: false,
+        scrollbarPadding: false,
+        heightAuto: false,
         timer: 2500,
       });
       return;
@@ -86,6 +98,8 @@ $(document).ready(function () {
         icon: "warning",
         title: "Please enter a password...",
         showConfirmButton: false,
+        scrollbarPadding: false,
+        heightAuto: false,
         timer: 2500,
       });
       return;
@@ -115,6 +129,8 @@ function successRegisterCB(data) {
     icon: "success",
     title: "User added successfully!",
     showConfirmButton: false,
+    scrollbarPadding: false,
+    heightAuto: false,
     timer: 2500,
   });
 
@@ -133,6 +149,8 @@ function errorRegisterCB(error) {
     icon: "error",
     title: "A user with that username/email already exists!",
     showConfirmButton: false,
+    scrollbarPadding: false,
+    heightAuto: false,
     timer: 2500,
   });
 }

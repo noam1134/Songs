@@ -10347,8 +10347,10 @@ button.bg-dark:focus {
 }
 
 .text-center {
+  font-family: 'Cardo';
   text-align: center !important;
 }
+
 
 @media (min-width: 576px) {
   .text-sm-left {
@@ -10704,11 +10706,13 @@ h5,
 }
 
 .heading-section {
+  font-family: "Cardo";
   font-size: 28px;
   color: #fff;
 }
 
 .second-section {
+  font-family: 'Cardo';
   text-align: center;
   font-size: 18px;
   color: #fff;
@@ -10912,11 +10916,13 @@ textarea.form-control {
 }
 
 .swal2-popup {
-  background-color:#1d2124; /* Dark background color */
+  background-color: #1d2124; /* Dark background color */
   color: #000; /* Text color */
 }
 
 .swal2-title {
   color: #fff; /* Title text color */
 }
-
+body {
+  font-family: "Cardo";
+}

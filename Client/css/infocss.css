@@ -39,11 +39,15 @@
 }
 
 .songText {
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-family: "Cardo";
+  src: url("https://fonts.googleapis.com/css?family=Cardo") format("woff2");
   font-size: medium;
 }
 .infoDiv > img {
   width: 30px;
   height: 30px;
   margin: 5px;
+}
+.msg {
+  font-family: "Cardo";
 }
