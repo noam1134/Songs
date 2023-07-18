@@ -16,10 +16,33 @@ $(document).ready(function () {
   });
 });
 function successLoginCB(data) {
-  alert("Success " + data);
-  console.log("Success " + data);
+  Swal.fire({
+    position: "center",
+    icon: "success",
+    title: "Welcome back!",
+    showConfirmButton: false,
+    timer: 2500,
+  });
+
+  saveUserData(data); // Pass the data as an argument to the saveUserData function
+
+  // Delay the redirect by 1.5 seconds
+  setTimeout(function () {
+    window.open("index.html", "_self");
+  }, 1000);
 }
+
+function saveUserData(data) {
+  console.log(data);
+  localStorage.setItem("user", JSON.stringify(data));
+}
+
 function errorLoginCB(error) {
-  alert("Fail " + error);
-  console.log("Success " + error);
+  Swal.fire({
+    position: "center",
+    icon: "error",
+    title: "Oops! something went wrong!\nCheck the details please!",
+    showConfirmButton: false,
+    timer: 2500,
+  });
 }

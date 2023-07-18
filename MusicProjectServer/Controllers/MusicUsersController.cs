@@ -31,6 +31,13 @@ namespace MusicProjectServer.Controllers
             return MusicUser.RemoveFromFavorites(userId, songId);
         }
 
+        [HttpDelete]
+        [Route("DeleteAllUsers")]
+        public bool DeleteAllUsers()
+        {
+            return MusicUser.DeleteAllUsers();
+        }
+
         [HttpPost]
         [Route("GetFavorites")]
         public List<Song> GetFavorites(int userId)

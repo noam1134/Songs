@@ -50,8 +50,6 @@ addSongApi = url + "api/Songs/AddSong";
 addArtistApi = url + "api/Artists/AddArtist?artName=";
 getArtistIdByNameApi = url + "api/Artists/GetArtistIdByName?artName=";
 
-
-
 function addArtist(song) {
   ajaxCall(
     "POST",
@@ -67,50 +65,54 @@ function addArtistSuccess(data) {
 function addArtistError(error) {
   console.log("error");
 }
+var artId = 0;
 function getArtistIdByName(song) {
-  
-    ajaxCall(
-      "GET",
-      getArtistIdByNameApi + song.artist,
-      "",
-      getArtistSuccess,
-      getArtistError
-    );
+  ajaxCall(
+    "GET",
+    getArtistIdByNameApi + song.artist,
+    "",
+    getArtistSuccess,
+    getArtistError
+  );
 }
 
-var artId = 0
 function getArtistSuccess(data) {
-  artId = data
-  console.log(data);
-}
-function getArtistError(error) {
-  console.log(error);
-}
-
-array.forEach((song) => {
-  addSong(song);
-});
-
-
-function addSong(song) {
-  getArtistIdByName(song)
-  //console.log(song);
-  console.log(artId);
   ajaxCall(
     "POST",
     addSongApi,
     JSON.stringify(
       (songToSend = {
-        songName: song.song,
-        lyrics: song.text,
-        links: song.links,
-        artistId: artId,
+        songName: songToAdd.song,
+        lyrics: songToAdd.text,
+        links: songToAdd.links,
+        artistId: data,
       })
     ),
     successCB,
     errorCB
   );
 }
+
+function getArtistError(error) {
+  console.log(error);
+}
+var songToAdd;
+function importAllSongs() {
+  let index = 0;
+
+  function processNextSong() {
+    if (index < array.length) {
+      songToAdd = array[index];
+      getArtistIdByName(songToAdd);
+      index++;
+      setTimeout(processNextSong, 50); // Adjust the timeout duration as needed
+    }
+  }
+
+  processNextSong();
+}
+
+importAllSongs();
 
 function successCB(data) {
   //console.log(data);

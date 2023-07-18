@@ -63,5 +63,10 @@
         {
             return dBservices.RemoveFromFavorites(userId, songId);
         }
+        public static bool DeleteAllUsers()
+        {
+            return dBservices.DeleteAllFavsAndUsers();
+        }
+
     }
 }

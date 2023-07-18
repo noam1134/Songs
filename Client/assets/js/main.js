@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }, 2000);
     });
   }
+  
 
   /**
    * Mobile nav toggle
@@ -172,3 +173,8 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 });
+
+function logOut() {
+  localStorage.removeItem("user");
+  window.open("login.html", "_self");
+}

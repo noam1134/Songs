@@ -800,6 +800,48 @@ public class DBservices
         }
     }
 
+    //--------------------------------------------------------------------------------------------------
+    // This method deletes ALL favorite songs and ALL users 
+    //--------------------------------------------------------------------------------------------------
+    public bool DeleteAllFavsAndUsers()
+    {
+
+        SqlConnection con;
+        SqlCommand cmd;
+
+        try
+        {
+            con = connect("myProjDB"); // create the connection
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+        
+        cmd = CreateCommandWithStoredProcedure("DeleteAllUsers", con, null);// create the command
+
+        int numEffected = cmd.ExecuteNonQuery(); // execute the command
+        
+        try
+        {
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
+        finally
+        {
+            if (con != null)
+            {
+                // close the db connection
+                con.Close();
+            }
+        }
+    }
+
+
     //---------------------------------------------------------------------------------
     // Create the SqlCommand using a stored procedure
     //---------------------------------------------------------------------------------

@@ -120,6 +120,7 @@
     <script src="js/main.js"></script>
     <script src="js/ajaxCalls.js"></script>
     <script src="js/register.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
       // Function to validate the email format
       function validateEmail(email) {
@@ -129,60 +130,9 @@
 
       // Function to validate the phone number format
       function validatePhoneNumber(phoneNumber) {
-        const phoneRegex = /05\\d{8}$/;
+        const phoneRegex = /^05\d{8}$/;
         return phoneRegex.test(phoneNumber);
       }
-
-      $(document).ready(function () {
-        $("#signup-form").submit(function (e) {
-          e.preventDefault();
-
-          // Get the form values
-          const userName = $("#userName").val();
-          const firstName = $("#firstName").val();
-          const lastName = $("#lastName").val();
-          const email = $("#email").val();
-          const phoneNumber = $("#phone").val();
-          const password = $("#pass").val();
-
-          // Perform validations
-          if (userName.trim() === "") {
-            alert("Please enter a username.");
-            return;
-          }
-
-          if (firstName.trim() === "") {
-            alert("Please enter your first name.");
-            return;
-          }
-
-          if (lastName.trim() === "") {
-            alert("Please enter your last name.");
-            return;
-          }
-
-          if (email.trim() === "") {
-            alert("Please enter your email address.");
-            return;
-          } else if (!validateEmail(email)) {
-            alert("Please enter a valid email address.");
-            return;
-          }
-
-          if (phoneNumber.trim() === "") {
-            alert("Please enter your phone number.");
-            return;
-          } else if (!validatePhoneNumber(phoneNumber)) {
-            alert("Please enter a valid 10-digit phone number.");
-            return;
-          }
-
-          if (password.trim() === "") {
-            alert("Please enter a password.");
-            return;
-          }
-        });
-      });
     </script>
   </body>
 </html>
