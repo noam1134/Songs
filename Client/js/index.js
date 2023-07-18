@@ -54,7 +54,7 @@ function getArtistError(error) {
 function renderSong(song) {
   // Create the necessary elements
   const divCol = document.createElement("div");
-  divCol.classList.add("col-xl-3", "col-lg-4", "col-md-6");
+  divCol.classList.add("col-xl-2", "col-lg-4", "col-md-6");
 
   const divGalleryItem = document.createElement("div");
   divGalleryItem.classList.add("gallery-item", "h-100");
