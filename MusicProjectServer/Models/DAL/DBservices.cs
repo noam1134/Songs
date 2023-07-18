@@ -696,6 +696,59 @@ public class DBservices
     }
 
     //--------------------------------------------------------------------------------------------------
+    // This method returns Artist Id by his name
+    //--------------------------------------------------------------------------------------------------
+    public int GetArtistIdByName(string artName)
+    {
+        SqlConnection con;
+        SqlCommand cmd;
+
+        try
+        {
+            con = connect("myProjDB"); // create the connection
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+
+        Dictionary<string, object> paramDic = new Dictionary<string, object>();
+        paramDic.Add("@artistName", artName);
+
+        cmd = CreateCommandWithStoredProcedure("SP_GetArtistIdByName", con, paramDic);// create the command
+
+        int artId = 0;
+
+        try
+        {
+            SqlDataReader dataReader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+            while (dataReader.Read())
+            {
+                artId = Convert.ToInt32(dataReader["artistId"]);
+            }
+            // Close the dataReader before executing the next command
+            dataReader.Close();
+
+            return artId;
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+        finally
+        {
+            if (con != null)
+            {
+                // close the db connection
+                con.Close();
+            }
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------
     // This method returns Song Popularity by song Id
     //--------------------------------------------------------------------------------------------------
     public int GetSongPopularityBySongId(int songId)
