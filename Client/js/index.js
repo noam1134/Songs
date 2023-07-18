@@ -1,6 +1,7 @@
 url = "https://localhost:7061/";
 addToFavorite = url + "api/MusicUsers/AddToFavorites?userId=";
 getAllSongsApi = url + "api/Songs/GetAllSongs";
+updateUser = url + "api/MusicUsers/UpdateUserDetails";
 
 function renderAllSongs() {
   console.log("shalom");
@@ -232,7 +233,7 @@ function showDetails() {
       };
       ajaxCall(
         "POST",
-        userApi,
+        updateUser,
         JSON.stringify(user),
         updateSuccess,
         updateFail
