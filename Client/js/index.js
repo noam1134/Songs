@@ -91,8 +91,9 @@ function renderSong(song) {
   imgInfo.setAttribute("class", "infoClass");
   imgInfo.src = "images/info.png";
   imgInfo.onclick = function () {
-    alert("hi!" + song.songId);
+    alert("hi! " + song.songId);
   };
+  infoDiv.appendChild(imgInfo);
 
   faveDiv = document.createElement("div");
   faveDiv.className = "faveDiv";
@@ -100,7 +101,7 @@ function renderSong(song) {
   imgFavorite.setAttribute("class", "favClass");
   imgFavorite.src = "images/like.png";
   imgFavorite.onclick = function () {
-    alert("shalom!");
+    alert("shalom! " + song.songId);
   };
 
   faveDiv.appendChild(imgFavorite);
@@ -110,6 +111,7 @@ function renderSong(song) {
   imgFavorite.appendChild(iLink);
 
   // Append the elements to their respective parents
+  divGalleryLinks.appendChild(infoDiv);
   divGalleryLinks.appendChild(faveDiv);
 
   //divGalleryLinks.appendChild(imgFavorite);
