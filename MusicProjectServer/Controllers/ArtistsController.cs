@@ -21,6 +21,13 @@ namespace MusicProjectServer.Controllers
         }
 
         [HttpGet]
+        [Route("GetArtistIdByName")]
+        public int GetArtistIdByName(string artName)
+        {
+            return ArtistClass.GetArtistIdByName(artName);
+        }
+
+        [HttpGet]
         [Route("GetAllArtists")]
         public List<ArtistClass> GetAllArtists()
         {

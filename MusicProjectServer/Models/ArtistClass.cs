@@ -33,6 +33,11 @@ namespace MusicProjectServer.Models
             return dBservices.GetArtistById(artistId);
         }
 
+        public static int GetArtistIdByName(string artName)
+        {
+            return dBservices.GetArtistIdByName(artName);
+        }
+
         public static List<ArtistClass> GetAllArtists()
         {
             return dBservices.GetAllArtists();
