@@ -89,10 +89,6 @@
                     placeholder="Password"
                     required
                   />
-                  <span
-                    toggle="#password-field"
-                    class="fa fa-fw fa-eye field-icon toggle-password"
-                  ></span>
                 </div>
                 <div class="form-group">
                   <button
@@ -103,6 +99,15 @@
                   </button>
                 </div>
               </form>
+              <h3 class="second-section">
+                Are you already registered with us?
+              </h3>
+              <button
+                class="form-control btn btn-primary submit px-3"
+                onclick="window.location.href='./login.html'"
+              >
+                Login now!
+              </button>
             </div>
           </div>
         </div>
@@ -113,8 +118,8 @@
     <script src="js/popper.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/main.js"></script>
-	<script src="js/ajaxCalls.js"></script>
-	<script src="js/register.js"></script>
+    <script src="js/ajaxCalls.js"></script>
+    <script src="js/register.js"></script>
     <script>
       // Function to validate the email format
       function validateEmail(email) {
@@ -124,12 +129,12 @@
 
       // Function to validate the phone number format
       function validatePhoneNumber(phoneNumber) {
-        const phoneRegex = /^\d{10}$/;
+        const phoneRegex = /05\\d{8}$/;
         return phoneRegex.test(phoneNumber);
       }
 
-      $(document).ready(function() {
-        $("#signup-form").submit(function(e) {
+      $(document).ready(function () {
+        $("#signup-form").submit(function (e) {
           e.preventDefault();
 
           // Get the form values
@@ -176,7 +181,6 @@
             alert("Please enter a password.");
             return;
           }
-    
         });
       });
     </script>
