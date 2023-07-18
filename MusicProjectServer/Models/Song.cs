@@ -52,5 +52,9 @@
         {
             return dBservices.GetSongPopularityBySongId(songId);
         }
+        public static bool DeleteAllArtistsAndSongs()
+        {
+            return dBservices.DeleteAllArtistsAndSongs();
+        }
     }
 }

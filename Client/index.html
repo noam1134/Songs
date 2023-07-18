@@ -141,7 +141,7 @@
       <!-- ======= Gallery Section ======= -->
       <section id="gallery" class="gallery">
         <div class="container-fluid">
-          <div class="row gy-4 justify-content-center">
+          <div class="row gy-4 justify-content-center" id="allSongs">
             <!-- Gallery items will be dynamically inserted here -->
           </div>
         </div>
@@ -164,28 +164,26 @@
         // Parent container for the gallery
         var galleryContainer = $("#gallery .row");
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        array.forEach(song => {
-          // Create the gallery item
-          var galleryItem = $(
-            '<div class="col-xl-3 col-lg-4 col-md-6">' +
-              '<div class="gallery-item h-100">' +
-              '<img src="' +
-              "assets/img/gallery/genericMusicPic.jpg" +
-              '" class="img-fluid" alt="">' +
-              '<div class="gallery-links d-flex align-items-center justify-content-center">' +
-              '<a href="' +
-              imageData.src +
-              '" title="' +
-              imageData.title +
-              '" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>' +
-              '<a href="gallery-single.html" class="details-link"><i class="bi bi-link-45deg"></i></a>' +
-              "</div>" +
-              "</div>" +
-              "</div>"
-          );
-          // Append the gallery item to the parent container
-          galleryContainer.append(galleryItem);
-        });
+        // console.log(array)
+        //   array.forEach(song => {
+        //   // Create the gallery item
+        //   var galleryItem = $(
+        //     '<div class="col-xl-3 col-lg-4 col-md-6">' +
+        //       '<div class="gallery-item h-100">' +
+        //       "<img src=assets/img/gallery/genericMusicPic.jpg" +
+        //       '" class="img-fluid" alt="">' +
+        //       '<div class="gallery-links d-flex align-items-center justify-content-center">' +
+        //       "<p>Fuck!</p>"+
+        //       '<a href=assets/img/gallery/genericMusicPic.jpg"' + 
+        //       '" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>' +
+        //       '<a href="gallery-single.html" class="details-link"><i class="bi bi-link-45deg"></i></a>' +
+        //       "</div>" +
+        //       "</div>" +
+        //       "</div>"
+        //   );
+        //   // Append the gallery item to the parent container
+        //   galleryContainer.append(galleryItem);
+        // });
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         // Loop through the image data and create gallery items
         imageLinks.forEach(function (imageData) {

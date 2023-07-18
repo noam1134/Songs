@@ -47,5 +47,12 @@ namespace MusicProjectServer.Controllers
         {
             return Song.AddSong(sng);
         }
+
+        [HttpDelete]
+        [Route("DeleteAllArtistsAndSongs")]
+        public bool DeleteAllArtistsAndSongs()
+        {
+            return Song.DeleteAllArtistsAndSongs();
+        }
     }
 }
