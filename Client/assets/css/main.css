@@ -1263,3 +1263,14 @@ h6 {
 .footer .credits a {
   color: var(--color-primary);
 }
+
+/* CSS for the shading effect on icons */
+.icons {
+  width: 20px;
+  margin: 5px;
+  transition: all 0.3s ease; /* Add a smooth transition */
+}
+
+.icons:hover {
+  filter: brightness(50%);
+}
