@@ -37,3 +37,10 @@
   bottom: 0;
   right: 0;
 }
+
+.songText {
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+.iconInfo {
+  position: relative;
+}

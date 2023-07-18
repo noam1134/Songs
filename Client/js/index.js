@@ -85,17 +85,14 @@ function renderSong(song) {
   divGalleryLinks.id = song.songId;
 
   infoDiv = document.createElement("div");
-  infoDiv.className = "info";
-  var infoIcon = document.createElement("i");
-  infoIcon.setAttribute("class", "icon-info-sign");
-  var a = document.createElement("span");
-  a.className = "extra-info";
-  a.textContent = "Click to find more about this artist!";
-  a.setAttribute("onclick", "alert('hi')");
+  infoDiv.className = "infoDiv";
+  const imgInfo = document.createElement("img");
 
-  const iExpand = document.createElement("i");
-  iExpand.classList.add("bi", "bi-arrows-angle-expand");
-  a.appendChild(iExpand);
+  imgInfo.setAttribute("class", "infoClass");
+  imgInfo.src = "images/info.png";
+  imgInfo.onclick = function () {
+    alert("hi!" + song.songId);
+  };
 
   faveDiv = document.createElement("div");
   faveDiv.className = "faveDiv";
@@ -103,7 +100,7 @@ function renderSong(song) {
   imgFavorite.setAttribute("class", "favClass");
   imgFavorite.src = "images/like.png";
   imgFavorite.onclick = function () {
-    //addToFavorite(song.songId);
+    alert("shalom!");
   };
 
   faveDiv.appendChild(imgFavorite);
@@ -113,10 +110,8 @@ function renderSong(song) {
   imgFavorite.appendChild(iLink);
 
   // Append the elements to their respective parents
-  divGalleryLinks.appendChild(infoIcon);
   divGalleryLinks.appendChild(faveDiv);
 
-  divGalleryLinks.appendChild(a);
   //divGalleryLinks.appendChild(imgFavorite);
 
   divGalleryItem.appendChild(img);

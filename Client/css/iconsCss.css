@@ -1,14 +1,14 @@
 /*info button*/
 
 * {
-  transition: all .2s ease;
+  transition: all 0.2s ease;
 }
 
 .extra-info {
   display: none;
   line-height: 30px;
   font-size: 12px;
-	position: absolute;
+  position: absolute;
   top: 0;
   left: 50px;
 }
@@ -30,6 +30,5 @@
   width: 315px;
   text-align: left !important;
 }
-
 
 /*  */
