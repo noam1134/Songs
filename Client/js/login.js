@@ -15,11 +15,11 @@ $(document).ready(function () {
     e.preventDefault();
   });
 });
-function successLoginCB(data){
-    alert("Success "+data)
-    console.log("Success "+data);
+function successLoginCB(data) {
+  alert("Success " + data);
+  console.log("Success " + data);
 }
-function errorLoginCB(error){
-    alert("Fail "+error)
-    console.log("Success "+error);
+function errorLoginCB(error) {
+  alert("Fail " + error);
+  console.log("Success " + error);
 }
