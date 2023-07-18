@@ -21,6 +21,7 @@ GO
 -- Description:	<Description,,>
 -- =============================================
 CREATE PROCEDURE SP_UpdateUserDetails
+	@userID int,
     @userName varchar(30),
     @firstName varchar(30),
     @lastName varchar(30),
@@ -33,15 +34,28 @@ BEGIN
     -- interfering with SELECT statements.
     --SET NOCOUNT ON;
 
+    -- Check if the provided userName or email already exists for another user
+    IF EXISTS (
+        SELECT 1
+        FROM MusicUsers
+        WHERE (userName = @userName OR email = @email)
+          AND id <> @userID
+    )
+    BEGIN
+        RAISERROR('Username or Email already exists for another user.', 16, 1);
+        RETURN;
+    END
+
     -- Update the user details in the MusicUsers table
     UPDATE MusicUsers
     SET
+        userName = @userName,
         firstName = @firstName,
         lastName = @lastName,
         email = @email,
         userPassword = @userPassword,
         phone = @phone
     WHERE
-        userName = @userName;
+        id = @userID;
 END
 GO

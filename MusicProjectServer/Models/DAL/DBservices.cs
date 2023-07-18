@@ -961,6 +961,7 @@ public class DBservices
         }
 
         Dictionary<string, object> paramDic = new Dictionary<string, object>();
+        paramDic.Add("@userID", user.Id);
         paramDic.Add("@userName", user.UserName);
         paramDic.Add("@firstName", user.FirstName);
         paramDic.Add("@lastName", user.LastName);
