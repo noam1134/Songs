@@ -91,18 +91,22 @@ function renderSong(song) {
   var a = document.createElement("span");
   a.className = "extra-info";
   a.textContent = "Click to find more about this artist!";
+  a.setAttribute("onclick", "alert('hi')");
 
   const iExpand = document.createElement("i");
   iExpand.classList.add("bi", "bi-arrows-angle-expand");
   a.appendChild(iExpand);
 
+  faveDiv = document.createElement("div");
+  faveDiv.className = "faveDiv";
   const imgFavorite = document.createElement("img");
-  imgFavorite.setAttribute("class", "icon-info-sign");
+  imgFavorite.setAttribute("class", "favClass");
   imgFavorite.src = "images/like.png";
   imgFavorite.onclick = function () {
-    addToFavorite(song.songId);
+    //addToFavorite(song.songId);
   };
 
+  faveDiv.appendChild(imgFavorite);
   const iLink = document.createElement("i");
   iLink.classList.add("bi", "bi-link-45deg");
 
@@ -110,8 +114,10 @@ function renderSong(song) {
 
   // Append the elements to their respective parents
   divGalleryLinks.appendChild(infoIcon);
-  //divGalleryLinks.appendChild(imgFavorite);
+  divGalleryLinks.appendChild(faveDiv);
+
   divGalleryLinks.appendChild(a);
+  //divGalleryLinks.appendChild(imgFavorite);
 
   divGalleryItem.appendChild(img);
   divGalleryItem.appendChild(songName);
