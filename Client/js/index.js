@@ -30,24 +30,26 @@ function GetAllSongsSuccess(data) {
   });
 }
 
-function getArtistIdByName(song) {
+function getArtistNameById(song) {
   ajaxCall(
     "GET",
-    getArtistIdByNameApi + song.artist,
+    getArtistNameByIdApi + song.artistId,
     "",
     getArtistSuccess,
     getArtistError
   );
 }
 
-getArtistIdByNameApi = url + "api/Artists/GetArtistById?artistId=";
+getArtistNameByIdApi = url + "api/Artists/GetArtistById?artistId=";
 
 var artistName;
 function getArtistSuccess(data) {
-  artistName = data;
+  artistName = data.name;
   console.log(artistName);
 }
-function getArtistError(error) {}
+function getArtistError(error) {
+  console.log(error);
+}
 
 function renderSong(song) {
   // Create the necessary elements
@@ -61,10 +63,16 @@ function renderSong(song) {
   img.src = "images/genericMusicPic.jpg";
   img.classList.add("img-fluid");
   img.alt = "";
-  getArtistIdByName(song);
+  getArtistNameById(song);
 
   const songName = document.createElement("div");
-  songName.innerHTML = "Song Name: " + song.songName + "\nBy: " + artistName;
+  setTimeout(somethings, 50);
+  function somethings() {
+    songName.innerHTML =
+      "Song Name: " + song.songName + "</br>By: " + artistName;
+  }
+
+  //console.log(songName);
   songName.setAttribute("class", "songText");
 
   const divGalleryLinks = document.createElement("div");
@@ -102,7 +110,7 @@ function renderSong(song) {
 
   // Append the elements to their respective parents
   divGalleryLinks.appendChild(infoIcon);
-  divGalleryLinks.appendChild(imgFavorite);
+  //divGalleryLinks.appendChild(imgFavorite);
   divGalleryLinks.appendChild(a);
 
   divGalleryItem.appendChild(img);
