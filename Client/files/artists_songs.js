@@ -47,15 +47,24 @@ function ajaxCall(method, api, data, successCB, errorCB) {
 url = "https://localhost:7061/";
 
 addSongApi = url + "api/Songs/AddSong";
-addArtistApi = url + "api/AddArtist";
+addArtistApi = url + "api/Artist/AddArtist";
 getArtistIdByNameApi = url + "api/Artists/GetArtistIdByName";
 
-array.forEach((song) => {
-  addsong(song);
-});
 
-function addArtist(song) {
-  ajaxCall("POST", addArtistApi, song.artist, addArtistSuccess, addArtistError);
+
+//addAllArtists()
+// array.forEach((song) => {
+//   const { artist } = song
+//   addArtist(artist);
+// });
+addArtist("hi");
+
+// array.forEach((song) => {
+//   addSong(song);
+// });
+
+function addArtist(artist) {
+  ajaxCall("POST", "https://localhost:7061/api/Artists/AddArtist", artist, addArtistSuccess, addArtistError);
 }
 function addArtistSuccess(data) {
   console.log("artist added");
@@ -66,21 +75,23 @@ function addArtistError(error) {
 }
 
 function getArtistIdByName(song) {
+  artist = { artistName: song.artist };
   return ajaxCall(
-    "POST",
+    "GET",
     getArtistIdByNameApi,
-    song.artist,
+    JSON.stringify(artist),
     getArtistSuccess,
     getArtistError
   );
 }
 function getArtistSuccess(data) {
   console.log(data);
+  return data;
 }
 function getArtistError(error) {
   console.log(error);
 }
-function addsong(song) {
+function addSong(song) {
   ajaxCall(
     "POST",
     addSongApi,
@@ -89,6 +100,7 @@ function addsong(song) {
         songName: song.song,
         lyrics: song.text,
         links: song.links,
+        artistId: getArtistIdByName(song),
       })
     ),
     successCB,
