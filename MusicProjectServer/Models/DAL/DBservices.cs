@@ -639,6 +639,65 @@ public class DBservices
     }
 
     //--------------------------------------------------------------------------------------------------
+    // This method returns all Songs
+    //--------------------------------------------------------------------------------------------------
+    public List<Song> GetAllSongs()
+    {
+        SqlConnection con;
+        SqlCommand cmd;
+
+        try
+        {
+            con = connect("myProjDB"); // create the connection
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+
+        Dictionary<string, object> paramDic = new Dictionary<string, object>();
+
+        cmd = CreateCommandWithStoredProcedure("SP_GetAllSongs", con, paramDic);// create the command
+
+        List<Song> songs = new List<Song>();
+
+        try
+        {
+            SqlDataReader dataReader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+            while (dataReader.Read())
+            {
+                Song sng = new Song();
+                sng.SongId = Convert.ToInt32(dataReader["songId"]);
+                sng.SongName = dataReader["songName"].ToString();
+                sng.Lyrics = dataReader["lyrics"].ToString();
+                sng.Link = dataReader["link"].ToString();
+                sng.ArtistId = Convert.ToInt32(dataReader["artistId"]);
+                songs.Add(sng);
+            }
+
+            // Close the dataReader before executing the next command
+            dataReader.Close();
+
+            return songs;
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+        finally
+        {
+            if (con != null)
+            {
+                // close the db connection
+                con.Close();
+            }
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------
     // This method returns Artist info by ID
     //--------------------------------------------------------------------------------------------------
     public ArtistClass GetArtistById(int artId)

@@ -52,5 +52,10 @@
         {
             return dBservices.GetSongPopularityBySongId(songId);
         }
+
+        public static List<Song> GetAllSongs()
+        {
+            return dBservices.GetAllSongs();
+        }
     }
 }
