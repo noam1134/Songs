@@ -31,7 +31,13 @@ namespace MusicProjectServer.Controllers
             return MusicUser.RemoveFromFavorites(userId, songId);
         }
 
-       
+        // POST api/<AirBnbUsersController>
+        [HttpPost]
+        [Route("UpdateUserDetails")]
+        public bool UpdateUserDetails(MusicUser user)
+        {
+            return MusicUser.UpdateUserDetails(user);
+        }
 
         [HttpPost]
         [Route("GetFavorites")]

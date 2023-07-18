@@ -941,6 +941,61 @@ public class DBservices
         }
     }
 
+    //--------------------------------------------------------------------------------------------------
+    // This method update a User 
+    //--------------------------------------------------------------------------------------------------
+    public bool UpdateUser(MusicUser user)
+    {
+
+        SqlConnection con;
+        SqlCommand cmd;
+
+        try
+        {
+            con = connect("myProjDB"); // create the connection
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+
+        Dictionary<string, object> paramDic = new Dictionary<string, object>();
+        paramDic.Add("@userName", user.UserName);
+        paramDic.Add("@firstName", user.FirstName);
+        paramDic.Add("@lastName", user.LastName);
+        paramDic.Add("@email", user.Email);
+        paramDic.Add("@userPassword", user.Password);
+        paramDic.Add("@phone", user.Phone);
+
+
+        cmd = CreateCommandWithStoredProcedure("SP_UpdateUserDetails", con, paramDic);// create the command
+
+        try
+        {
+            int numEffected = cmd.ExecuteNonQuery(); // execute the command
+            if (numEffected == 0)
+            {
+                throw new Exception("Could'nt change user details...");
+            }
+            return true;
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+
+        finally
+        {
+            if (con != null)
+            {
+                // close the db connection
+                con.Close();
+            }
+        }
+    }
+
 
     //---------------------------------------------------------------------------------
     // Create the SqlCommand using a stored procedure
