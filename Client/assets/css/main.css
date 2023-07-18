@@ -1213,7 +1213,7 @@ h6 {
   bottom: 0;
   left: 0;
   right: 0;
-  background: var(--color-primary);
+  background: #222222;
   z-index: -1;
 }
 
@@ -1293,4 +1293,31 @@ h6 {
   font-size: 24px;
   font-weight: bold;
   text-align: center;
+}
+
+.swal2-popup {
+  background-color: #1d2124; /* Dark background color */
+  color: rgb(255, 255, 255); /* Text color */
+}
+
+.swal2-confirm {
+  background-color: #484848 !important; /* Specify your desired button color here */
+}
+.swal2-confirm:hover {
+  box-shadow:#000;
+  background-color: #434343 !important; /* Specify your desired button color here */
+}
+
+.swal2-title {
+  color: #fff; /* Title text color */
+}
+.navbarDiv {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+#navbar > ul > li > a {
+  padding-left: 0px;
+  margin: 15px;
 }

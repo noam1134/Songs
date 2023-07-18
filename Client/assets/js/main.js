@@ -174,7 +174,3 @@ document.addEventListener('DOMContentLoaded', () => {
 
 });
 
-function logOut() {
-  localStorage.removeItem("user");
-  window.open("login.html", "_self");
-}

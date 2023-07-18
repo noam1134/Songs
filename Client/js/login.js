@@ -21,6 +21,8 @@ function successLoginCB(data) {
     icon: "success",
     title: "Welcome back!",
     showConfirmButton: false,
+    scrollbarPadding: false,
+    heightAuto: false,
     timer: 2500,
   });
 
@@ -43,6 +45,8 @@ function errorLoginCB(error) {
     icon: "error",
     title: "Oops! something went wrong!\nCheck the details please!",
     showConfirmButton: false,
+    scrollbarPadding: false,
+    heightAuto: false,
     timer: 2500,
   });
 }
