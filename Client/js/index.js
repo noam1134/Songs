@@ -7,6 +7,13 @@ function renderAllSongs() {
 }
 
 function ErrorGetAllSongs(error) {
+    Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Oops! something went wrong!\nCheck the details please!",
+        showConfirmButton: false,
+        timer: 2500,
+      });
   console.log(error);
 }
 
