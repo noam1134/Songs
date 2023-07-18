@@ -127,7 +127,7 @@ function successRegisterCB(data) {
   Swal.fire({
     position: "center",
     icon: "success",
-    title: "User added successfully!",
+    title: "User added successfully! Logging you in...",
     showConfirmButton: false,
     scrollbarPadding: false,
     heightAuto: false,
@@ -139,8 +139,43 @@ function successRegisterCB(data) {
   // Delay the redirect by 1.5 seconds
 
   setTimeout(function () {
+    ajaxCall(
+      "POST",
+      api +
+        "/MusicUsers/LogIn?emailOrUserNameToLogin=" +
+        $("#email").val() +
+        "&passwordToLogin=" +
+        $("#pass").val(),
+      "",
+      successLoginCB,
+      errorLoginCB
+    );
+  }, 1000);
+}
+
+function successLoginCB(data) {
+  saveUserData(data); // Pass the data as an argument to the saveUserData function
+  // Delay the redirect by 1.5 seconds
+  setTimeout(function () {
     window.open("index.html", "_self");
   }, 1000);
+}
+
+function saveUserData(data) {
+  console.log(data);
+  localStorage.setItem("user", JSON.stringify(data));
+}
+
+function errorLoginCB(error) {
+  Swal.fire({
+    position: "center",
+    icon: "error",
+    title: "Oops! something went wrong!\nCheck the details please!",
+    showConfirmButton: false,
+    scrollbarPadding: false,
+    heightAuto: false,
+    timer: 2500,
+  });
 }
 
 function errorRegisterCB(error) {

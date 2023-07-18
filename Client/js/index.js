@@ -68,11 +68,7 @@ function renderSong(song) {
   getArtistNameById(song);
 
   const songName = document.createElement("div");
-  setTimeout(somethings, 50);
-  function somethings() {
-    songName.innerHTML =
-      "Song Name: " + song.songName + "</br>By: " + artistName;
-  }
+  songName.innerHTML = song.songName;
 
   //console.log(songName);
   songName.setAttribute("class", "songText");
@@ -93,7 +89,14 @@ function renderSong(song) {
   imgInfo.setAttribute("class", "infoClass");
   imgInfo.src = "images/info.png";
   imgInfo.onclick = function () {
-    alert("hi! " + song.songId);
+    song = {
+      id: song.songId,
+      name: song.songName,
+      lyrics: song.lyrics,
+      link: song.link,
+      artistId: song.artistId,
+    };
+    localStorage.setItem("song", JSON.stringify(song));
   };
   infoDiv.appendChild(imgInfo);
 
@@ -164,7 +167,7 @@ function logOut() {
   localStorage.removeItem("user");
   window.open("login.html", "_self");
 }
-
+var user;
 function showDetails() {
   var firstName;
   var lastName;
@@ -201,7 +204,14 @@ function showDetails() {
       if (phone !== "" && !isValidPhoneNumber(phone)) {
         errorMsg += "Please enter a valid phone number</br>";
       }
-      if (email == "" || password == "" || phone == "" || lastName == ""|| firstName == ""|| userName == "") {
+      if (
+        email == "" ||
+        password == "" ||
+        phone == "" ||
+        lastName == "" ||
+        firstName == "" ||
+        userName == ""
+      ) {
         errorMsg = "Please fill in all fields";
       }
 
@@ -212,6 +222,7 @@ function showDetails() {
       }
 
       return {
+        id: JSON.parse(localStorage.getItem("user")).id,
         firstName: firstName,
         lastName: lastName,
         email: email,
@@ -252,13 +263,15 @@ function showDetails() {
     return phoneRegex.test(phoneNumber);
   }
   function updateSuccess(data) {
+    localStorage.setItem("user", JSON.stringify(user));
     Swal.fire("User Updated!", "", "success");
+    document.getElementById("userFirstName").innerHTML = user.firstName;
   }
   function updateFail(error) {
     Swal.fire({
       icon: "error",
       title: "Oops...",
-      text: "Email/Phone Number already taken.",
+      text: "Email/UserName already taken.",
     });
   }
 }
