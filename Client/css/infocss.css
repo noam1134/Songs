@@ -41,8 +41,9 @@
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 .songText {
-  font-family: "Cardo";
-  src: url("https://fonts.googleapis.com/css?family=Cardo") format("woff2");
+   
+  font-family: 'Raleway', sans-serif;
+font-family: 'Vollkorn SC', serif;
   font-size: xx-large;
   color: white; /* Set the text color */
   text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
