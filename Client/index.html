@@ -38,6 +38,12 @@
 
     <!-- Template Main CSS File -->
     <link href="assets/css/main.css" rel="stylesheet" />
+    <link href="css/infocss.css" rel="stylesheet" />
+    <link
+      href="https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css"
+      rel="stylesheet"
+    />
+    
 
     <!-- =======================================================
   * Template Name: PhotoFolio
@@ -49,13 +55,20 @@
 
     <script src="./files/artists_songs.js"></script>
     <script src="js/jquery.min.js"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.6.4.min.js"
+      integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8="
+      crossorigin="anonymous"
+    ></script>
+    <script src="js/ajaxCalls.js"></script>
     <script>
       if (localStorage.getItem("user") == null)
         window.open("login.html", "_self");
     </script>
+    <script src="js/index.js"></script>
   </head>
 
-  <body>
+  <body onload="renderAllSongs()">
     <!-- ======= Header ======= -->
     <header id="header" class="header d-flex align-items-center fixed-top">
       <div
@@ -151,68 +164,6 @@
     <!-- End #main -->
 
     <script src="path/to/jquery.js"></script>
-    <script>
-      $(document).ready(function () {
-        // Array to store image data
-        var imageLinks = [
-          { src: "assets/img/gallery/gallery-1.jpg", title: "Gallery 1" },
-          { src: "assets/img/gallery/gallery-2.jpg", title: "Gallery 2" },
-          { src: "assets/img/gallery/gallery-3.jpg", title: "Gallery 3" },
-          // Add more image data as needed
-        ];
-
-        // Parent container for the gallery
-        var galleryContainer = $("#gallery .row");
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        // console.log(array)
-        //   array.forEach(song => {
-        //   // Create the gallery item
-        //   var galleryItem = $(
-        //     '<div class="col-xl-3 col-lg-4 col-md-6">' +
-        //       '<div class="gallery-item h-100">' +
-        //       "<img src=assets/img/gallery/genericMusicPic.jpg" +
-        //       '" class="img-fluid" alt="">' +
-        //       '<div class="gallery-links d-flex align-items-center justify-content-center">' +
-        //       "<p>Fuck!</p>"+
-        //       '<a href=assets/img/gallery/genericMusicPic.jpg"' + 
-        //       '" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>' +
-        //       '<a href="gallery-single.html" class="details-link"><i class="bi bi-link-45deg"></i></a>' +
-        //       "</div>" +
-        //       "</div>" +
-        //       "</div>"
-        //   );
-        //   // Append the gallery item to the parent container
-        //   galleryContainer.append(galleryItem);
-        // });
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        // Loop through the image data and create gallery items
-        imageLinks.forEach(function (imageData) {
-          // Create the gallery item
-          var galleryItem = $(
-            '<div class="col-xl-3 col-lg-4 col-md-6">' +
-              '<div class="gallery-item h-100">' +
-              '<img src="' +
-              "assets/img/gallery/genericMusicPic.jpg" +
-              '" class="img-fluid" alt="">' +
-              '<div class="gallery-links d-flex align-items-center justify-content-center">' +
-              '<a href="' +
-              imageData.src +
-              '" title="' +
-              imageData.title +
-              '" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>' +
-              '<a href="gallery-single.html" class="details-link"><i class="bi bi-link-45deg"></i></a>' +
-              "</div>" +
-              "</div>" +
-              "</div>"
-          );
-
-          // Append the gallery item to the parent container
-          galleryContainer.append(galleryItem);
-        });
-
-        // Initialize any necessary scripts or lightbox plugins here, if needed
-      });
-    </script>
 
     <!-- ======= Footer ======= -->
     <footer id="footer" class="footer">

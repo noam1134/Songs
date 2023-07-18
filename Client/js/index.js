@@ -1,27 +1,53 @@
 url = "https://localhost:7061/";
-getAllSongsApi = "";
+getAllSongsApi = url + "api/Songs/GetAllSongs";
 
 function renderAllSongs() {
-  //GET ALL SONGS WITH AJAXCALL
-  ajaxCall("GET", getAllSongsApi, "", GetAllSongsSuccess, ErrorGetAllSongs);
+  console.log("shalom");
+  ajaxCall(
+    "GET",
+    "https://localhost:7061/api/Songs/GetAllSongs",
+    "",
+    GetAllSongsSuccess,
+    ErrorGetAllSongs
+  );
 }
 
 function ErrorGetAllSongs(error) {
-    Swal.fire({
-        position: "center",
-        icon: "error",
-        title: "Oops! Can't read",
-        showConfirmButton: false,
-        timer: 2500,
-    });
+  Swal.fire({
+    position: "center",
+    icon: "error",
+    title: "Oops!\nCan't read all songs!",
+    showConfirmButton: false,
+    timer: 2500,
+  });
 }
 
 function GetAllSongsSuccess(data) {
+  console.log(data);
   allSongs = document.getElementById("allSongs");
   data.forEach((song) => {
-    allsongs.append(renderSong(song));
+    allSongs.append(renderSong(song));
   });
 }
+
+function getArtistIdByName(song) {
+  ajaxCall(
+    "GET",
+    getArtistIdByNameApi + song.artist,
+    "",
+    getArtistSuccess,
+    getArtistError
+  );
+}
+
+getArtistIdByNameApi = url + "api/Artists/GetArtistById?artistId=";
+
+var artistName;
+function getArtistSuccess(data) {
+  artistName = data;
+  console.log(artistName);
+}
+function getArtistError(error) {}
 
 function renderSong(song) {
   // Create the necessary elements
@@ -35,10 +61,11 @@ function renderSong(song) {
   img.src = "images/genericMusicPic.jpg";
   img.classList.add("img-fluid");
   img.alt = "";
+  getArtistIdByName(song);
 
   const songName = document.createElement("div");
-  songName.innerHTML = song.songName;
-  songName.setAttribute("class", "bi bi-arrows-angle-expand");
+  songName.innerHTML = "Song Name: " + song.songName + "\nBy: " + artistName;
+  songName.setAttribute("class", "songText");
 
   const divGalleryLinks = document.createElement("div");
   divGalleryLinks.classList.add(
@@ -49,19 +76,21 @@ function renderSong(song) {
   );
   divGalleryLinks.id = song.songId;
 
-  //bi bi-arrows-angle-expand
-
-  const a = document.createElement("img");
-  a.src = "images/about.jpg";
-  a.classList.add("glightbox", "preview-link");
+  infoDiv = document.createElement("div");
+  infoDiv.className = "info";
+  var infoIcon = document.createElement("i");
+  infoIcon.setAttribute("class", "icon-info-sign");
+  var a = document.createElement("span");
+  a.className = "extra-info";
+  a.textContent = "Click to find more about this artist!";
 
   const iExpand = document.createElement("i");
   iExpand.classList.add("bi", "bi-arrows-angle-expand");
   a.appendChild(iExpand);
 
   const imgFavorite = document.createElement("img");
-  imgFavorite.src = "images/favorite.jpg";
-  imgFavorite.classList.add("details-link");
+  imgFavorite.setAttribute("class", "icon-info-sign");
+  imgFavorite.src = "images/like.png";
   imgFavorite.onclick = function () {
     addToFavorite(song.songId);
   };
@@ -72,8 +101,9 @@ function renderSong(song) {
   imgFavorite.appendChild(iLink);
 
   // Append the elements to their respective parents
-  divGalleryLinks.appendChild(a);
+  divGalleryLinks.appendChild(infoIcon);
   divGalleryLinks.appendChild(imgFavorite);
+  divGalleryLinks.appendChild(a);
 
   divGalleryItem.appendChild(img);
   divGalleryItem.appendChild(songName);
@@ -83,23 +113,5 @@ function renderSong(song) {
 
   // Append the resulting structure to the desired parent element
   const parentElement = document.getElementById("parent-element-id");
-  parentElement.appendChild(divCol);
+  return divCol;
 }
-
-// '<div class="col-xl-3 col-lg-4 col-md-6">' +
-//   '<div class="gallery-item h-100">' +
-//   '<img src="' +
-//   "images/genericMusicPic.jpg" +
-//   '" class="img-fluid" alt="">' +
-//   '<div class="gallery-links d-flex align-items-center justify-content-center" id = "' +
-//   song.songId +
-//   '">' +
-//   '<a href="' +
-//   "link-to-about" +
-//   '" class="glightbox preview-link"><i class="bi bi-arrows-angle-expand"></i></a>' +
-//   '<img src="images/favorite.jpg" onclick = "addToFavorite(' +
-//   song.songId +
-//   ')" class="details-link"><i class="bi bi-link-45deg"></i></img>' +
-//   "</div>" +
-//   "</div>" +
-//   "</div>";
