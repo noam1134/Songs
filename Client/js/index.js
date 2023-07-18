@@ -10,11 +10,10 @@ function ErrorGetAllSongs(error) {
     Swal.fire({
         position: "center",
         icon: "error",
-        title: "Oops! something went wrong!\nCheck the details please!",
+        title: "Oops! Can't read",
         showConfirmButton: false,
         timer: 2500,
-      });
-  console.log(error);
+    });
 }
 
 function GetAllSongsSuccess(data) {
