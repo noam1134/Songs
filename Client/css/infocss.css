@@ -51,3 +51,12 @@
 .msg {
   font-family: "Cardo";
 }
+
+.navbar > ul > li > a {
+  text-align: center;
+  padding-left: 0px;
+}
+
+.navbar{
+  
+}
