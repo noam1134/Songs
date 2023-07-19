@@ -835,9 +835,10 @@ public class DBservices
 
         try
         {
-            con.Open();
+            
             int result = (int)cmd.ExecuteScalar();
             flag = (result == 1);
+            
         }
         catch (Exception ex)
         {
