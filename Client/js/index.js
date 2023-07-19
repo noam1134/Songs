@@ -4,7 +4,8 @@ getAllFavorites = url + "api/MusicUsers/GetFavorites?userId=";
 addToFavorite = url + "api/MusicUsers/AddToFavorites?userId=";
 getAllSongsApi = url + "api/Songs/GetAllSongs";
 updateUser = url + "api/MusicUsers/UpdateUserDetails";
-removeFromFavorites = url + "api/MusicUsers/RemoveFromFavorites?userId=1&songId="
+removeFromFavorites =
+  url + "api/MusicUsers/RemoveFromFavorites?userId=1&songId=";
 
 function renderAllSongs() {
   ajaxCall("GET", getAllSongs, "", GetAllSongsSuccess, ErrorGetAllSongs);
@@ -106,6 +107,7 @@ function renderSong(song) {
   imgFavorite.src = "images/like.png";
   imgFavorite.onclick = function () {
     const userId = JSON.parse(localStorage.getItem("user")).id;
+    localStorage.setItem("song", JSON.stringify(song));
     ajaxCall(
       "POST",
       addToFavorite + userId + "&songId=" + song.songId,
@@ -128,18 +130,40 @@ function renderSong(song) {
   }
 
   function AddSongToFavoriteFailed(error) {
-    ajaxCall("POST",removeFromFavorites)
-
-    Swal.fire({
-      position: "center",
-      icon: "error",
-      title: "Song is already in favorites!",
-      showConfirmButton: false,
-      scrollbarPadding: false,
-      heightAuto: false,
-      timer: 2500,
-    });
+    ajaxCall(
+      "POST",
+      removeFromFavorites + JSON.parse(localStorage.getItem("song")).songId,
+      "",
+      songRemoved,
+      songNotRemoved
+    );
+    function songRemoved() {
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Song removed from favorites!",
+        showConfirmButton: false,
+        scrollbarPadding: false,
+        heightAuto: false,
+        timer: 2500,
+      });
+    }
+      function songNotRemoved() {
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: "Song notremoved from favorites!",
+          showConfirmButton: false,
+          scrollbarPadding: false,
+          heightAuto: false,
+          timer: 2500,
+        });
+      }
   }
+
+  
+    
+    
 
   faveDiv.appendChild(imgFavorite);
   const iLink = document.createElement("i");
