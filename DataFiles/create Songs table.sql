@@ -6,6 +6,6 @@ CREATE TABLE Songs (
     songName VARCHAR(255),
     lyrics VARCHAR(MAX),
     link VARCHAR(255),
-    artistId INT,
-    FOREIGN KEY (artistId) REFERENCES Artists(artistId)
+    artistName VARCHAR(30),
+    FOREIGN KEY (artistName) REFERENCES Artists(artistName)
 );
