@@ -808,6 +808,61 @@ public class DBservices
     }
 
     //--------------------------------------------------------------------------------------------------
+    // This method returns Artist Info by his name
+    //--------------------------------------------------------------------------------------------------
+    public ArtistClass GetArtistInfoByName(string artName)
+    {
+        SqlConnection con;
+        SqlCommand cmd;
+
+        try
+        {
+            con = connect("myProjDB"); // create the connection
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+
+        Dictionary<string, object> paramDic = new Dictionary<string, object>();
+        paramDic.Add("@artistName", artName);
+
+        cmd = CreateCommandWithStoredProcedure("SP_GetArtistInfoByName", con, paramDic);// create the command
+
+        ArtistClass art = new ArtistClass();
+
+        try
+        {
+            SqlDataReader dataReader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+            while (dataReader.Read())
+            {
+                art.Id = Convert.ToInt32(dataReader["artistId"]);
+                art.Name = dataReader["artistName"].ToString();
+                art.Popularity = Convert.ToInt32(dataReader["popularity"]);
+            }
+            // Close the dataReader before executing the next command
+            dataReader.Close();
+
+            return art;
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+        finally
+        {
+            if (con != null)
+            {
+                // close the db connection
+                con.Close();
+            }
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------
     // This method returns Song Popularity by song Id
     //--------------------------------------------------------------------------------------------------
     public int GetSongPopularityBySongId(int songId)
