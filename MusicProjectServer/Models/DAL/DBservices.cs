@@ -808,6 +808,55 @@ public class DBservices
     }
 
     //--------------------------------------------------------------------------------------------------
+    // This method returns If User Has Favorite Song or not
+    //--------------------------------------------------------------------------------------------------
+    public bool CheckIfUserHasFavoriteSong(int songId, int userId)
+    {
+        SqlConnection con;
+        SqlCommand cmd;
+
+        try
+        {
+            con = connect("myProjDB"); // create the connection
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+
+        Dictionary<string, object> paramDic = new Dictionary<string, object>();
+        paramDic.Add("@userId", userId);
+        paramDic.Add("@songId", songId);
+
+        cmd = CreateCommandWithStoredProcedure("SP_CheckIfUserHasFavoriteSong", con, paramDic);// create the command
+
+        bool flag = false;
+
+        try
+        {
+            con.Open();
+            int result = (int)cmd.ExecuteScalar();
+            flag = (result == 1);
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+        finally
+        {
+            if (con != null)
+            {
+                // close the db connection
+                con.Close();
+            }
+        }
+
+        return flag;
+    }
+
+    //--------------------------------------------------------------------------------------------------
     // This method returns Artist Info by his name
     //--------------------------------------------------------------------------------------------------
     public ArtistClass GetArtistInfoByName(string artName)

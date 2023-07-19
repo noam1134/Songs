@@ -73,5 +73,9 @@
             return dBservices.UpdateUser(user);
         }
 
+        public static bool CheckIfUserHasFavoriteSong(int songId, int userId)
+        {
+            return dBservices.CheckIfUserHasFavoriteSong(songId, userId);
+        }
     }
 }

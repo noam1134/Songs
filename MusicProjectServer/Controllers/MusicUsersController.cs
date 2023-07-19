@@ -17,6 +17,13 @@ namespace MusicProjectServer.Controllers
             return user.Registration();
         }
 
+        [HttpGet]
+        [Route("CheckIfUserHasFavoriteSong")]
+        public bool CheckIfUserHasFavoriteSong(int songId, int userId)
+        {
+            return MusicUser.CheckIfUserHasFavoriteSong(songId, userId);
+        }
+
         [HttpPost]
         [Route("AddToFavorites")]
         public bool AddToFavorites(int userId, int songId)
