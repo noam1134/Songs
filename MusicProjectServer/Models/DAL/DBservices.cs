@@ -377,7 +377,7 @@ public class DBservices
                 song.SongName = dataReader["songName"].ToString();
                 song.Lyrics = dataReader["lyrics"].ToString();
                 song.Link = dataReader["link"].ToString();
-                song.ArtistId = Convert.ToInt32(dataReader["artistId"]);
+                song.ArtistName = dataReader["artistName"].ToString();
                 songs.Add(song);
             }
 
@@ -437,7 +437,7 @@ public class DBservices
                 song.SongName = dataReader["songName"].ToString();
                 song.Lyrics = dataReader["lyrics"].ToString();
                 song.Link = dataReader["link"].ToString();
-                song.ArtistId = Convert.ToInt32(dataReader["artistId"]);
+                song.ArtistName = dataReader["artistName"].ToString();
                 songs.Add(song);
             }
 
