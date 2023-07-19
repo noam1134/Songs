@@ -32,27 +32,6 @@ function GetAllSongsSuccess(data) {
   });
 }
 
-function getArtistNameById(song) {
-  ajaxCall(
-    "GET",
-    getArtistNameByIdApi + song.artistId,
-    "",
-    getArtistSuccess,
-    getArtistError
-  );
-}
-
-getArtistNameByIdApi = url + "api/Artists/GetArtistById?artistId=";
-
-var artistName;
-function getArtistSuccess(data) {
-  artistName = data.name;
-  console.log(artistName);
-}
-function getArtistError(error) {
-  console.log(error);
-}
-
 function renderSong(song) {
   // Create the necessary elements
   const divCol = document.createElement("div");
@@ -65,10 +44,10 @@ function renderSong(song) {
   img.src = "images/genericMusicPic.jpg";
   img.classList.add("img-fluid");
   img.alt = "";
-  getArtistNameById(song);
+  //getArtistNameById(song);
 
   const songName = document.createElement("div");
-  songName.innerHTML = song.songName;
+  songName.innerHTML = song.songName + "<br/>By: " + song.artistName;
 
   //console.log(songName);
   songName.setAttribute("class", "songText");
@@ -94,9 +73,23 @@ function renderSong(song) {
       name: song.songName,
       lyrics: song.lyrics,
       link: song.link,
-      artistId: song.artistId,
+      artistName: song.artistName,
     };
     localStorage.setItem("song", JSON.stringify(song));
+    Swal.fire({
+      title: 'Song Info',
+      html: 'Lyrics:<br>'+(song.lyrics).replace(/\n/g, '<br>')+"\n",
+      icon: 'info',
+      showCancelButton: true,
+      confirmButtonText: 'Info about '+song.artistName,
+      cancelButtonText: 'Close Info',
+      showCloseButton: true,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Handle the action when "Show More Info" is clicked
+        window.open("about.html","_self")
+      } 
+    });
   };
   infoDiv.appendChild(imgInfo);
 

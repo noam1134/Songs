@@ -134,8 +134,6 @@ function successRegisterCB(data) {
     timer: 2500,
   });
 
-  saveUserData();
-
   // Delay the redirect by 1.5 seconds
 
   setTimeout(function () {
@@ -154,17 +152,13 @@ function successRegisterCB(data) {
 }
 
 function successLoginCB(data) {
-  saveUserData(data); // Pass the data as an argument to the saveUserData function
+  localStorage.setItem("user", JSON.stringify(data)); // Pass the data as an argument to the saveUserData function
   // Delay the redirect by 1.5 seconds
   setTimeout(function () {
     window.open("index.html", "_self");
   }, 1000);
 }
 
-function saveUserData(data) {
-  console.log(data);
-  localStorage.setItem("user", JSON.stringify(data));
-}
 
 function errorLoginCB(error) {
   Swal.fire({

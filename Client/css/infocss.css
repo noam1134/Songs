@@ -43,7 +43,7 @@
 .songText {
   font-family: "Raleway", sans-serif;
   font-family: "Vollkorn SC", serif;
-  font-size: xx-large;
+  font-size: large;
   color: white; /* Set the text color */
   text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black,
     1px 1px 0 black;
@@ -62,7 +62,6 @@
   padding-left: 0px;
 }
 
-.navbar {
-  display: ;
+.navbar {  
   box-sizing: border-box;
 }
