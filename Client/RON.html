@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Artist Play Count Finder</title>
+  </head>
+  <body>
+    <h1>Find Artist Play Count</h1>
+    <input
+      type="text"
+      id="artistName"
+      placeholder="Enter artist name"
+      value="ABBA"
+    />
+    <button onclick="getArtistPlayCount()">Search</button>
+    <div id="playCountContainer"></div>
+
+    <script>
+      function getArtistPlayCount() {
+        const apiKey = "645890a09eebe9cd0d7bce90c41ff1f1"; // Replace this with your Last.fm API key
+        const artistName = document.getElementById("artistName").value;
+
+        fetch(
+          `https://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=${encodeURIComponent(
+            artistName
+          )}&api_key=${apiKey}&format=json`
+        )
+          .then((response) => response.json())
+          .then((data) => {
+            const artistInfo = data.artist;
+            const playCountContainer =
+              document.getElementById("playCountContainer");
+            playCountContainer.innerHTML = "";
+
+            if (artistInfo.stats && artistInfo.stats.playcount) {
+              const playCount = artistInfo.stats.playcount;
+              playCountContainer.innerHTML = `Play Count: ${playCount}`;
+            } else {
+              playCountContainer.innerHTML = "Play count data not available.";
+            }
+          })
+          .catch((error) => {
+            console.error("Error fetching data:", error);
+            const playCountContainer =
+              document.getElementById("playCountContainer");
+            playCountContainer.innerHTML =
+              "Error fetching data. Please try again later.";
+          });
+      }
+
+      // Automatically call getArtistPlayCount on page load (optional)
+      window.onload = getArtistPlayCount;
+    </script>
+  </body>
+</html>

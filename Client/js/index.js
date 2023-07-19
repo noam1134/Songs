@@ -1,17 +1,13 @@
 url = "https://localhost:7061/";
+getAllSongs = url + "api/Songs/GetAllSongs";
+getAllFavorites = url + "api/MusicUsers/GetFavorites?userId=";
 addToFavorite = url + "api/MusicUsers/AddToFavorites?userId=";
 getAllSongsApi = url + "api/Songs/GetAllSongs";
 updateUser = url + "api/MusicUsers/UpdateUserDetails";
+removeFromFavorites = url + "api/MusicUsers/RemoveFromFavorites?userId=1&songId="
 
 function renderAllSongs() {
-  console.log("shalom");
-  ajaxCall(
-    "GET",
-    "https://localhost:7061/api/Songs/GetAllSongs",
-    "",
-    GetAllSongsSuccess,
-    ErrorGetAllSongs
-  );
+  ajaxCall("GET", getAllSongs, "", GetAllSongsSuccess, ErrorGetAllSongs);
 }
 
 function ErrorGetAllSongs(error) {
@@ -22,6 +18,17 @@ function ErrorGetAllSongs(error) {
     showConfirmButton: false,
     timer: 2500,
   });
+}
+
+function renderFavorites() {
+  document.getElementById("allSongs").innerHTML = "";
+  ajaxCall(
+    "POST",
+    getAllFavorites + JSON.parse(localStorage.getItem("user")).id,
+    "",
+    GetAllSongsSuccess,
+    ErrorGetAllSongs
+  );
 }
 
 function GetAllSongsSuccess(data) {
@@ -44,7 +51,6 @@ function renderSong(song) {
   img.src = "images/genericMusicPic.jpg";
   img.classList.add("img-fluid");
   img.alt = "";
-  //getArtistNameById(song);
 
   const songName = document.createElement("div");
   songName.innerHTML = song.songName + "<br/>By: " + song.artistName;
@@ -77,18 +83,18 @@ function renderSong(song) {
     };
     localStorage.setItem("song", JSON.stringify(song));
     Swal.fire({
-      title: 'Song Info',
-      html: 'Lyrics:<br>'+(song.lyrics).replace(/\n/g, '<br>')+"\n",
-      icon: 'info',
+      title: JSON.parse(localStorage.getItem("song")).name,
+      html: "Lyrics:<br>" + song.lyrics.replace(/\n/g, "<br>") + "\n",
+      icon: "info",
       showCancelButton: true,
-      confirmButtonText: 'Info about '+song.artistName,
-      cancelButtonText: 'Close Info',
+      confirmButtonText: "Info about " + song.artistName,
+      cancelButtonText: "Close Info",
       showCloseButton: true,
     }).then((result) => {
       if (result.isConfirmed) {
         // Handle the action when "Show More Info" is clicked
-        window.open("about.html","_self")
-      } 
+        window.open("about.html", "_self");
+      }
     });
   };
   infoDiv.appendChild(imgInfo);
@@ -122,6 +128,8 @@ function renderSong(song) {
   }
 
   function AddSongToFavoriteFailed(error) {
+    ajaxCall("POST",removeFromFavorites)
+
     Swal.fire({
       position: "center",
       icon: "error",
