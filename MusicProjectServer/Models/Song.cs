@@ -16,16 +16,16 @@
             SongName = "";
             Lyrics = "";
             Link = "";
-            ArtistId = 0;
+            ArtistName = "";
         }
 
-        public Song(int songId, string songName, string lyrics, string link, int artistId)
+        public Song(int songId, string songName, string lyrics, string link, string artistName)
         {
             SongId = songId;
             SongName = songName;
             Lyrics = lyrics;
             Link = link;
-            ArtistId = artistId;
+            ArtistName = artistName;
         }
 
         public static bool AddSong(Song sng)
