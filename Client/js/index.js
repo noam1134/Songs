@@ -5,8 +5,12 @@ addToFavorite = url + "api/MusicUsers/AddToFavorites?userId=";
 getAllSongsApi = url + "api/Songs/GetAllSongs";
 updateUser = url + "api/MusicUsers/UpdateUserDetails";
 removeFromFavorites = url + "api/MusicUsers/RemoveFromFavorites?userId=";
+
 var favoriteID;
+
 function renderAllSongs() {
+  document.getElementById("allSongs").innerHTML = "";
+  document.getElementById("showing").innerHTML = "Showing All Songs";
   ajaxCall("GET", getAllSongs, "", GetAllSongsSuccess, ErrorGetAllSongs);
 }
 
@@ -21,6 +25,7 @@ function ErrorGetAllSongs(error) {
 }
 
 function renderFavorites() {
+  document.getElementById("showing").innerHTML = "Showing All Favorite Songs";
   document.getElementById("allSongs").innerHTML = "";
   ajaxCall(
     "POST",
@@ -32,7 +37,6 @@ function renderFavorites() {
 }
 
 function GetAllSongsSuccess(data) {
-  console.log(data);
   allSongs = document.getElementById("allSongs");
   data.forEach((song) => {
     allSongs.append(renderSong(song));
@@ -102,10 +106,14 @@ function renderSong(song) {
   faveDiv.className = "faveDiv";
   const imgFavorite = document.createElement("img");
   imgFavorite.setAttribute("class", "favClass");
-  imgFavorite.setAttribute("id", "song_" + song.songId);
-  favoriteID = "song_" + song.songId;
-  checkIfFavorite(song);
-  //imgFavorite.src = "images/disLike.png";
+  //imgFavorite.setAttribute("id", "song_" + song.songId);
+  favoriteSongs = localStorage.getItem("favoriteSongs");
+  if (favoriteSongs.includes(JSON.stringify(song))) {
+    imgFavorite.src = "images/like.png";
+  } else {
+    imgFavorite.src = "images/disLike.png";
+  }
+
   imgFavorite.onclick = function () {
     const userId = JSON.parse(localStorage.getItem("user")).id;
     localStorage.setItem("song", JSON.stringify(song));
@@ -118,18 +126,8 @@ function renderSong(song) {
     );
   };
 
-  function checkIfFavorite(song) {
-    ajaxCall("GET", checkFavorite + song.id, "", checkSuccess, checkFail);
-  }
-  function checkSuccess(data) {
-    if (data) document.getElementById(favoriteID).src = "images/like.png";
-    else document.getElementById(favoriteID).src = "images/disLike.png";
-  }
-  function checkFail(error) {
-    console.log(error);
-  }
-
   function AddSongToFavoriteSuccess(data) {
+    updateFavorites();
     imgFavorite.src = "images/like.png";
     Swal.fire({
       position: "center",
@@ -153,6 +151,7 @@ function renderSong(song) {
       songNotRemoved
     );
     function songRemoved() {
+      updateFavorites();
       imgFavorite.src = "images/disLike.png";
       Swal.fire({
         position: "center",
@@ -175,6 +174,23 @@ function renderSong(song) {
         timer: 2500,
       });
     }
+  }
+
+  function updateFavorites() {
+    ajaxCall(
+      "POST",
+      getAllFavorites + JSON.parse(localStorage.getItem("user")).id,
+      "",
+      successSaveAllFavoritesCB,
+      errorSaveAllFavoritesCB
+    );
+  }
+  function successSaveAllFavoritesCB(data) {
+    console.log(data);
+    localStorage.setItem("favoriteSongs", JSON.stringify(data));
+  }
+  function errorSaveAllFavoritesCB(error) {
+    console.log(error);
   }
 
   faveDiv.appendChild(imgFavorite);

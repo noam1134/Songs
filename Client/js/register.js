@@ -1,4 +1,5 @@
 const api = "https://localhost:7061/api";
+const getAllFavorites = api + "/MusicUsers/GetFavorites?userId=";
 var user;
 $(document).ready(function () {
   $("#signup-form").submit(function (e) {
@@ -124,6 +125,14 @@ $(document).ready(function () {
   });
 });
 function successRegisterCB(data) {
+  //add all favorites songs to chach
+  ajaxCall(
+    "POST",
+    getAllFavorites + data.id,
+    "",
+    successSaveAllFavoritesCB,
+    errorSaveAllFavoritesCB
+  );
   Swal.fire({
     position: "center",
     icon: "success",
@@ -134,6 +143,12 @@ function successRegisterCB(data) {
     timer: 2500,
   });
 
+  function successSaveAllFavoritesCB(data) {
+    localStorage.setItem("favoriteSongs", JSON.stringify(data));
+  }
+  function errorSaveAllFavoritesCB(error) {
+    console.log(error);
+  }
   // Delay the redirect by 1.5 seconds
 
   setTimeout(function () {
@@ -158,7 +173,6 @@ function successLoginCB(data) {
     window.open("index.html", "_self");
   }, 1000);
 }
-
 
 function errorLoginCB(error) {
   Swal.fire({
