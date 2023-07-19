@@ -6,7 +6,7 @@
         public string SongName { get; set; }
         public string Lyrics { get; set; }
         public string Link { get; set; }
-        public int ArtistId { get; set; }
+        public string ArtistName { get; set; }
 
         static DBservices dBservices = new DBservices();
 

@@ -173,7 +173,7 @@ public class DBservices
         paramDic.Add("@songName", sng.SongName);
         paramDic.Add("@lyrics", sng.Lyrics);
         paramDic.Add("@link", sng.Link);
-        paramDic.Add("@artistId", sng.ArtistId);
+        paramDic.Add("@artistName", sng.ArtistName);
 
         cmd = CreateCommandWithStoredProcedure("SPAddSong", con, paramDic);// create the command
 
@@ -557,7 +557,7 @@ public class DBservices
                 song.SongName = dataReader["songName"].ToString();
                 song.Lyrics = dataReader["lyrics"].ToString();
                 song.Link = dataReader["link"].ToString();
-                song.ArtistId = Convert.ToInt32(dataReader["artistId"]);
+                song.ArtistName = dataReader["artistName"].ToString();
                 songs.Add(song);
             }
 
@@ -673,7 +673,7 @@ public class DBservices
                 sng.SongName = dataReader["songName"].ToString();
                 sng.Lyrics = dataReader["lyrics"].ToString();
                 sng.Link = dataReader["link"].ToString();
-                sng.ArtistId = Convert.ToInt32(dataReader["artistId"]);
+                sng.ArtistName = dataReader["artistName"].ToString();
                 songs.Add(sng);
             }
 
