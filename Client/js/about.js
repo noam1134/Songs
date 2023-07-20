@@ -12,11 +12,7 @@ $(document).ready(function () {
 });
 
 function renderArtistInfo() {
-  link = document.getElementById("linkToLyricsFreak");
-  link.setAttribute(
-    "href",
-    "https://www.lyricsfreak.com/" + artist[0] + "/" + artist
-  );
+  link = document.getElementById("linkToSpotify");
   link.setAttribute("target", "_blank");
   getArtistInfo();
   getLastFMInfo();
@@ -123,10 +119,11 @@ function getLastFMInfo() {
     .then((response) => response.json())
     .then((data) => {
       const artistInfo = data.artist;
-
+      
       if (artistInfo.stats && artistInfo.stats.playcount) {
         const playCount = artistInfo.stats.playcount;
         document.getElementById("playCount").innerHTML = `${playCount}`;
+        document.getElementById("artistSummary").innerHTML = artistInfo.bio.summary
       } else {
         document.getElementById("playCount").innerHTML =
           "Play count data not available.";

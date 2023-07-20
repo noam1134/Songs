@@ -232,6 +232,7 @@ function renderSong(song) {
 
 function getSongPopularity() {
   songId = JSON.parse(localStorage.getItem("song")).songId;
+  console.log(songId);
   ajaxCall(
     "GET",
     getSongPop + songId,

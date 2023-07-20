@@ -75,3 +75,28 @@
 .navbar {
   box-sizing: border-box;
 }
+#userFirstName{
+  text-transform: capitalize;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.prevBtn,
+.nextBtn {
+  padding: 8px 16px;
+  margin: 0 5px;
+  background-color: #2e2e2e;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.prevBtn:hover,
+.nextBtn:hover {
+  background-color: #1d1d1d;
+}
