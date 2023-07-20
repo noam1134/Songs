@@ -71,7 +71,38 @@ function getArtistImage(artistToShow) {
   getAccessToken().then((token) => {
     if (token) {
       getArtistImages(artist, token);
-      //document.getElementById("artistImg").src = images[0];
     }
+  });
+  getArtistInfo("linkin park")
+}
+
+
+
+
+
+
+
+
+
+
+//GET INFO ABOUT ARTIST FROM LAST.FM
+
+function getArtistInfo(artistName) {
+  $.ajax({
+    url: "http://ws.audioscrobbler.com/2.0/",
+    method: "GET",
+    data: {
+      method: "artist.getinfo",
+      artist: artistName,
+      api_key: "645890a09eebe9cd0d7bce90c41ff1f1", //this is the API of lastFM website
+      format: "json",
+    },
+    success: function (response) {
+      console.log(response);
+    },
+    error: function (error) {
+      // Handle the error
+      console.error(error);
+    },
   });
 }

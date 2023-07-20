@@ -1,7 +1,13 @@
+// Define the base URL and API endpoint for making API calls
 var url = "https://localhost:7061/";
 const fullUrl = url + "api/Songs/";
+
+// Get the element to display the search results
 const showing = document.getElementById("showing");
+
+// Function to handle the search button click event
 function searchClick() {
+  // Show a custom modal dialog using SweetAlert2 library for user input
   Swal.fire({
     title: "What do you want to search by?",
     showDenyButton: true,
@@ -26,14 +32,19 @@ function searchClick() {
     scrollbarPadding: false,
     heightAuto: false,
     preConfirm: () => {
+      // Set the active class for the search button when searching
       document.getElementById("homeBtn").setAttribute("class", "notActive");
       document.getElementById("favBtn").setAttribute("class", "notActive");
       document.getElementById("searchBtn").setAttribute("class", "active");
+
       return new Promise((resolve) => {
+        // Get the selected search option and user input
         const searchOption = document.querySelector(
           'input[name="searchOption"]:checked'
         ).value;
         const searchValue = document.getElementById("swal-input1").value;
+
+        // Update the 'showing' element based on the selected search option and user input
         switch (searchOption) {
           case "GetAllSongsByArtistName?artistName=":
             showing.innerHTML = "Showing all songs by Artist: " + searchValue;
@@ -49,6 +60,7 @@ function searchClick() {
             break;
         }
 
+        // Log the search operation and make an AJAX call to the API
         console.log(`Searching by ${searchOption}: ${searchValue}`);
         ajaxCall(
           "GET",
@@ -63,6 +75,7 @@ function searchClick() {
   });
 }
 
+// Function to handle the error when songs are not found
 function ErrorGetSong(error) {
   Swal.fire({
     position: "center",
@@ -71,6 +84,8 @@ function ErrorGetSong(error) {
     showConfirmButton: false,
     timer: 2500,
   });
+
+  // Clear the search results and display a songs by the user inputs
   allSongs = document.getElementById("allSongs");
   allSongs.innerHTML = "";
   showing.innerHTML = "No songs found";

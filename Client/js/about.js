@@ -5,8 +5,8 @@ getArtistInfoByName = url + "api/Artists/GetArtistInfoByName?artistName=";
 getAllSongsOfArtist = url + "api/Songs/GetAllSongsByArtistName?artistName=";
 
 $(document).ready(function () {
-  getArtistImage(JSON.parse(localStorage.getItem("song")).artistName);
   artist = JSON.parse(localStorage.getItem("song")).artistName;
+  getArtistImage(artist);  
   renderArtistInfo();
   document.getElementById("popularity").innerHTML = artist.popularity;
 });
