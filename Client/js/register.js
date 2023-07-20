@@ -125,6 +125,7 @@ $(document).ready(function () {
   });
 });
 function successRegisterCB(data) {
+  localStorage.setItem("indicator", "home");
   //add all favorites songs to chach
   ajaxCall(
     "POST",

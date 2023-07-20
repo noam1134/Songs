@@ -3,11 +3,8 @@ getAllSongs = url + "api/Songs/GetAllSongs";
 getAllFavorites = url + "api/MusicUsers/GetFavorites?userId=";
 addToFavorite = url + "api/MusicUsers/AddToFavorites?userId=";
 getAllSongsApi = url + "api/Songs/GetAllSongs";
-updateUser = url + "api/MusicUsers/UpdateUserDetails";
 removeFromFavorites = url + "api/MusicUsers/RemoveFromFavorites?userId=";
-
-var favoriteID;
-
+getSongPop = url + "api/Songs/GetSongPopularityBySongId?songId=";
 function clickHome() {
   localStorage.setItem("indicator", "home");
   whatToRender();
@@ -30,8 +27,11 @@ function renderAllSongs() {
     renderFavorites();
     return;
   }
+
   document.getElementById("homeBtn").setAttribute("class", "active");
   document.getElementById("favBtn").setAttribute("class", "notActive");
+  document.getElementById("searchBtn").setAttribute("class", "notActive");
+  document.getElementById("artistsBtn").setAttribute("class", "notActive");
   document.getElementById("allSongs").innerHTML = "";
   document.getElementById("showing").innerHTML = "Showing All Songs";
   ajaxCall("GET", getAllSongs, "", GetAllSongsSuccess, ErrorGetAllSongs);
@@ -48,6 +48,8 @@ function ErrorGetAllSongs(error) {
 }
 
 function renderFavorites() {
+  document.getElementById("searchBtn").setAttribute("class", "notActive");
+  document.getElementById("artistsBtn").setAttribute("class", "notActive");
   document.getElementById("favBtn").setAttribute("class", "active");
   document.getElementById("homeBtn").setAttribute("class", "notActive");
   document.getElementById("showing").innerHTML = "Showing All Favorite Songs";
@@ -63,6 +65,7 @@ function renderFavorites() {
 
 function GetAllSongsSuccess(data) {
   allSongs = document.getElementById("allSongs");
+  allSongs.innerHTML = "";
   data.forEach((song) => {
     allSongs.append(renderSong(song));
   });
@@ -104,34 +107,20 @@ function renderSong(song) {
   imgInfo.src = "images/info.png";
   imgInfo.onclick = function () {
     song = {
-      id: song.songId,
+      songId: song.songId,
       name: song.songName,
       lyrics: song.lyrics,
       link: song.link,
       artistName: song.artistName,
     };
     localStorage.setItem("song", JSON.stringify(song));
-    Swal.fire({
-      title: JSON.parse(localStorage.getItem("song")).name,
-      html: "Lyrics:<br>" + song.lyrics.replace(/\n/g, "<br>") + "\n",
-      icon: "info",
-      showCancelButton: true,
-      confirmButtonText: "Info about " + song.artistName,
-      cancelButtonText: "Close Info",
-      showCloseButton: true,
-    }).then((result) => {
-      if (result.isConfirmed) {
-        // Handle the action when "Show More Info" is clicked
-        window.open("about.html", "_self");
-      }
-    });
+    getSongPopularity();
   };
   infoDiv.appendChild(imgInfo);
   faveDiv = document.createElement("div");
   faveDiv.className = "faveDiv";
   const imgFavorite = document.createElement("img");
   imgFavorite.setAttribute("class", "favClass");
-  //imgFavorite.setAttribute("id", "song_" + song.songId);
   favoriteSongs = localStorage.getItem("favoriteSongs");
   if (favoriteSongs.includes(JSON.stringify(song))) {
     imgFavorite.src = "images/like.png";
@@ -241,115 +230,40 @@ function renderSong(song) {
   return divCol;
 }
 
-function logOut() {
-  localStorage.removeItem("user");
-  window.open("login.html", "_self");
+function getSongPopularity() {
+  songId = JSON.parse(localStorage.getItem("song")).songId;
+  ajaxCall(
+    "GET",
+    getSongPop + songId,
+    "",
+    gotSongPopularity,
+    errorSongPopularity
+  );
 }
-var user;
-function showDetails() {
-  var firstName;
-  var lastName;
-  var email;
-  var phone;
-  var userName;
-  var password;
+
+function gotSongPopularity(data) {
+  song = JSON.parse(localStorage.getItem("song"));
   Swal.fire({
-    title: "Update User Details",
+    title: song.name,
     html:
-      "<table>Please fill in all fields" +
-      '<tr><td>First Name:</td><td><input id="changeFirstName" class="swal2-input" placeholder="First Name..."></td></tr>' +
-      '<tr><td>Last Name:</td><td><input id="changeLastName" class="swal2-input" placeholder="Last Name..."></td></tr>' +
-      '<tr><td>Email:</td><td><input id="changeEmail" class="swal2-input" placeholder="Email..."></td></tr>' +
-      '<tr><td>Phone Number:</td><td><input id="changePhoneNumber" class="swal2-input" placeholder="Phone Number..."></td></tr>' +
-      '<tr><td>User Name:</td><td><input id="changeUserName" class="swal2-input" placeholder="User Name..."></td></tr>' +
-      '<tr><td>Password:</td><td><input id="changePassword" class="swal2-input" placeholder="Password..."></td></tr>' +
-      "</table>",
-    focusConfirm: false,
-    preConfirm: () => {
-      var errorMsg = "";
-      firstName = Swal.getPopup()
-        .querySelector("#changeFirstName")
-        .value.trim();
-      lastName = Swal.getPopup().querySelector("#changeLastName").value.trim();
-      email = Swal.getPopup().querySelector("#changeEmail").value.trim();
-      phone = Swal.getPopup().querySelector("#changePhoneNumber").value.trim();
-      userName = Swal.getPopup().querySelector("#changeUserName").value.trim();
-      password = Swal.getPopup().querySelector("#changePassword").value.trim();
-
-      if (email !== "" && !isValidEmail(email)) {
-        errorMsg += "Please enter a valid email address</br>";
-      }
-      if (phone !== "" && !isValidPhoneNumber(phone)) {
-        errorMsg += "Please enter a valid phone number</br>";
-      }
-      if (
-        email == "" ||
-        password == "" ||
-        phone == "" ||
-        lastName == "" ||
-        firstName == "" ||
-        userName == ""
-      ) {
-        errorMsg = "Please fill in all fields";
-      }
-
-      // Display error message if there is one
-      if (errorMsg !== "") {
-        Swal.showValidationMessage(errorMsg);
-        return false;
-      }
-
-      return {
-        id: JSON.parse(localStorage.getItem("user")).id,
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
-        phone: phone,
-        userName: userName,
-        password: password,
-      };
-    },
+      "Song popularity: " +
+      data +
+      "<br>" +
+      "Lyrics:<br>" +
+      song.lyrics.replace(/\n/g, "<br>") +
+      "\n",
+    icon: "info",
+    showCancelButton: true,
+    confirmButtonText: "Info about " + song.artistName,
+    cancelButtonText: "Close Info",
+    showCloseButton: true,
   }).then((result) => {
     if (result.isConfirmed) {
-      user = {
-        id: JSON.parse(localStorage.getItem("user")).id,
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
-        phone: phone,
-        userName: userName,
-        password: password,
-      };
-      ajaxCall(
-        "POST",
-        updateUser,
-        JSON.stringify(user),
-        updateSuccess,
-        updateFail
-      );
-      console.log(result.value);
+      // Handle the action when "Show More Info" is clicked
+      window.open("about.html", "_self");
     }
   });
-  function isValidEmail(email) {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  }
-
-  // Function to validate the phone number format
-  function isValidPhoneNumber(phoneNumber) {
-    const phoneRegex = /^05\d{8}$/;
-    return phoneRegex.test(phoneNumber);
-  }
-  function updateSuccess(data) {
-    localStorage.setItem("user", JSON.stringify(user));
-    Swal.fire("User Updated!", "", "success");
-    document.getElementById("userFirstName").innerHTML = user.firstName;
-  }
-  function updateFail(error) {
-    Swal.fire({
-      icon: "error",
-      title: "Oops...",
-      text: "Email/UserName already taken.",
-    });
-  }
+}
+function errorSongPopularity(error) {
+  console.log(error);
 }

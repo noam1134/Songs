@@ -17,6 +17,7 @@ $(document).ready(function () {
   });
 });
 function successLoginCB(data) {
+  localStorage.setItem("indicator", "home");
   //add all favorites songs to chach
   ajaxCall(
     "POST",

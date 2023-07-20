@@ -172,8 +172,6 @@ h6 {
   color: #fff;
 }
 
-
-
 .scroll-top.active {
   visibility: visible;
   opacity: 1;
@@ -1306,14 +1304,13 @@ h6 {
 .swal2-popup {
   background-color: #1d2124; /* Dark background color */
   color: rgb(255, 255, 255); /* Text color */
-  
 }
 
 .swal2-confirm {
   background-color: #484848 !important; /* Specify your desired button color here */
 }
 .swal2-confirm:hover {
-  box-shadow:#000;
+  box-shadow: #000;
   background-color: #434343 !important; /* Specify your desired button color here */
 }
 
@@ -1331,13 +1328,41 @@ h6 {
   margin: 15px;
 }
 
-body{
-overflow: auto !important;
+body {
+  overflow: auto !important;
 }
-.navbar ul li a{
+.navbar ul li a {
   cursor: pointer;
   color: rgba(255, 255, 255, 0.5);
 }
- 
 
+.img-fluid {
+  border-radius: 4px;
+  box-shadow: 10px 10px 50px rgb(24, 24, 24);
+}
 
+/* for the swal radio buttons */
+.swal2-html-container div {
+  background-color: #1d2124 !important;
+  display: flex;
+  align-items: center;
+  margin: 8px 0;
+}
+
+.swal2-radio input[type="radio"] {
+  margin-right: 8px;
+}
+
+.artistBtn {
+  background-color: #1d2124;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+
+.artistBtn:hover {
+  background-color: #161616;
+}

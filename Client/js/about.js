@@ -1,12 +1,11 @@
 var artist;
-var song;
 
 url = "https://localhost:7061/";
 getArtistInfoByName = url + "api/Artists/GetArtistInfoByName?artistName=";
 getAllSongsOfArtist = url + "api/Songs/GetAllSongsByArtistName?artistName=";
 
 $(document).ready(function () {
-  song = JSON.parse(localStorage.getItem("song"));
+  getArtistImage(JSON.parse(localStorage.getItem("song")).artistName);
   artist = JSON.parse(localStorage.getItem("song")).artistName;
   renderArtistInfo();
   document.getElementById("popularity").innerHTML = artist.popularity;
@@ -16,7 +15,7 @@ function renderArtistInfo() {
   link = document.getElementById("linkToLyricsFreak");
   link.setAttribute(
     "href",
-    "https://www.lyricsfreak.com/" + song.link.split("/").slice(1, 3).join("/")
+    "https://www.lyricsfreak.com/" + artist[0] + "/" + artist
   );
   link.setAttribute("target", "_blank");
   getArtistInfo();
@@ -109,7 +108,6 @@ function getArtistInfo() {
 function gotArtistInfoCB(data) {
   document.getElementById("popularity").innerHTML = data.popularity;
   document.getElementById("aboutArtist").innerHTML += data.name;
-  console.log(data);
 }
 function errorArtistInfoCB(error) {
   console.log("failed to get info " + error);
@@ -128,7 +126,6 @@ function getLastFMInfo() {
 
       if (artistInfo.stats && artistInfo.stats.playcount) {
         const playCount = artistInfo.stats.playcount;
-        console.log(artistInfo.stats.playcount);
         document.getElementById("playCount").innerHTML = `${playCount}`;
       } else {
         document.getElementById("playCount").innerHTML =
@@ -137,7 +134,6 @@ function getLastFMInfo() {
 
       if (artistInfo.stats && artistInfo.stats.listeners) {
         const listeners = artistInfo.stats.listeners;
-        console.log(artistInfo.stats.listeners);
         document.getElementById("listeners").innerHTML = `${listeners}`;
       } else {
         document.getElementById("listeners").innerHTML =
@@ -152,9 +148,9 @@ function getLastFMInfo() {
     });
 }
 
-function homeAll(){
+function homeAll() {
   localStorage.setItem("indicator", "home");
-  window.open("index.html", "_self")
+  window.open("index.html", "_self");
 }
 
 function homeFavorites() {
