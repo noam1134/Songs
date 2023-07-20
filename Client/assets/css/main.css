@@ -172,6 +172,8 @@ h6 {
   color: #fff;
 }
 
+
+
 .scroll-top.active {
   visibility: visible;
   opacity: 1;
@@ -1332,5 +1334,10 @@ h6 {
 body{
 overflow: auto !important;
 }
+.navbar ul li a{
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.5);
+}
+ 
 
 

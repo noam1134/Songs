@@ -10930,3 +10930,6 @@ body {
   background-attachment: fixed;
   background-size: cover;
 }
+.navbar ul li a{
+  cursor: pointer
+}

@@ -151,3 +151,13 @@ function getLastFMInfo() {
         "Error fetching data. Please try again later.";
     });
 }
+
+function homeAll(){
+  localStorage.setItem("indicator", "home");
+  window.open("index.html", "_self")
+}
+
+function homeFavorites() {
+  localStorage.setItem("indicator", "favorites");
+  window.open("index.html", "_self");
+}

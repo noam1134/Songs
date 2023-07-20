@@ -9,6 +9,9 @@ removeFromFavorites = url + "api/MusicUsers/RemoveFromFavorites?userId=";
 var favoriteID;
 
 function renderAllSongs() {
+  if()
+  document.getElementById("homeBtn").setAttribute("class","active");
+  document.getElementById("favBtn").setAttribute("class","notActive");
   document.getElementById("allSongs").innerHTML = "";
   document.getElementById("showing").innerHTML = "Showing All Songs";
   ajaxCall("GET", getAllSongs, "", GetAllSongsSuccess, ErrorGetAllSongs);
@@ -25,6 +28,8 @@ function ErrorGetAllSongs(error) {
 }
 
 function renderFavorites() {
+  document.getElementById("favBtn").setAttribute("class","active");
+  document.getElementById("homeBtn").setAttribute("class","notActive");
   document.getElementById("showing").innerHTML = "Showing All Favorite Songs";
   document.getElementById("allSongs").innerHTML = "";
   ajaxCall(
