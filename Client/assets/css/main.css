@@ -729,9 +729,9 @@ h6 {
 .gallery .gallery-links {
   position: absolute;
   inset: 0;
-  opacity: 0;
+  opacity: 1;
   transition: all ease-in-out 0.3s;
-  background: rgba(0, 0, 0, 0.6);
+  /* background: rgba(0, 0, 0, 0.6); */
   z-index: 3;
 }
 
@@ -755,8 +755,14 @@ h6 {
 }
 
 .gallery .gallery-item:hover .gallery-links {
+  background: rgba(0, 0, 0, 0.6);
   opacity: 1;
 }
+
+/* .gallery:hover .infoDiv img {
+ 
+  opacity: 1;
+} */
 
 .gallery .gallery-item:hover .preview-link,
 .gallery .gallery-item:hover .details-link {

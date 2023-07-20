@@ -52,7 +52,18 @@
   width: 30px;
   height: 30px;
   margin: 5px;
+  opacity:0;
 }
+/* ONE OPTION: */
+.infoDiv{
+  width: 100%;
+  height: 100%;
+}
+
+.infoDiv:hover > img{
+  opacity: 1;
+}
+
 .msg {
   font-family: "Cardo";
 }
@@ -62,6 +73,6 @@
   padding-left: 0px;
 }
 
-.navbar {  
+.navbar {
   box-sizing: border-box;
 }
