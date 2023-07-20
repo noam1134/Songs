@@ -10925,4 +10925,8 @@ textarea.form-control {
 }
 body {
   font-family: "Cardo";
+  overflow: auto !important;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
 }
