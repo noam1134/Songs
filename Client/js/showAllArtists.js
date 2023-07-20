@@ -1,8 +1,9 @@
+// script.js
 url = "https://localhost:7061/";
 const getAllArtistsAPI = url + "api/Artists/GetAllArtists";
 
 let currentPage = 1;
-const artistsPerPage = 10; // Number of artists to display per page
+const artistsPerPage = 9; // Number of artists to display per page
 
 function getAllArtists() {
   ajaxCall("GET", getAllArtistsAPI, "", gotAllArtists, errorAllArtists);
@@ -11,7 +12,9 @@ function getAllArtists() {
 function gotAllArtists(data) {
   localStorage.setItem("artists", JSON.stringify(data));
   const artists = JSON.parse(localStorage.getItem("artists"));
-  console.log(artists);
+
+  // Sort the artists alphabetically by name
+  artists.sort((a, b) => a.name.localeCompare(b.name));
 
   // Calculate the total number of pages
   const totalPages = Math.ceil(artists.length / artistsPerPage);
@@ -22,6 +25,14 @@ function gotAllArtists(data) {
   const artistsToDisplay = artists.slice(startIndex, endIndex);
 
   let htmlContent = ""; // Initialize the string to hold the HTML content
+
+  // Add heading to show the alphabetical range of artists on the current page
+  htmlContent +=
+    "<h2>" +
+    artistsToDisplay[0].name[0].toUpperCase() +
+    " - " +
+    artistsToDisplay[artistsToDisplay.length - 1].name[0].toUpperCase() +
+    "</h2>";
 
   artistsToDisplay.forEach((artist) => {
     // Add each button to the string with an HTML line break
@@ -54,6 +65,7 @@ function gotAllArtists(data) {
     html: htmlContent, // Use the generated string as the content of the Swal modal
     showCloseButton: true,
     showConfirmButton: false,
+    scrollbarPadding: false,
   });
 
   artistsToDisplay.forEach((artist) => {
@@ -77,4 +89,3 @@ function goToPage(pageNumber) {
   currentPage = pageNumber;
   getAllArtists(); // Reload the artists with the new page number
 }
-

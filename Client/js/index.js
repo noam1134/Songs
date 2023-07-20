@@ -87,7 +87,6 @@ function renderSong(song) {
   const songName = document.createElement("div");
   songName.innerHTML = song.songName + "<br/>By: " + song.artistName;
 
-  //console.log(songName);
   songName.setAttribute("class", "songText");
 
   const divGalleryLinks = document.createElement("div");

@@ -38,7 +38,7 @@ body {
   font-family: var(--font-default);
   color: var(--color-default);
   background-color: #000;
-  
+
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
@@ -1219,7 +1219,7 @@ h6 {
   bottom: 0;
   left: 0;
   right: 0;
-  background: #222222;
+  background: #2a163a;
   z-index: -1;
 }
 
@@ -1304,7 +1304,15 @@ h6 {
 .swal2-popup {
   background-color: #1d2124; /* Dark background color */
   color: rgb(255, 255, 255); /* Text color */
+  max-height: 70em !important;
 }
+
+.swal2-html-container{
+  overflow-y:scroll !important;
+  max-height: 30em;
+}
+
+
 
 .swal2-confirm {
   background-color: #484848 !important; /* Specify your desired button color here */
@@ -1366,3 +1374,63 @@ body {
 .artistBtn:hover {
   background-color: #161616;
 }
+
+.gallery-item:hover {
+  transform: scale(1.07);
+}
+.gallery-item{
+  box-shadow: 6px 6px 0px 1px rgba(0,0,0,0.5);
+-webkit-box-shadow: 6px 6px 0px 1px rgba(0,0,0,0.5);
+-moz-box-shadow: 6px 6px 0px 1px rgba(0,0,0,0.5);
+}
+.songText{
+  z-index: 10;
+  transition: 500ms ease-in-out;
+}
+#header div a img{
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+.testimonial-item{
+    background-size: cover !important;
+    border-radius: 1rem;
+    background-color: transparent !important;
+}
+#header{
+  z-index: 100
+}
+
+/* Add this to the head section of your HTML or link to an external CSS file */
+
+/* Hide the default scrollbar, this is necessary for cross-browser compatibility */
+*  {
+  scrollbar-width: none ; /* Firefox */
+  -ms-overflow-style: none ; /* Internet Explorer and Microsoft Edge */
+}
+
+/* Style for WebKit (Chrome, Safari, and newer versions of Edge) */
+*::-webkit-scrollbar {
+  width: 12px ; /* Set the width of the scrollbar */
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: rgb(135, 135, 135) ; /* Set the color of the scrollbar thumb (the part that you drag) */
+  border-radius: 5px ; /* Rounded corners for the thumb */
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: rgb(81, 81, 81) ;
+  border-radius: 5px /* Set the color of the thumb on hover */
+}
+
+*::-webkit-scrollbar-track {
+  background-color: rgb(81, 81, 81) ; 
+  border-radius: 5px/* Set the background color of the scrollbar track (the area behind the thumb) */
+}
+
+*::-webkit-scrollbar-track:hover {
+  background-color: rgb(81, 81, 81) ; 
+  border-radius: 5px/* Set the background color of the scrollbar track on hover */
+}
+
+
