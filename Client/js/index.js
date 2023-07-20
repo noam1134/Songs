@@ -8,10 +8,30 @@ removeFromFavorites = url + "api/MusicUsers/RemoveFromFavorites?userId=";
 
 var favoriteID;
 
+function clickHome() {
+  localStorage.setItem("indicator", "home");
+  whatToRender();
+}
+function clickFavorites() {
+  localStorage.setItem("indicator", "favorites");
+  whatToRender();
+}
+
+function whatToRender() {
+  if (localStorage.getItem("indicator") == "favorites") {
+    renderFavorites();
+  } else if (localStorage.getItem("indicator") == "home") {
+    renderAllSongs();
+  }
+}
+
 function renderAllSongs() {
-  if()
-  document.getElementById("homeBtn").setAttribute("class","active");
-  document.getElementById("favBtn").setAttribute("class","notActive");
+  if (localStorage.getItem("indicator") == "favorites") {
+    renderFavorites();
+    return;
+  }
+  document.getElementById("homeBtn").setAttribute("class", "active");
+  document.getElementById("favBtn").setAttribute("class", "notActive");
   document.getElementById("allSongs").innerHTML = "";
   document.getElementById("showing").innerHTML = "Showing All Songs";
   ajaxCall("GET", getAllSongs, "", GetAllSongsSuccess, ErrorGetAllSongs);
@@ -28,8 +48,8 @@ function ErrorGetAllSongs(error) {
 }
 
 function renderFavorites() {
-  document.getElementById("favBtn").setAttribute("class","active");
-  document.getElementById("homeBtn").setAttribute("class","notActive");
+  document.getElementById("favBtn").setAttribute("class", "active");
+  document.getElementById("homeBtn").setAttribute("class", "notActive");
   document.getElementById("showing").innerHTML = "Showing All Favorite Songs";
   document.getElementById("allSongs").innerHTML = "";
   ajaxCall(
