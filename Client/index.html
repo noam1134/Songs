@@ -84,7 +84,7 @@
           <nav id="navbar" class="navbar">
             <ul>
               <li><a href="services.html">Search</a></li>
-              <li><a href="index.html" class="active">Home</a></li>
+              <li><a onclick="renderAllSongs()" class="active">Home</a></li>
               <li><a onclick="renderFavorites()">Favorites</a></li>
             </ul>
           </nav>
@@ -116,7 +116,7 @@
           <div class="col-lg-6 text-center">
             <h2 style="font-size: 5vh;"><br><br> Welcome back, <span id="userFirstName"></span></h2>
             <p class="msg">What would you like to listen to today?</p></br></p>
-            <p style="color:white; font-size:x-large; font-family: var(--font-secondary);">Showing All Songs</p>
+            <p id = "showing" style="color:white; font-size:x-large; font-family: var(--font-secondary);">Showing All Songs</p>
           </div>
           
         </div>
@@ -137,7 +137,6 @@
     </main>
     <!-- End #main -->
 
-    <script src="path/to/jquery.js"></script>
 
     <!-- ======= Footer ======= -->
     <footer id="footer" class="footer">
@@ -175,7 +174,6 @@
     <script src="assets/js/main.js"></script>
     <script>
       user = JSON.parse(localStorage.getItem("user"));
-      console.log(user.firstName);
       document.getElementById("userFirstName").innerHTML = String(
         user.firstName
       );
