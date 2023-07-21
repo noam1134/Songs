@@ -1300,12 +1300,12 @@ h6 {
 .swal2-popup {
   background-color: #1d2124; /* Dark background color */
   color: rgb(255, 255, 255); /* Text color */
-  max-height: 70em !important;
+  max-height: 60em !important;
 }
 
 .swal2-html-container {
   overflow-y: scroll !important;
-  max-height: 30em;
+  max-height: 22em;
 }
 
 .swal2-confirm {
@@ -1431,13 +1431,16 @@ body {
   border-radius: 5px; /* Set the background color of the scrollbar track on hover */
 }
 
-
+.swal2-modal {
+  box-shadow: 0 0 8px 4px rgba(0, 0, 0, 0.7);
+  /* max-height: 70vh !important; */
+}
 
 /* LINEAR-GRADIENT EFFECT */
-/* .infoDiv:hover{
+.infoDiv:hover{
   background: linear-gradient(135deg, #731086, #15174f, #691c3a, #6c3221);
   background-size: 400% 400%;
-  animation: gradient 10s ease infinite; /* Changed animation duration to 10s 
+  animation: gradient 10s ease infinite; /* Changed animation duration to 10s */
 }
 @keyframes gradient {
   0% {
@@ -1449,11 +1452,11 @@ body {
   100% {
     background-position: 0% 50%;
   }
-} */
+}
 
 
 /* GIVE BACKGROUND COLOR TO .gallery-item */
-/* .gallery-item {
+.gallery-item {
   background-image: linear-gradient(
     315deg,
     hsl(240deg 100% 20%) 0%,
@@ -1467,4 +1470,18 @@ body {
     hsl(288deg 95% 48%) 89%,
     hsl(291deg 100% 50%) 100%
   );
+}
+/* .floating-video{
+  visibility: hidden !important;
+} */
+
+/* CSS for the floating div */
+/* .floating-video {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 800px;
+  height: 450px;
+  background-color: #000;
 } */
