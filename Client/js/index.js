@@ -219,10 +219,8 @@ function renderSong(song) {
   divGalleryLinks.appendChild(infoDiv);
   divGalleryLinks.appendChild(faveDiv);
 
-  //divGalleryLinks.appendChild(imgFavorite);
-
   divGalleryItem.appendChild(img);
-  divGalleryItem.appendChild(songName);
+  infoDiv.appendChild(songName);
   divGalleryItem.appendChild(divGalleryLinks);
 
   divCol.appendChild(divGalleryItem);

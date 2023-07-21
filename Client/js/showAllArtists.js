@@ -3,7 +3,7 @@ url = "https://localhost:7061/";
 const getAllArtistsAPI = url + "api/Artists/GetAllArtists";
 
 let currentPage = 1;
-const artistsPerPage = 7; // Number of artists to display per page
+const artistsPerPage = 5; // Number of artists to display per page
 
 function getAllArtists() {
   ajaxCall("GET", getAllArtistsAPI, "", gotAllArtists, errorAllArtists);
