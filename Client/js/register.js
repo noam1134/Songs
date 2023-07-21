@@ -126,6 +126,7 @@ $(document).ready(function () {
 });
 function successRegisterCB(data) {
   localStorage.setItem("indicator", "home");
+  localStorage.setItem("favoriteSongs", "");
   //add all favorites songs to chach
   ajaxCall(
     "POST",
@@ -144,6 +145,7 @@ function successRegisterCB(data) {
     timer: 2500,
   });
 
+  
   function successSaveAllFavoritesCB(data) {
     localStorage.setItem("favoriteSongs", JSON.stringify(data));
   }
