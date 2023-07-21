@@ -1,101 +1,99 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Get Artist Images (Spotify API)</title>
+    <title>Timed Quiz</title>
   </head>
+
   <body>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <h1>Timed Quiz</h1>
+    <div id="question-container">
+      <p id="question"></p>
+      <input type="text" id="answer" />
+      <button id="submit-btn">Submit</button>
+    </div>
+    <div id="result-container"></div>
+
+    <script src="script.js"></script>
     <script>
-      var expiresIn;
-      var images = []
-      const clientId = "76eb58574dca4292942f6b50535fe9b9";
-      const clientSecret = "df624510f02e46a39a9f04d250b1cde8";
+      // Define your quiz questions and answers
+      const questions = [
+        {
+          question: "What is 2 + 2?",
+          answer: "4",
+        },
+        {
+          question: "What is 2 + 2?",
+          answer: "4",
+        },
+        {
+          question: "What is 2 + 2?",
+          answer: "4",
+        },
+        {
+          question: "What is 2 + 2?",
+          answer: "4",
+        },
+        {
+          question: "What is the capital of France?",
+          answer: "Paris",
+        },
+        // Add more questions here...
+      ];
 
-      let accessToken = null;
-      let tokenExpirationTime = 0;
+      let currentQuestionIndex = 0;
+      let timer;
+      const timePerQuestion = 10; // 10 seconds per question
 
-      // Fetch access token using Client Credentials Flow
-      function getAccessToken() {
-        if (Date.now() < tokenExpirationTime) {
-          const secondsLeft = Math.ceil(
-            (tokenExpirationTime - Date.now()) / 1000
-          );
-          console.log(`Access token still valid. Seconds left: ${secondsLeft}`);
-          return Promise.resolve(accessToken); // Token still valid, no need to refresh
+      function startQuiz() {
+        showQuestion();
+        startTimer();
+      }
+
+      function showQuestion() {
+        const questionContainer = document.getElementById("question-container");
+        const questionElement = document.getElementById("question");
+        questionElement.textContent = questions[currentQuestionIndex].question;
+      }
+
+      function startTimer() {
+        const resultContainer = document.getElementById("result-container");
+        timer = setTimeout(() => {
+          showResult("Time's up! You didn't answer in time.");
+        }, timePerQuestion * 1000);
+      }
+
+      function showResult(message) {
+        clearTimeout(timer);
+        const resultContainer = document.getElementById("result-container");
+        resultContainer.textContent = message;
+        // Show the next question or end the quiz
+        currentQuestionIndex++;
+        if (currentQuestionIndex < questions.length) {
+          startQuiz();
+        } else {
+          resultContainer.textContent += " Quiz is over!";
         }
-
-        const authString = `${clientId}:${clientSecret}`;
-        const encodedAuth = btoa(authString);
-        const headers = {
-          "Content-Type": "application/x-www-form-urlencoded",
-          Authorization: `Basic ${encodedAuth}`,
-        };
-        const body = "grant_type=client_credentials";
-
-        return axios
-          .post("https://accounts.spotify.com/api/token", body, { headers })
-          .then((response) => {
-            accessToken = response.data.access_token;
-            expiresIn = response.data.expires_in;
-            console.log("Access token refreshed. " + expiresIn);
-            return accessToken;
-          })
-          .catch((error) => {
-            console.log(
-              "Error occurred while getting access token:",
-              error.message
-            );
-            return null;
-          });
       }
 
-      // Fetch artist information and images
-      function getArtistImages(artistName, accessToken) {
-        const apiUrl = `https://api.spotify.com/v1/search?q=${encodeURIComponent(
-          artistName
-        )}&type=artist`;
+      function onSubmitAnswer() {
+        const answerInput = document.getElementById("answer");
+        const userAnswer = answerInput.value.trim().toLowerCase();
+        const correctAnswer =
+          questions[currentQuestionIndex].answer.toLowerCase();
 
-        axios
-          .get(apiUrl, { headers: { Authorization: `Bearer ${accessToken}` } })
-          .then((response) => {
-            const artists = response.data.artists.items;
-            if (artists.length > 0) {
-              const artistInfo = artists[0];
-              const artistImages = artistInfo.images || [];
-              if (artistImages.length > 0) {
-                console.log(`Images for ${artistInfo.name}:`);
-                artistImages.forEach((image) => {
-                  console.log(image.url);
-                  images.push(image)
-                });
-                
-              } else {
-                console.log(`No images found for ${artistInfo.name}.`);
-              }
-            } else {
-              console.log(
-                `Artist "${artistName}" not found in the Spotify API response.`
-              );
-            }
-          })
-          .catch((error) => {
-            console.log("Error occurred:", error.message);
-          });
+        if (userAnswer === correctAnswer) {
+          showResult("Correct!");
+        } else {
+          showResult("Wrong answer!");
+        }
       }
 
-      // Entry point (called on page load)
-      function init(artistToShow) {
-        const artist = artistToShow
-        getAccessToken().then((token) => {
-          if (token) {
-            getArtistImages(artist, token);
-          }
-        });
-      }      
-      
-      
-       // Call the entry point function on page load
+      document
+        .getElementById("submit-btn")
+        .addEventListener("click", onSubmitAnswer);
+
+      // Start the quiz when the page loads
+      startQuiz();
     </script>
-    <button onclick="init('linkin park')"></button>
   </body>
 </html>
