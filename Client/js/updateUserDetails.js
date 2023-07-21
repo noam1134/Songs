@@ -20,6 +20,7 @@ function showDetails() {
       '<tr><td>Password:</td><td><input id="changePassword" class="swal2-input" placeholder="Password..."></td></tr>' +
       "</table>",
     focusConfirm: false,
+    scrollbarPadding: false,
     preConfirm: () => {
       var errorMsg = "";
       firstName = Swal.getPopup()

@@ -101,6 +101,9 @@ function renderSong(song) {
   infoDiv = document.createElement("div");
   infoDiv.className = "infoDiv";
   const imgInfo = document.createElement("img");
+  infoDiv.onclick = function(){
+    searchVideo(song.songName+" "+song.artistName);
+  }
 
   imgInfo.setAttribute("class", "infoClass");
   imgInfo.src = "images/info.png";
@@ -267,3 +270,6 @@ function gotSongPopularity(data) {
 function errorSongPopularity(error) {
   console.log(error);
 }
+
+
+

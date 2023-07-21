@@ -3,7 +3,7 @@ url = "https://localhost:7061/";
 const getAllArtistsAPI = url + "api/Artists/GetAllArtists";
 
 let currentPage = 1;
-const artistsPerPage = 9; // Number of artists to display per page
+const artistsPerPage = 7; // Number of artists to display per page
 
 function getAllArtists() {
   ajaxCall("GET", getAllArtistsAPI, "", gotAllArtists, errorAllArtists);
@@ -43,6 +43,10 @@ function gotAllArtists(data) {
       artist.name +
       "</button><br>";
   });
+
+  // Add pagination information to the modal content
+  const paginationInfo = currentPage + "/" + totalPages;
+  htmlContent += '<br><div class="pagination">' + paginationInfo + "</div>";
 
   // Add pagination buttons to the modal content
   htmlContent += '<div class="pagination">';

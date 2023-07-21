@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>YouTube Video with Media Player</title>
+    <style>
+      #player-container iframe {
+        width: 640px;
+        height: 360px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="player-container"></div>
+
+    <div>
+      <button onclick="playVideo()">Play Video</button>
+      <button onclick="pauseVideo()">Pause Video</button>
+      <button onclick="stopVideo()">Stop Video</button>
+    </div>
+
+    <script>
+      var player;
+      // This function creates the YouTube player
+      function createVideoPlayer(videoId) {
+        player = new YT.Player("player-container", {
+          height: "360",
+          width: "640",
+          videoId: videoId,
+        });
+      }
+
+      function playVideo() {
+        if (player) {
+          player.playVideo();
+        }
+      }
+
+      function pauseVideo() {
+        if (player) {
+          player.pauseVideo();
+        }
+      }
+
+      function stopVideo() {
+        if (player) {
+          player.stopVideo();
+        }
+      }
+    </script>
+
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script>
+      // Call the function with the YouTube video ID you want to play
+      createVideoPlayer("https://www.youtube.com/watch?v=cgicE7_Szw8&ab_channel=DaveLee");
+    </script>
+  </body>
+</html>
