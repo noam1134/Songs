@@ -20,12 +20,13 @@ GO
 -- =============================================
 alter PROCEDURE SP_InsertScore
     @score INT,
-    @userId INT
+    @userId INT,
+	@userName varchar(30)
 AS
 BEGIN
     SET NOCOUNT ON;
 
     -- Insert the new score into the Scoreboard table
-    INSERT INTO Scoreboard (score, userId)
-    VALUES (@score, @userId);
+    INSERT INTO Scoreboard (score, userId, userName)
+    VALUES (@score, @userId, @userName);
 END;

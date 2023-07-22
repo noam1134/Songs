@@ -1124,7 +1124,7 @@ public class DBservices
 
         cmd = CreateCommandWithStoredProcedure("SP_GetTopTenScoreBoard", con, paramDic);// create the command
 
-        List<ArtistClass> artists = new List<ArtistClass>();
+        List<Score> topTenScores = new List<Score>();
 
         try
         {
@@ -1132,23 +1132,74 @@ public class DBservices
 
             while (dataReader.Read())
             {
-                ArtistClass art = new ArtistClass();
-                art.Id = Convert.ToInt32(dataReader["artistId"]);
-                art.Name = dataReader["artistName"].ToString();
-                art.Popularity = Convert.ToInt32(dataReader["popularity"]);
-                artists.Add(art);
+                Score score = new Score();
+                score.Id = Convert.ToInt32(dataReader["id"]);
+                score.UserId = Convert.ToInt32(dataReader["userId"]);
+                score.UserScore = Convert.ToInt32(dataReader["score"]);
+                score.UserName = dataReader["userName"].ToString();
+                topTenScores.Add(score);
             }
 
             // Close the dataReader before executing the next command
             dataReader.Close();
 
-            return artists;
+            return topTenScores;
         }
         catch (Exception ex)
         {
             // write to log
             throw (ex);
         }
+        finally
+        {
+            if (con != null)
+            {
+                // close the db connection
+                con.Close();
+            }
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------
+    // This method Add new Score to the scoreboard
+    //--------------------------------------------------------------------------------------------------
+    public bool InsertScore(Score score)
+    {
+
+        SqlConnection con;
+        SqlCommand cmd;
+
+        try
+        {
+            con = connect("myProjDB"); // create the connection
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+
+        Dictionary<string, object> paramDic = new Dictionary<string, object>();
+        paramDic.Add("@score", score.UserScore);
+        paramDic.Add("@userId", score.UserId);
+
+        cmd = CreateCommandWithStoredProcedure("SP_InsertScore", con, paramDic);             // create the command
+
+        try
+        {
+            int numEffected = cmd.ExecuteNonQuery(); // execute the command
+            if (numEffected == 0)
+            {
+                return false;
+            }
+            return true;
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+
         finally
         {
             if (con != null)
