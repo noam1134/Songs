@@ -1103,7 +1103,7 @@ public class DBservices
     }
 
     //--------------------------------------------------------------------------------------------------
-    // This method returns all Artists
+    // This method returns Top 10 Scores
     //--------------------------------------------------------------------------------------------------
     public List<Score> GetTopTenScoreBoard()
     {
@@ -1159,6 +1159,62 @@ public class DBservices
         }
     }
 
+    //--------------------------------------------------------------------------------------------------
+    // This method returns All scores for a specific user
+    //--------------------------------------------------------------------------------------------------
+    public List<Score> GetTopTenScoreBoard(int userId)
+    {
+        SqlConnection con;
+        SqlCommand cmd;
+
+        try
+        {
+            con = connect("myProjDB"); // create the connection
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+
+        Dictionary<string, object> paramDic = new Dictionary<string, object>();
+
+        cmd = CreateCommandWithStoredProcedure("SP_getUserScores", con, paramDic);// create the command
+
+        List<Score> scores = new List<Score>();
+
+        try
+        {
+            SqlDataReader dataReader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+            while (dataReader.Read())
+            {
+                Score sco = new Score();
+                sco.Id = Convert.ToInt32(dataReader["Id"]);
+                sco.UserId = Convert.ToInt32(dataReader["userId"]);
+                sco.UserScore = Convert.ToInt32(dataReader["score"]);
+                scores.Add(sco);
+            }
+
+            // Close the dataReader before executing the next command
+            dataReader.Close();
+
+            return scores;
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+        finally
+        {
+            if (con != null)
+            {
+                // close the db connection
+                con.Close();
+            }
+        }
+    }
 
     //---------------------------------------------------------------------------------
     // Create the SqlCommand using a stored procedure
