@@ -1485,3 +1485,9 @@ body {
   height: 450px;
   background-color: #000;
 } */
+
+/* FIX MOVEMENT WHEN SHOWING YOUTUBE VIDEO */
+.compensate-for-scrollbar
+{
+    margin-right: 0 !important;
+}

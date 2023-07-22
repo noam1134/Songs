@@ -1,4 +1,4 @@
-var apiKey = "AIzaSyCSrPK-MmRJ0tSC4e9pRH4VrwSLBHBtfLg";
+var apiKey = "AIzaSyBrbbHEyquRb5GprAQWUxA6ptt6gmnM5hk";
 var player;
 
 function onYouTubeIframeAPIReady() {
@@ -11,9 +11,9 @@ function onYouTubeIframeAPIReady() {
   });
 }
 
-function searchVideo(searchInput) {
+function searchVideo(query) {
+  console.log(query);
   // Make the API call to search for videos
-  query = searchInput;
   var request = gapi.client.youtube.search.list({
     q: query,
     part: "snippet",
@@ -24,10 +24,14 @@ function searchVideo(searchInput) {
 
   // Process the response and display the player in a Fancybox modal
   request.execute(function (response) {
+    console.log(response);
     var videoId = response.items[0].id.videoId;
     var videoURL = "https://www.youtube.com/embed/" + videoId + "?autoplay=1";
     $.fancybox.open({
       src: videoURL,
+
+      overflow: "auto",
+
       type: "iframe",
       iframe: {
         preload: false,

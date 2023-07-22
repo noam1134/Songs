@@ -100,12 +100,14 @@ function showDetails() {
     localStorage.setItem("user", JSON.stringify(user));
     Swal.fire("User Updated!", "", "success");
     document.getElementById("userFirstName").innerHTML = user.firstName;
+    
   }
   function updateFail(error) {
     Swal.fire({
       icon: "error",
       title: "Oops...",
       text: "Email/UserName already taken.",
+      scrollbarPadding: false,
     });
   }
 }

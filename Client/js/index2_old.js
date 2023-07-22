@@ -110,7 +110,6 @@ function renderSong(song) {
   imgInfo.setAttribute("class", "infoClass");
   imgInfo.src = "images/info.png";
   imgInfo.onclick = function () {
-    event.stopPropagation();
     song = {
       songId: song.songId,
       name: song.songName,
@@ -126,14 +125,90 @@ function renderSong(song) {
   faveDiv.className = "faveDiv";
   const imgFavorite = document.createElement("img");
   imgFavorite.setAttribute("class", "favClass");
-  imgFavorite.setAttribute("id", "song_" + song.songId);
   favoriteSongs = localStorage.getItem("favoriteSongs");
   if (favoriteSongs.includes(JSON.stringify(song))) {
     imgFavorite.src = "images/like.png";
   } else {
     imgFavorite.src = "images/disLike.png";
   }
-  imgFavorite.setAttribute("onclick", "favoriteFunction(" + song.songId + ")");
+  imgFavorite.onclick = function () {
+    const userId = JSON.parse(localStorage.getItem("user")).id;
+    localStorage.setItem("song", JSON.stringify(song));
+    ajaxCall(
+      "POST",
+      addToFavorite + userId + "&songId=" + song.songId,
+      "",
+      AddSongToFavoriteSuccess,
+      AddSongToFavoriteFailed
+    );
+  };
+
+  function AddSongToFavoriteSuccess(data) {
+    updateFavorites();
+    imgFavorite.src = "images/like.png";
+    Swal.fire({
+      position: "center",
+      icon: "success",
+      title: "Song added to favorites!",
+      showConfirmButton: false,
+      scrollbarPadding: false,
+      heightAuto: false,
+      timer: 2500,
+    });
+  }
+  function AddSongToFavoriteFailed(error) {
+    ajaxCall(
+      "POST",
+      removeFromFavorites +
+        JSON.parse(localStorage.getItem("user")).id +
+        "&songId=" +
+        JSON.parse(localStorage.getItem("song")).songId,
+      "",
+      songRemoved,
+      songNotRemoved
+    );
+    function songRemoved() {
+      updateFavorites();
+      imgFavorite.src = "images/disLike.png";
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Song removed from favorites!",
+        showConfirmButton: false,
+        scrollbarPadding: false,
+        heightAuto: false,
+        timer: 2500,
+      });
+    }
+    function songNotRemoved() {
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Song not removed from favorites!",
+        showConfirmButton: false,
+        scrollbarPadding: false,
+        heightAuto: false,
+        timer: 2500,
+      });
+    }
+  }
+
+  function updateFavorites() {
+    ajaxCall(
+      "POST",
+      getAllFavorites + JSON.parse(localStorage.getItem("user")).id,
+      "",
+      successSaveAllFavoritesCB,
+      errorSaveAllFavoritesCB
+    );
+  }
+  function successSaveAllFavoritesCB(data) {
+    console.log(data);
+    localStorage.setItem("favoriteSongs", JSON.stringify(data));
+  }
+  function errorSaveAllFavoritesCB(error) {
+    console.log(error);
+  }
 
   faveDiv.appendChild(imgFavorite);
   const iLink = document.createElement("i");
@@ -152,106 +227,13 @@ function renderSong(song) {
   divCol.appendChild(divGalleryItem);
 
   // Append the resulting structure to the desired parent element
+  const parentElement = document.getElementById("parent-element-id");
   return divCol;
-}
-
-function favoriteFunction(songId) {
-  const userId = JSON.parse(localStorage.getItem("user")).id;
-  var songElement = document.getElementById("song_" + songId);
-  var songSrc = songElement.src;
-  var fileName = songSrc.substring(songSrc.lastIndexOf("/") + 1);
-
-  if (fileName == "like.png") {
-    removeFavorite(userId, songId);
-    setTimeout(updateFavorites, 200);
-  }
-  if (fileName == "disLike.png") {
-    addFavorite(userId, songId);
-    setTimeout(updateFavorites, 200);
-  }
-}
-function removeFavorite(userId, songId) {
-  ajaxCall(
-    "POST",
-    removeFromFavorites + userId + "&songId=" + songId,
-    "",
-    songRemoved(songId),
-    songNotRemoved
-  );
-}
-
-function addFavorite(userId, songId) {
-  ajaxCall(
-    "POST",
-    addToFavorite + userId + "&songId=" + songId,
-    "",
-    AddSongToFavoriteSuccess(songId),
-    AddSongToFavoriteFailed
-  );
-}
-function AddSongToFavoriteSuccess(songId) {
-  document
-    .getElementById("song_" + songId)
-    .setAttribute("src", "images/like.png");
-  Swal.fire({
-    position: "center",
-    icon: "success",
-    title: "Song added to favorites!",
-    showConfirmButton: false,
-    scrollbarPadding: false,
-    heightAuto: false,
-    timer: 2500,
-  });
-}
-function AddSongToFavoriteFailed(error) {
-  console.log(error);
-}
-function songRemoved(songId) {
-  document
-    .getElementById("song_" + songId)
-    .setAttribute("src", "images/disLike.png");
-  Swal.fire({
-    position: "center",
-    icon: "error",
-    title: "Song removed from favorites!",
-    showConfirmButton: false,
-    scrollbarPadding: false,
-    heightAuto: false,
-    timer: 2500,
-  });
-}
-
-function songNotRemoved() {
-  Swal.fire({
-    position: "center",
-    icon: "error",
-    title: "Song not removed from favorites!",
-    showConfirmButton: false,
-    scrollbarPadding: false,
-    heightAuto: false,
-    timer: 2500,
-  });
-}
-
-function updateFavorites() {
-  ajaxCall(
-    "POST",
-    getAllFavorites + JSON.parse(localStorage.getItem("user")).id,
-    "",
-    successSaveAllFavoritesCB,
-    errorSaveAllFavoritesCB
-  );
-}
-function successSaveAllFavoritesCB(data) {
-  localStorage.setItem("favoriteSongs", JSON.stringify(data));
-  console.log(data.length);
-}
-function errorSaveAllFavoritesCB(error) {
-  console.log(error);
 }
 
 function getSongPopularity() {
   songId = JSON.parse(localStorage.getItem("song")).songId;
+  console.log(songId);
   ajaxCall(
     "GET",
     getSongPop + songId,
