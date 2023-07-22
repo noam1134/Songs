@@ -1182,6 +1182,7 @@ public class DBservices
         Dictionary<string, object> paramDic = new Dictionary<string, object>();
         paramDic.Add("@score", score.UserScore);
         paramDic.Add("@userId", score.UserId);
+        paramDic.Add("@userName", score.UserId);
 
         cmd = CreateCommandWithStoredProcedure("SP_InsertScore", con, paramDic);             // create the command
 

@@ -24,7 +24,7 @@ alter PROCEDURE SP_InsertScore
 	@userName varchar(30)
 AS
 BEGIN
-    SET NOCOUNT ON;
+    --SET NOCOUNT ON;
 
     -- Insert the new score into the Scoreboard table
     INSERT INTO Scoreboard (score, userId, userName)

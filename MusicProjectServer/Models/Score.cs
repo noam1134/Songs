@@ -39,5 +39,9 @@
             return dBservices.GetTopTenScoreBoard();
         }
 
+        public static bool InsertScore(Score score)
+        {
+            return dBservices.InsertScore(score);
+        }
     }
 }
