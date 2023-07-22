@@ -1268,6 +1268,46 @@ public class DBservices
         }
     }
 
+    //--------------------------------------------------------------------------------------------------
+    // This method deletes ALL ScoreBoard
+    //--------------------------------------------------------------------------------------------------
+    public bool ResetScoreBoard()
+    {
+
+        SqlConnection con;
+        SqlCommand cmd;
+
+        try
+        {
+            con = connect("myProjDB"); // create the connection
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+
+        cmd = CreateCommandWithStoredProcedure("SP_ResetScoreboard", con, null);// create the command
+
+        int numEffected = cmd.ExecuteNonQuery(); // execute the command
+
+        try
+        {
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
+        finally
+        {
+            if (con != null)
+            {
+                // close the db connection
+                con.Close();
+            }
+        }
+    }
 
     //---------------------------------------------------------------------------------
     // Create the SqlCommand using a stored procedure
