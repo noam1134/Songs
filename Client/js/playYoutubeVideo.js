@@ -21,6 +21,7 @@ function searchVideo(searchInput) {
     maxResults: 1,
     key: apiKey,
   });
+  
 
   // Process the response and display the player in a Fancybox modal
   request.execute(function (response) {
