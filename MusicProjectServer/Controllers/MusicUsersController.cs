@@ -77,7 +77,7 @@ namespace MusicProjectServer.Controllers
         [Route("GetUserScores")]
         public List<Score> GetUserScores(int userId)
         {
-            return MusicUser.GetUserScores(userId);
+            return Score.GetUserScores(userId);
         }
 
     }

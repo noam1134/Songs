@@ -30,10 +30,14 @@
 
         static DBservices dBservices = new DBservices();
 
-
+        public static List<Score> GetUserScores(int userId)
+        {
+            return dBservices.GetUserScores(userId);
+        }
         public static List<Score> GetTopTenScoreBoard()
         {
             return dBservices.GetTopTenScoreBoard();
         }
+
     }
 }
