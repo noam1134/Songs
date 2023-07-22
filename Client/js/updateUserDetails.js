@@ -16,7 +16,6 @@ function showDetails() {
       '<tr><td>Last Name:</td><td><input id="changeLastName" class="swal2-input" placeholder="Last Name..."></td></tr>' +
       '<tr><td>Email:</td><td><input id="changeEmail" class="swal2-input" placeholder="Email..."></td></tr>' +
       '<tr><td>Phone Number:</td><td><input id="changePhoneNumber" class="swal2-input" placeholder="Phone Number..."></td></tr>' +
-      '<tr><td>User Name:</td><td><input id="changeUserName" class="swal2-input" placeholder="User Name..."></td></tr>' +
       '<tr><td>Password:</td><td><input id="changePassword" class="swal2-input" placeholder="Password..."></td></tr>' +
       "</table>",
     focusConfirm: false,
@@ -29,7 +28,7 @@ function showDetails() {
       lastName = Swal.getPopup().querySelector("#changeLastName").value.trim();
       email = Swal.getPopup().querySelector("#changeEmail").value.trim();
       phone = Swal.getPopup().querySelector("#changePhoneNumber").value.trim();
-      userName = Swal.getPopup().querySelector("#changeUserName").value.trim();
+      userName = JSON.parse(localStorage.getItem("user")).userName;
       password = Swal.getPopup().querySelector("#changePassword").value.trim();
 
       if (email !== "" && !isValidEmail(email)) {
@@ -99,8 +98,7 @@ function showDetails() {
   function updateSuccess(data) {
     localStorage.setItem("user", JSON.stringify(user));
     Swal.fire("User Updated!", "", "success");
-    document.getElementById("userFirstName").innerHTML = user.firstName;
-    
+    document.getElementById("userFirstName").innerHTML = user.firstName;    
   }
   function updateFail(error) {
     Swal.fire({
