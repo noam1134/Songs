@@ -43,5 +43,10 @@
         {
             return dBservices.InsertScore(score);
         }
+
+        public static bool ResetScoreBoard()
+        {
+            return dBservices.ResetScoreBoard();
+        }
     }
 }
