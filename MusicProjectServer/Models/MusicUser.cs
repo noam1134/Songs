@@ -77,5 +77,9 @@
         {
             return dBservices.CheckIfUserHasFavoriteSong(songId, userId);
         }
+        public List<Score> GetUserScores(int userId)
+        {
+            return dBservices.GetUserScores(userId);
+        }
     }
 }

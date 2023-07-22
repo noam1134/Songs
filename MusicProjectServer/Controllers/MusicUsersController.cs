@@ -73,5 +73,12 @@ namespace MusicProjectServer.Controllers
         {
             return MusicUser.DeleteAllUsers();
         }
+        [HttpGet]
+        [Route("GetUserScores")]
+        public List<Score> GetUserScores(int userId)
+        {
+            return MusicUser.GetUserScores(userId);
+        }
+
     }
 }
