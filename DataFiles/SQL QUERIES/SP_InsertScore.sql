@@ -27,6 +27,12 @@ BEGIN
     --SET NOCOUNT ON;
 
     -- Insert the new score into the Scoreboard table
+		
+    IF NOT EXISTS (SELECT 1 FROM MusicUsers WHERE (userName = @userName AND id = @userId))
+    BEGIN
+        THROW 50004, 'User Id Or User name do not exists!', 1;
+    END;
+
     INSERT INTO Scoreboard (score, userId, userName)
     VALUES (@score, @userId, @userName);
 END;
