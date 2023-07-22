@@ -32,6 +32,7 @@ function renderAllSongs() {
   document.getElementById("favBtn").setAttribute("class", "notActive");
   document.getElementById("searchBtn").setAttribute("class", "notActive");
   document.getElementById("artistsBtn").setAttribute("class", "notActive");
+  document.getElementById("quizBtn").setAttribute("class", "notActive");
   document.getElementById("allSongs").innerHTML = "";
   document.getElementById("showing").innerHTML = "Showing All Songs";
   ajaxCall("GET", getAllSongs, "", GetAllSongsSuccess, ErrorGetAllSongs);
@@ -50,6 +51,7 @@ function ErrorGetAllSongs(error) {
 
 function renderFavorites() {
   document.getElementById("searchBtn").setAttribute("class", "notActive");
+  document.getElementById("quizBtn").setAttribute("class", "notActive");
   document.getElementById("artistsBtn").setAttribute("class", "notActive");
   document.getElementById("favBtn").setAttribute("class", "active");
   document.getElementById("homeBtn").setAttribute("class", "notActive");

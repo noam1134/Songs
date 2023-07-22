@@ -9,6 +9,8 @@ $(document).ready(function () {
   getArtistImage(artist);  
   renderArtistInfo();
   document.getElementById("popularity").innerHTML = artist.popularity;
+  document.getElementById("quizBtn").setAttribute("class", "notActive");
+
 });
 
 function renderArtistInfo() {
