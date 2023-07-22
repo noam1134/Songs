@@ -28,7 +28,7 @@ BEGIN
 
     -- Insert the new score into the Scoreboard table
 		
-    IF NOT EXISTS (SELECT 1 FROM Scoreboard WHERE userName = @userName AND userId = @userId)
+    IF NOT EXISTS (SELECT 1 FROM MusicUsers WHERE (userName = @userName AND id = @userId))
     BEGIN
         THROW 50004, 'User Id Or User name do not exists!', 1;
     END;
