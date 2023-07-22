@@ -1120,9 +1120,8 @@ public class DBservices
             throw (ex);
         }
 
-        Dictionary<string, object> paramDic = new Dictionary<string, object>();
 
-        cmd = CreateCommandWithStoredProcedure("SP_GetTopTenScoreBoard", con, paramDic);// create the command
+        cmd = CreateCommandWithStoredProcedure("SP_GetTopTenScoreBoard", con, null);// create the command
 
         List<Score> topTenScores = new List<Score>();
 
@@ -1182,7 +1181,7 @@ public class DBservices
         Dictionary<string, object> paramDic = new Dictionary<string, object>();
         paramDic.Add("@score", score.UserScore);
         paramDic.Add("@userId", score.UserId);
-        paramDic.Add("@userName", score.UserId);
+        paramDic.Add("@userName", score.UserName);
 
         cmd = CreateCommandWithStoredProcedure("SP_InsertScore", con, paramDic);             // create the command
 
@@ -1229,6 +1228,7 @@ public class DBservices
         }
 
         Dictionary<string, object> paramDic = new Dictionary<string, object>();
+        paramDic.Add("@userID", userId);
 
         cmd = CreateCommandWithStoredProcedure("SP_getUserScores", con, paramDic);// create the command
 

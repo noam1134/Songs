@@ -17,12 +17,7 @@ namespace MusicProjectServer.Controllers
             return user.Registration();
         }
 
-        [HttpPost]
-        [Route("InsertScore")]
-        public bool InsertScore(Score score)
-        {
-            return Score.InsertScore(score);
-        }
+        
 
         [HttpGet]
         [Route("CheckIfUserHasFavoriteSong")]
@@ -31,12 +26,7 @@ namespace MusicProjectServer.Controllers
             return MusicUser.CheckIfUserHasFavoriteSong(songId, userId);
         }
 
-        [HttpGet]
-        [Route("GetTopTenScoreBoard")]
-        public List<Score> GetTopTenScoreBoard()
-        {
-            return Score.GetTopTenScoreBoard();
-        }
+       
 
         [HttpPost]
         [Route("AddToFavorites")]
@@ -80,6 +70,7 @@ namespace MusicProjectServer.Controllers
         {
             return MusicUser.DeleteAllUsers();
         }
+
         [HttpGet]
         [Route("GetUserScores")]
         public List<Score> GetUserScores(int userId)
@@ -87,5 +78,18 @@ namespace MusicProjectServer.Controllers
             return Score.GetUserScores(userId);
         }
 
+        [HttpPost]
+        [Route("InsertScore")]
+        public bool InsertScore(Score score)
+        {
+            return Score.InsertScore(score);
+        }
+
+        [HttpGet]
+        [Route("GetTopTenScoreBoard")]
+        public List<Score> GetTopTenScoreBoard()
+        {
+            return Score.GetTopTenScoreBoard();
+        }                
     }
 }
