@@ -71,13 +71,6 @@ namespace MusicProjectServer.Controllers
             return MusicUser.DeleteAllUsers();
         }
 
-        [HttpGet]
-        [Route("GetUserScores")]
-        public List<Score> GetUserScores(int userId)
-        {
-            return Score.GetUserScores(userId);
-        }
-
         [HttpPost]
         [Route("InsertScore")]
         public bool InsertScore(Score score)
@@ -86,10 +79,26 @@ namespace MusicProjectServer.Controllers
         }
 
         [HttpGet]
+        [Route("GetUserScores")]
+        public List<Score> GetUserScores(int userId)
+        {
+            return Score.GetUserScores(userId);
+        }
+
+        [HttpGet]
         [Route("GetTopTenScoreBoard")]
         public List<Score> GetTopTenScoreBoard()
         {
             return Score.GetTopTenScoreBoard();
-        }                
+        }
+
+        [HttpDelete]
+        [Route("ResetScoreBoard")]
+        public bool ResetScoreBoard()
+        {
+            return Score.ResetScoreBoard();
+        }
+
+
     }
 }
