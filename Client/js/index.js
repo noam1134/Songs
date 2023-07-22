@@ -142,8 +142,8 @@ function renderSong(song) {
   imgFavorite.appendChild(iLink);
 
   // Append the elements to their respective parents
+  infoDiv.appendChild(faveDiv);
   divGalleryLinks.appendChild(infoDiv);
-  divGalleryLinks.appendChild(faveDiv);
 
   divGalleryItem.appendChild(img);
   infoDiv.appendChild(songName);
@@ -169,6 +169,7 @@ function favoriteFunction(songId) {
     addFavorite(userId, songId);
     setTimeout(updateFavorites, 200);
   }
+  event.stopPropagation();
 }
 function removeFavorite(userId, songId) {
   ajaxCall(

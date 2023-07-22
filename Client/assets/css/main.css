@@ -1437,10 +1437,10 @@ body {
 }
 
 /* LINEAR-GRADIENT EFFECT */
-.infoDiv:hover{
-  background: linear-gradient(135deg, #731086, #15174f, #691c3a, #6c3221);
+.infoDiv:hover {
+  background: linear-gradient(135deg, #731086, #802c4c, #15174f, #9e482e);
   background-size: 400% 400%;
-  animation: gradient 10s ease infinite; /* Changed animation duration to 10s */
+  animation: gradient 7s ease infinite; /* Changed animation duration to 10s */
 }
 @keyframes gradient {
   0% {
@@ -1453,7 +1453,6 @@ body {
     background-position: 0% 50%;
   }
 }
-
 
 /* GIVE BACKGROUND COLOR TO .gallery-item */
 .gallery-item {
@@ -1471,23 +1470,12 @@ body {
     hsl(291deg 100% 50%) 100%
   );
 }
-/* .floating-video{
-  visibility: hidden !important;
-} */
-
-/* CSS for the floating div */
-/* .floating-video {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 800px;
-  height: 450px;
-  background-color: #000;
-} */
 
 /* FIX MOVEMENT WHEN SHOWING YOUTUBE VIDEO */
-.compensate-for-scrollbar
-{
-    margin-right: 0 !important;
+.compensate-for-scrollbar {
+  margin-right: 0 !important;
+}
+
+.logo {
+  cursor: pointer;
 }
