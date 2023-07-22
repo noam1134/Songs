@@ -27,6 +27,7 @@ BEGIN
 	--SET NOCOUNT ON;
 
     -- Insert statements for procedure here
+
 	SELECT TOP 10 *
     FROM Scoreboard
     ORDER BY score DESC;
