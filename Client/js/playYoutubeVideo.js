@@ -29,9 +29,7 @@ function searchVideo(query) {
     var videoURL = "https://www.youtube.com/embed/" + videoId + "?autoplay=1";
     $.fancybox.open({
       src: videoURL,
-
       overflow: "auto",
-
       type: "iframe",
       iframe: {
         preload: false,
