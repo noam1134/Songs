@@ -34,9 +34,9 @@
         {
             return dBservices.GetUserScores(userId);
         }
-        public static List<Score> GetTopTenScoreBoard()
+        public static List<Score> GetTopFiveScoreBoard()
         {
-            return dBservices.GetTopTenScoreBoard();
+            return dBservices.GetTopFiveScoreBoard();
         }
 
         public static bool InsertScore(Score score)
