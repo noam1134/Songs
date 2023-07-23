@@ -1355,7 +1355,8 @@ body {
   margin-right: 8px;
 }
 
-.artistBtn {
+.artistBtn,
+.quizBtn {
   background-color: #1d2124;
   color: white;
   padding: 10px 20px;
@@ -1365,7 +1366,8 @@ body {
   cursor: pointer;
 }
 
-.artistBtn:hover {
+.artistBtn:hover,
+.quizBtn:hover {
   background-color: #161616;
 }
 
