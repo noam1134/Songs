@@ -60,5 +60,20 @@
         {
             return dBservices.GetAllSongs();
         }
+
+        public static Song GetRandomSong()
+        {
+            return dBservices.GetRandomSong();
+        }
+
+        public static List<Song> Get3RandomsSongs(string artistName)
+        {
+            return dBservices.Get3RandomsSongs(artistName);
+        }
+
+        public static Song GetRandomSongByArtist(string artistName)
+        {
+            return dBservices.GetRandomSongByArtist(artistName);
+        }
     }
 }

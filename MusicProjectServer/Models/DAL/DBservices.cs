@@ -1103,7 +1103,7 @@ public class DBservices
     }
 
     //--------------------------------------------------------------------------------------------------
-    // This method returns Top 10 Scores
+    // This method returns Top 5 Scores
     //--------------------------------------------------------------------------------------------------
     public List<Score> GetTopFiveScoreBoard()
     {
@@ -1298,6 +1298,290 @@ public class DBservices
         catch
         {
             return false;
+        }
+        finally
+        {
+            if (con != null)
+            {
+                // close the db connection
+                con.Close();
+            }
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------
+    // This method returns 3 Random artistsge
+    //--------------------------------------------------------------------------------------------------
+    public List<ArtistClass> Get3RandomsArtists(string artistName)
+    {
+        SqlConnection con;
+        SqlCommand cmd;
+
+        try
+        {
+            con = connect("myProjDB"); // create the connection
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+        Dictionary<string, object> paramDic = new Dictionary<string, object>();
+        paramDic.Add("@artistName", artistName);
+
+        cmd = CreateCommandWithStoredProcedure("SP_Get3RandomsArtists", con, paramDic);// create the command
+
+        List<ArtistClass> artistsList = new List<ArtistClass>();
+
+        try
+        {
+            SqlDataReader dataReader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+            while (dataReader.Read())
+            {
+                ArtistClass art = new ArtistClass();
+                art.Id = Convert.ToInt32(dataReader["artistId"]);
+                art.Popularity = Convert.ToInt32(dataReader["popularity"]);
+                art.Name = dataReader["artistName"].ToString();
+                artistsList.Add(art);
+            }
+
+            // Close the dataReader before executing the next command
+            dataReader.Close();
+
+            return artistsList;
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+        finally
+        {
+            if (con != null)
+            {
+                // close the db connection
+                con.Close();
+            }
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------
+    // This method returns a random Artist
+    //--------------------------------------------------------------------------------------------------
+    public ArtistClass GetRandomArtist()
+    {
+        SqlConnection con;
+        SqlCommand cmd;
+
+        try
+        {
+            con = connect("myProjDB"); // create the connection
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+
+        Dictionary<string, object> paramDic = new Dictionary<string, object>();
+
+        cmd = CreateCommandWithStoredProcedure("SP_GetRandomArtist", con, paramDic);// create the command
+
+        ArtistClass artist = new ArtistClass();
+
+        try
+        {
+            SqlDataReader dataReader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+            while (dataReader.Read())
+            {
+                artist.Id = Convert.ToInt32(dataReader["artistId"]);
+                artist.Popularity = Convert.ToInt32(dataReader["popularity"]);
+                artist.Name = dataReader["artistName"].ToString();
+            }
+
+            // Close the dataReader before executing the next command
+            dataReader.Close();
+
+            return artist;
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+        finally
+        {
+            if (con != null)
+            {
+                // close the db connection
+                con.Close();
+            }
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------
+    // This method returns a random Song
+    //--------------------------------------------------------------------------------------------------
+    public Song GetRandomSong()
+    {
+        SqlConnection con;
+        SqlCommand cmd;
+
+        try
+        {
+            con = connect("myProjDB"); // create the connection
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+
+        Dictionary<string, object> paramDic = new Dictionary<string, object>();
+
+        cmd = CreateCommandWithStoredProcedure("SP_GetRandomSong", con, paramDic);// create the command
+
+        Song sng = new Song();
+
+        try
+        {
+            SqlDataReader dataReader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+            while (dataReader.Read())
+            {
+                sng.SongId = Convert.ToInt32(dataReader["songId"]);
+                sng.SongName = dataReader["songName"].ToString();
+                sng.Lyrics = dataReader["lyrics"].ToString();
+                sng.Link = dataReader["link"].ToString();
+                sng.ArtistName = dataReader["artistName"].ToString();
+            }
+
+            // Close the dataReader before executing the next command
+            dataReader.Close();
+
+            return sng;
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+        finally
+        {
+            if (con != null)
+            {
+                // close the db connection
+                con.Close();
+            }
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------
+    // This method returns Random song by artist Name
+    //--------------------------------------------------------------------------------------------------
+    public Song GetRandomSongByArtist(string artistName)
+    {
+        SqlConnection con;
+        SqlCommand cmd;
+
+        try
+        {
+            con = connect("myProjDB"); // create the connection
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+        Dictionary<string, object> paramDic = new Dictionary<string, object>();
+        paramDic.Add("@artistName", artistName);
+
+        cmd = CreateCommandWithStoredProcedure("SP_GetRandomSongByArtist", con, paramDic);// create the command
+
+        Song song = new Song();
+        try
+        {
+            SqlDataReader dataReader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+            while (dataReader.Read())
+            {
+                song.SongId = Convert.ToInt32(dataReader["songId"]);
+                song.SongName = dataReader["songName"].ToString();
+                song.Lyrics = dataReader["lyrics"].ToString();
+                song.Link = dataReader["link"].ToString();
+                song.ArtistName = dataReader["artistName"].ToString();
+            }
+
+            // Close the dataReader before executing the next command
+            dataReader.Close();
+
+            return song;
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+        finally
+        {
+            if (con != null)
+            {
+                // close the db connection
+                con.Close();
+            }
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------
+    // This method returns 3 Random songs
+    //--------------------------------------------------------------------------------------------------
+    public List<Song> Get3RandomsSongs(string artistName)
+    {
+        SqlConnection con;
+        SqlCommand cmd;
+
+        try
+        {
+            con = connect("myProjDB"); // create the connection
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+        Dictionary<string, object> paramDic = new Dictionary<string, object>();
+        paramDic.Add("@artistName", artistName);
+
+        cmd = CreateCommandWithStoredProcedure("SP_Get3RandomsSongs", con, paramDic);// create the command
+
+        List<Song> songsList = new List<Song>();
+
+        try
+        {
+            SqlDataReader dataReader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+            while (dataReader.Read())
+            {
+                Song song = new Song();
+                song.SongId = Convert.ToInt32(dataReader["songId"]);
+                song.SongName = dataReader["songName"].ToString();
+                song.Lyrics = dataReader["lyrics"].ToString();
+                song.Link = dataReader["link"].ToString();
+                song.ArtistName = dataReader["artistName"].ToString();
+                songsList.Add(song);
+            }
+
+            // Close the dataReader before executing the next command
+            dataReader.Close();
+
+            return songsList;
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
         }
         finally
         {

@@ -18,10 +18,31 @@ namespace MusicProjectServer.Controllers
         }
 
         [HttpGet]
+        [Route("GetRandomSongByArtist")]
+        public Song GetRandomSongByArtist(string artistName)
+        {
+            return Song.GetRandomSongByArtist(artistName);
+        }
+
+        [HttpGet]
+        [Route("Get3RandomsSongs")]
+        public List<Song> Get3RandomsSongs(string artistName)
+        {
+            return Song.Get3RandomsSongs(artistName);
+        }
+
+        [HttpGet]
         [Route("GetAllSongs")]
         public List<Song> GetAllSongs()
         {
             return Song.GetAllSongs();
+        }
+
+        [HttpGet]
+        [Route("GetRandomSong")]
+        public Song GetRandomSong()
+        {
+            return Song.GetRandomSong();
         }
 
         [HttpGet]

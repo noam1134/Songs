@@ -28,6 +28,13 @@ namespace MusicProjectServer.Controllers
         }
 
         [HttpGet]
+        [Route("GetRandomArtist")]
+        public ArtistClass GetRandomArtist()
+        {
+            return ArtistClass.GetRandomArtist();
+        }
+
+        [HttpGet]
         [Route("GetArtistIdByName")]
         public int GetArtistIdByName(string artName)
         {
@@ -39,6 +46,13 @@ namespace MusicProjectServer.Controllers
         public List<ArtistClass> GetAllArtists()
         {
             return ArtistClass.GetAllArtists();
+        }
+
+        [HttpGet]
+        [Route("Get3RandomsArtists")]
+        public List<ArtistClass> Get3RandomsArtists(string artistName)
+        {
+            return ArtistClass.Get3RandomsArtists(artistName);
         }
 
         // POST api/values

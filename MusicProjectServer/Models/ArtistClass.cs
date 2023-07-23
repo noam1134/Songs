@@ -1,8 +1,8 @@
 ﻿using System;
 namespace MusicProjectServer.Models
 {
-	public class ArtistClass
-	{
+    public class ArtistClass
+    {
         public string Name { get; set; }
         public int Id { get; set; }
         public int Popularity { get; set; } //number of times in users favorites
@@ -10,17 +10,17 @@ namespace MusicProjectServer.Models
         static DBservices dBservices = new DBservices();
 
         public ArtistClass()
-		{
-			Name = "";
-            Popularity = 0; 
-		}
+        {
+            Name = "";
+            Popularity = 0;
+        }
 
         public ArtistClass(string name, int id, int popularity)
         {
             Name = name;
             Id = id;
             Popularity = popularity;
-            
+
         }
 
         public static bool AddArtist(string artName)
@@ -46,6 +46,16 @@ namespace MusicProjectServer.Models
         public static List<ArtistClass> GetAllArtists()
         {
             return dBservices.GetAllArtists();
+        }
+
+        public static List<ArtistClass> Get3RandomsArtists(string artistName)
+        {
+            return dBservices.Get3RandomsArtists(artistName);
+        }
+
+        public static ArtistClass GetRandomArtist()
+        {
+            return dBservices.GetRandomArtist();
         }
     }
 }
