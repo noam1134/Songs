@@ -1,70 +1,71 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title>YouTube Player with Play/Pause Button</title>
+    <!-- Add SweetAlert2 CSS and JS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
+
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
   </head>
   <body>
-    <div>
-      <input type="text" id="searchInput" placeholder="Enter video search" />
-      <button onclick="searchVideo()">Search</button>
-    </div>
-    <div id="player"></div>
-    <button onclick="togglePlayPause()">Play/Pause</button>
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://www.youtube.com/iframe_api"></script>
-    <script src="https://apis.google.com/js/client.js?onload=init"></script>
     <script>
-      var apiKey = "AIzaSyCSrPK-MmRJ0tSC4e9pRH4VrwSLBHBtfLg";
-      var player;
-
-      function onYouTubeIframeAPIReady() {
-        player = new YT.Player("player", {
-          height: "360",
-          width: "640",
-          playerVars: {
-            autoplay: 0,
-          },
+      // Function to show the second modal
+      function showSecondModal() {
+        Swal.fire({
+          title: "Second Modal",
+          text: "This is the second modal",
+          icon: "info",
+        }).then(() => {
+          // Call the function to show the third modal
+          showThirdModal();
         });
       }
 
-      function searchVideo() {
-        var searchInput = document.getElementById("searchInput").value;
-        if (searchInput !== "") {
-          // Make the API call to search for videos
-          query = searchInput;
-          var request = gapi.client.youtube.search.list({
-            q: query,
-            part: "snippet",
-            type: "video",
-            maxResults: 1,
-            key: apiKey,
-          });
-
-          // Process the response and display the player in a Fancybox modal
-          request.execute(function (response) {
-            var videoId = response.items[0].id.videoId;
-            var videoURL =
-              "https://www.youtube.com/embed/" + videoId + "?autoplay=0"; // Change autoplay=1 to autoplay=0
-            player.loadVideoById(videoId);
-          });
-        }
-      }
-
-      function togglePlayPause() {
-        if (player.getPlayerState() === YT.PlayerState.PLAYING) {
-          player.pauseVideo();
-        } else {
-          player.playVideo();
-        }
-      }
-
-      function init() {
-        gapi.client.setApiKey(apiKey);
-        gapi.client.load("youtube", "v3", function () {
-          // API is ready
+      // Function to show the third modal
+      function showThirdModal() {
+        Swal.fire({
+          title: "Third Modal",
+          text: "This is the third modal",
+          icon: "success",
+        }).then(() => {
+          // Call the function to show the fourth modal
+          showFourthModal();
         });
       }
+
+      // Function to show the fourth modal
+      function showFourthModal() {
+        Swal.fire({
+          title: "Fourth Modal",
+          text: "This is the fourth modal",
+          icon: "warning",
+        }).then(() => {
+          // Chain more modals here if needed
+          // ...
+        });
+      }
+
+      // First Swal modal
+      Swal.fire({
+        title: "First Modal",
+        text: "Click the button to open the second modal",
+        icon: "info",
+        showCancelButton: true,
+        confirmButtonText: "Open Second Modal",
+        cancelButtonText: "Close",
+      }).then((result) => {
+        // Handle the button click event
+        if (result.isConfirmed) {
+          // Call the function to show the second modal
+          showSecondModal();
+        }
+      });
     </script>
   </body>
 </html>
