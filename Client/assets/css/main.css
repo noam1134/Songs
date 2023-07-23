@@ -1481,3 +1481,11 @@ body {
 .logo {
   cursor: pointer;
 }
+.dots{
+  margin: 0 0.5rem;
+  flex-grow: 1;
+  border-bottom: dashed 1px white ;  
+}
+.dotsFather{
+  align-items: baseline;
+}
