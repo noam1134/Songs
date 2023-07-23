@@ -1,3 +1,5 @@
+using igroup116_test2
+go
 -- ================================================
 -- Template generated from Template Explorer using:
 -- Create Procedure (New Menu).SQL
@@ -18,7 +20,7 @@ GO
 -- Create date: <Create Date,,>
 -- Description:	<Description,,>
 -- =============================================
-alter PROCEDURE SP_GetTopTenScoreBoard
+create PROCEDURE SP_GetTopFiveScoreBoard
 	-- Add the parameters for the stored procedure here
 AS
 BEGIN
@@ -28,7 +30,7 @@ BEGIN
 
     -- Insert statements for procedure here
 
-	SELECT TOP 10 *
+	SELECT TOP 5 *
     FROM Scoreboard
     ORDER BY score DESC;
 END

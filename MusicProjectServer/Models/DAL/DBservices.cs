@@ -1105,7 +1105,7 @@ public class DBservices
     //--------------------------------------------------------------------------------------------------
     // This method returns Top 10 Scores
     //--------------------------------------------------------------------------------------------------
-    public List<Score> GetTopTenScoreBoard()
+    public List<Score> GetTopFiveScoreBoard()
     {
         SqlConnection con;
         SqlCommand cmd;
@@ -1121,7 +1121,7 @@ public class DBservices
         }
 
 
-        cmd = CreateCommandWithStoredProcedure("SP_GetTopTenScoreBoard", con, null);// create the command
+        cmd = CreateCommandWithStoredProcedure("SP_GetTopFiveScoreBoard", con, null);// create the command
 
         List<Score> topTenScores = new List<Score>();
 

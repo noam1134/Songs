@@ -86,10 +86,10 @@ namespace MusicProjectServer.Controllers
         }
 
         [HttpGet]
-        [Route("GetTopTenScoreBoard")]
-        public List<Score> GetTopTenScoreBoard()
+        [Route("GetTopFiveScoreBoard")]
+        public List<Score> GetTopFiveScoreBoard()
         {
-            return Score.GetTopTenScoreBoard();
+            return Score.GetTopFiveScoreBoard();
         }
 
         [HttpDelete]
