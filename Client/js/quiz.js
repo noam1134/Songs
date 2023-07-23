@@ -3,13 +3,14 @@ const getLeaderBoard = url + "api/MusicUsers/GetTopFiveScoreBoard";
 const getAllTheSongs = url + "api/Songs/GetAllSongs";
 const getUserScoresURL = url + "api/MusicUsers/GetUserScores?userId=";
 var userId = JSON.parse(localStorage.getItem("user")).id;
-function startQuiz() {
+function openQuizPage() {
   Swal.fire({
     title: "Your highest score: ",
     html: '<button class="quizBtn" id="play-now-btn" onclick="startGame()">Play now!</button><br><button class="quizBtn" id="leaderboard-btn" onclick="getLeaderBoardData()">Show leaderboard!</button>',
     showConfirmButton: false,
     allowOutsideClick: false,
     showCloseButton: true,
+    scrollbarPadding: false,
   }).then((result) => {
     if (result.isConfirmed) {
       Swal.fire("Game Started!", "Have fun playing the game!", "success");
@@ -51,11 +52,18 @@ function successGetLeaderBoardCB(data) {
       `</span></div>`;
     i++;
   });
+
+  // Add the "Back" button to the content
+  containAllLeaderBoard += `<button class="quizBtn" onclick="openQuizPage()" style="margin: 20px auto; display: block;">Back</button>`;
+
   console.log(containAllLeaderBoard);
+
   Swal.fire({
-    title: "Leaderboard:",
+    title: "Top 5 - Leaderboard:",
     html: containAllLeaderBoard,
     icon: "info",
+    showConfirmButton: false,
+    scrollbarPadding: false, // Set this to false to remove the OK button
   });
 }
 
@@ -63,10 +71,9 @@ function faliedGetLeaderBoardCB(error) {
   console.log(error);
 }
 
-function startGame() {
-    ajaxCall("GET", getAllTheSongs, "", gotAllSongsCB, errorGotAllSongs);
-}
-
+// function startGame() {
+//     ajaxCall("GET", getAllTheSongs, "", gotAllSongsCB, errorGotAllSongs);
+// }
 
 function getUserScores() {
   ajaxCall("GET", getUserScoresURL + userId, "", gotScores, errorScores);
@@ -80,57 +87,12 @@ function errorScores(data) {
   document.getElementById("swal2-title").innerHTML = "CYKA";
 }
 
-;
 // Step 2: Create a function to show the custom modal
-function showCustomModal() {
+function startGame() {
   Swal.fire({
     title: "Custom Modal",
-    html: `
-        <div class="container-fluid bg-info">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h3><span class="label label-warning" id="qid">2</span> THREE is CORRECT</h3>
-              </div>
-              <div class="modal-body">
-                <div class="col-xs-3 col-xs-offset-5">
-                  <div id="loadbar" style="display: none;">
-                    <div class="blockG" id="rotateG_01"></div>
-                    <div class="blockG" id="rotateG_02"></div>
-                    <div class="blockG" id="rotateG_03"></div>
-                    <div class="blockG" id="rotateG_04"></div>
-                    <div class="blockG" id="rotateG_05"></div>
-                    <div class="blockG" id="rotateG_06"></div>
-                    <div class="blockG" id="rotateG_07"></div>
-                    <div class="blockG" id="rotateG_08"></div>
-                  </div>
-                </div>
-                <div class="quiz" id="quiz" data-toggle="buttons">
-                  <label class="element-animation1 btn btn-lg btn-primary btn-block">
-                    <span class="btn-label"><i class="glyphicon glyphicon-chevron-right"></i></span>
-                    <input type="radio" name="q_answer" value="1">1 One
-                  </label>
-                  <label class="element-animation2 btn btn-lg btn-primary btn-block">
-                    <span class="btn-label"><i class="glyphicon glyphicon-chevron-right"></i></span>
-                    <input type="radio" name="q_answer" value="2">2 Two
-                  </label>
-                  <label class="element-animation3 btn btn-lg btn-primary btn-block">
-                    <span class="btn-label"><i class="glyphicon glyphicon-chevron-right"></i></span>
-                    <input type="radio" name="q_answer" value="3">3 Three
-                  </label>
-                  <label class="element-animation4 btn btn-lg btn-primary btn-block">
-                    <span class="btn-label"><i class="glyphicon glyphicon-chevron-right"></i></span>
-                    <input type="radio" name="q_answer" value="4">4 Four
-                  </label>
-                </div>
-              </div>
-              <div class="modal-footer text-muted">
-                <span id="answer"></span>
-              </div>
-            </div>
-          </div>
-        </div>
-      `,
+    html: "",
+    scrollbarPadding: false,
   });
 
   // Step 3: Call the function to show the custom modal when needed
@@ -138,5 +100,80 @@ function showCustomModal() {
   const btnShowModal = document.getElementById("btnShowModal");
   btnShowModal.addEventListener("click", showCustomModal);
 }
+var score = 0;
+var qCount = 0;
+function generateQuestion() {
+  questionTypeNumber = Math.floor(Math.random() * 5) + 1;
+  switch (randomNum) {
+    case 1:
+      //who wrote the song?
+      whoWroteTheSong();
+      break;
+    case 2:
+      //which song is the longest?
+      whichSongIsTheLongest();
+      break;
+    case 3:
+      //which artist has the most listeners?
+      whoHasTheMostListeners();
+      break;
+    case 4:
+      //which artist is the most popular?
+      whichArtistIsTheMostPopular();
+      break;
+    case 5:
+      //which artist was played the most?
+      whichArtistIsTheMostPlayer();
+      break;
+    default:
+      console.log("Invalid number generated.");
+      break;
+  }
+}
+function startQuestionTimer() {
+  const timer = setTimeout(timerOut, 10000);
+}
+function whoWroteTheSong() {}
+function whichSongIsTheLongest() {}
+function whoHasTheMostListeners() {}
+function whichArtistIsTheMostPopular() {}
+function whichArtistIsTheMostPlayer() {}
 
-showCustomModal();
+function correctAnswer() {
+  Swal.fire({
+    title: "Correct Answer!",
+    text: "Get Ready For The Next Question",
+    icon: "success",
+    timer: 2500,
+    scrollbarPadding: false,
+  }).then(() => {
+    count++
+    score += 1  
+    generateQuestion();
+})
+}
+function wrongAnswer() {
+  Swal.fire({
+    title: "Wrong Answer!",
+    text: "Get Ready For The Next Question",
+    icon: "error",
+    timer: 2500,
+    scrollbarPadding: false,
+  }).then(() => {
+    count++;
+    generateQuestion();
+  });
+}
+
+function timerOut(){
+  Swal.fire({
+    title: "Time ended!",
+    text: "Get Ready For The Next Question",
+    icon: "error",
+    timer: 2500,
+    scrollbarPadding: false,
+  }).then(() => {    
+    count++;
+    generateQuestion();
+  });
+}

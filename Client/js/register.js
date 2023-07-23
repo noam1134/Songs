@@ -145,7 +145,6 @@ function successRegisterCB(data) {
     timer: 2500,
   });
 
-  
   function successSaveAllFavoritesCB(data) {
     localStorage.setItem("favoriteSongs", JSON.stringify(data));
   }

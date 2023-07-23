@@ -73,6 +73,7 @@ function searchClick() {
       });
     },
   });
+  
 }
 
 // Function to handle the error when songs are not found
@@ -82,6 +83,7 @@ function ErrorGetSong(error) {
     icon: "error",
     title: "Oops!\nSongs not found!",
     showConfirmButton: false,
+    scrollbarPadding: false,
     timer: 2500,
   });
 
