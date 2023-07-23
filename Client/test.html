@@ -1,71 +1,157 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <!-- Add SweetAlert2 CSS and JS -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.css"
-    />
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz Form</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+}
 
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <script>
-      // Function to show the second modal
-      function showSecondModal() {
-        Swal.fire({
-          title: "Second Modal",
-          text: "This is the second modal",
-          icon: "info",
-        }).then(() => {
-          // Call the function to show the third modal
-          showThirdModal();
-        });
-      }
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
 
-      // Function to show the third modal
-      function showThirdModal() {
-        Swal.fire({
-          title: "Third Modal",
-          text: "This is the third modal",
-          icon: "success",
-        }).then(() => {
-          // Call the function to show the fourth modal
-          showFourthModal();
-        });
-      }
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
 
-      // Function to show the fourth modal
-      function showFourthModal() {
-        Swal.fire({
-          title: "Fourth Modal",
-          text: "This is the fourth modal",
-          icon: "warning",
-        }).then(() => {
-          // Chain more modals here if needed
-          // ...
-        });
-      }
+#questionContainer {
+  display: none;
+}
 
-      // First Swal modal
-      Swal.fire({
-        title: "First Modal",
-        text: "Click the button to open the second modal",
-        icon: "info",
-        showCancelButton: true,
-        confirmButtonText: "Open Second Modal",
-        cancelButtonText: "Close",
-      }).then((result) => {
-        // Handle the button click event
-        if (result.isConfirmed) {
-          // Call the function to show the second modal
-          showSecondModal();
-        }
-      });
-    </script>
-  </body>
+.question {
+  margin-bottom: 10px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+#nextButton {
+  display: block;
+  margin: 20px auto 0;
+}
+
+#resultContainer {
+  display: none;
+  text-align: center;
+  margin-top: 20px;
+}
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Quiz Form</h1>
+    <div id="quizContainer">
+      <div id="questionContainer"></div>
+      <button id="nextButton">Next</button>
+    </div>
+    <div id="resultContainer"></div>
+  </div>
+  <script src="script.js"></script>
+  <script>
+    const questions = [
+  {
+    question: "What is the capital of France?",
+    answers: ["Berlin", "London", "Paris", "Madrid"],
+    correctAnswer: 2,
+  },
+  {
+    question: "Which planet is known as the 'Red Planet'?",
+    answers: ["Mars", "Venus", "Jupiter", "Mercury"],
+    correctAnswer: 0,
+  },
+  {
+    question: "What is the chemical symbol of water?",
+    answers: ["H2O", "CO2", "O2", "N2"],
+    correctAnswer: 0,
+  },
+  // Add more questions here
+];
+
+const quizContainer = document.getElementById("quizContainer");
+const questionContainer = document.getElementById("questionContainer");
+const resultContainer = document.getElementById("resultContainer");
+const nextButton = document.getElementById("nextButton");
+
+let currentQuestion = 0;
+let score = 0;
+
+function showQuestion() {
+  if (currentQuestion >= questions.length) {
+    showResult();
+    return;
+  }
+
+  const question = questions[currentQuestion];
+  questionContainer.innerHTML = `
+    <div class="question">
+      <h3>Question ${currentQuestion + 1}:</h3>
+      <p>${question.question}</p>
+    </div>
+  `;
+
+  question.answers.forEach((answer, index) => {
+    const answerInput = document.createElement("input");
+    answerInput.type = "radio";
+    answerInput.name = "answer";
+    answerInput.value = index;
+    answerInput.id = `answer${index}`;
+
+    const answerLabel = document.createElement("label");
+    answerLabel.textContent = answer;
+    answerLabel.setAttribute("for", `answer${index}`);
+
+    questionContainer.appendChild(answerInput);
+    questionContainer.appendChild(answerLabel);
+  });
+
+  nextButton.style.display = "none";
+  questionContainer.style.display = "block";
+}
+
+function showResult() {
+  resultContainer.textContent = `Your score: ${score} out of ${questions.length}`;
+  questionContainer.style.display = "none";
+  resultContainer.style.display = "block";
+}
+
+nextButton.addEventListener("click", function () {
+  const selectedAnswer = document.querySelector("input[name='answer']:checked");
+  if (!selectedAnswer) {
+    alert("Please select an answer!");
+    return;
+  }
+
+  const userAnswer = parseInt(selectedAnswer.value);
+  if (userAnswer === questions[currentQuestion].correctAnswer) {
+    score++;
+  }
+
+  currentQuestion++;
+  questionContainer.innerHTML = "";
+  showQuestion();
+  nextButton.style.display = "none";
+});
+
+quizContainer.addEventListener("click", function () {
+  nextButton.style.display = "block";
+  resultContainer.style.display = "none";
+});
+
+showQuestion();
+
+  </script>
+</body>
 </html>

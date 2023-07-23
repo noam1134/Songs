@@ -6,7 +6,6 @@ getAllSongsOfArtist = url + "api/Songs/GetAllSongsByArtistName?artistName=";
 
 $(document).ready(function () {
   artist = JSON.parse(localStorage.getItem("song")).artistName;
-  document.title = artist
   getArtistImage(artist);  
   renderArtistInfo();
   document.getElementById("popularity").innerHTML = artist.popularity;

@@ -10347,10 +10347,9 @@ button.bg-dark:focus {
 }
 
 .text-center {
-  font-family: 'Cardo';
+  font-family: "Cardo";
   text-align: center !important;
 }
-
 
 @media (min-width: 576px) {
   .text-sm-left {
@@ -10712,7 +10711,7 @@ h5,
 }
 
 .second-section {
-  font-family: 'Cardo';
+  font-family: "Cardo";
   text-align: center;
   font-size: 18px;
   color: #fff;
@@ -10930,7 +10929,6 @@ body {
   background-attachment: fixed;
   background-size: cover;
 }
-.navbar ul li a{
-  cursor: pointer
+.navbar ul li a {
+  cursor: pointer;
 }
-

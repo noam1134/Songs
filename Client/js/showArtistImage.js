@@ -62,6 +62,16 @@ function getArtistImages(artistName, accessToken) {
           `Artist "${artistName}" not found in the Spotify API response.`
         );
       }
+      const genres = artists[0].genres;
+      genresDiv = document.getElementById("genres");
+      genresDiv.innerHTML += genres[0];
+      let i = 0;
+      genres.forEach((genre) => {
+        if (i > 0) {
+          genresDiv.innerHTML += " | " + genre;
+        }
+        i++;
+      });
     })
     .catch((error) => {
       console.log("Error occurred:", error.message);
