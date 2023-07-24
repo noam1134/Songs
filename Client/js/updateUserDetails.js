@@ -19,11 +19,11 @@ function showDetails() {
       '<h2 id="signupDate">Sign up Date: ' +
       datePart +
       "</h2><table>Please fill in all fields" +
-      '<tr><td>First Name:</td><td><input id="changeFirstName" class="swal2-input" placeholder="First Name..."></td></tr>' +
-      '<tr><td>Last Name:</td><td><input id="changeLastName" class="swal2-input" placeholder="Last Name..."></td></tr>' +
-      '<tr><td>Email:</td><td><input id="changeEmail" class="swal2-input" placeholder="Email..."></td></tr>' +
-      '<tr><td>Phone Number:</td><td><input id="changePhoneNumber" class="swal2-input" placeholder="Phone Number..."></td></tr>' +
-      '<tr><td>Password:</td><td><input id="changePassword" class="swal2-input" placeholder="Password..."></td></tr>' +
+      '<tr><input id="changeFirstName" class="swal2-input" placeholder="First Name..."></tr>' +
+      '<tr><input id="changeLastName" class="swal2-input" placeholder="Last Name..."></tr>' +
+      '<tr><input id="changeEmail" class="swal2-input" placeholder="Email..."></tr>' +
+      '<tr><input id="changePhoneNumber" class="swal2-input" placeholder="Phone Number..."></tr>' +
+      '<tr><input id="changePassword" class="swal2-input" placeholder="Password..."></tr>' +
       "</table>",
     focusConfirm: false,
     scrollbarPadding: false,
