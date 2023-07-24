@@ -1,5 +1,5 @@
 // Define the base URL and API endpoint for making API calls
-var url = "https://localhost:7061/";
+var url = "https://proj.ruppin.ac.il/cgroup16/test2/tar1/";
 const fullUrl = url + "api/Songs/";
 
 // Get the element to display the search results

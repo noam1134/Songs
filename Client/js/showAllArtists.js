@@ -1,5 +1,5 @@
 // script.js
-url = "https://localhost:7061/";
+url = "https://proj.ruppin.ac.il/cgroup16/test2/tar1/";
 const getAllArtistsAPI = url + "api/Artists/GetAllArtists";
 
 let currentPage = 1;

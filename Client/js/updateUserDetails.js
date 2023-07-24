@@ -8,10 +8,17 @@ function showDetails() {
   var phone;
   var userName;
   var password;
+  const dateOfRegistration = JSON.parse(
+    localStorage.getItem("user")
+  ).dateOfRegistration;
+  datePart = dateOfRegistration.split("T")[0];
+  datePart = datePart.replaceAll("-", "/");
   Swal.fire({
     title: "Update User Details",
     html:
-      "<table>Please fill in all fields" +
+      '<h2 id="signupDate">Sign up Date: ' +
+      datePart +
+      "</h2><table>Please fill in all fields" +
       '<tr><td>First Name:</td><td><input id="changeFirstName" class="swal2-input" placeholder="First Name..."></td></tr>' +
       '<tr><td>Last Name:</td><td><input id="changeLastName" class="swal2-input" placeholder="Last Name..."></td></tr>' +
       '<tr><td>Email:</td><td><input id="changeEmail" class="swal2-input" placeholder="Email..."></td></tr>' +
@@ -62,6 +69,7 @@ function showDetails() {
         phone: phone,
         userName: userName,
         password: password,
+        dateOfRegistration: dateOfRegistration,
       };
     },
   }).then((result) => {
@@ -74,6 +82,7 @@ function showDetails() {
         phone: phone,
         userName: userName,
         password: password,
+        dateOfRegistration: dateOfRegistration,
       };
       ajaxCall(
         "POST",

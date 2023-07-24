@@ -1,4 +1,4 @@
-var apiKey = "AIzaSyBrbbHEyquRb5GprAQWUxA6ptt6gmnM5hk";
+var apiKey = "AIzaSyCecHt3c45ivu3h00dhKj9HvTQS86E4h-E";
 var player;
 
 function onYouTubeIframeAPIReady() {
@@ -21,7 +21,6 @@ function searchVideo(query) {
     maxResults: 1,
     key: apiKey,
   });
-  
 
   // Process the response and display the player in a Fancybox modal
   request.execute(function (response) {

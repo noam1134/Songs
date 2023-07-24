@@ -25,7 +25,7 @@ function getAccessToken() {
     .post("https://accounts.spotify.com/api/token", body, { headers })
     .then((response) => {
       accessToken = response.data.access_token;
-      expiresIn = response.data.expires_in; 
+      expiresIn = response.data.expires_in;
       return accessToken;
     })
     .catch((error) => {
@@ -63,7 +63,7 @@ function getArtistImages(artistName, accessToken) {
       }
       const genres = artists[0].genres;
       genresDiv = document.getElementById("genres");
-      genresDiv.innerHTML += genres[0];
+      genresDiv.innerHTML += " " + genres[0];
       let i = 0;
       genres.forEach((genre) => {
         if (i > 0) {

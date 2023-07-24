@@ -1,6 +1,6 @@
 var artist;
 
-url = "https://localhost:7061/";
+url = "https://proj.ruppin.ac.il/cgroup16/test2/tar1/";
 getArtistInfoByName = url + "api/Artists/GetArtistInfoByName?artistName=";
 getAllSongsOfArtist = url + "api/Songs/GetAllSongsByArtistName?artistName=";
 

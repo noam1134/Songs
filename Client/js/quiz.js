@@ -1,4 +1,4 @@
-url = "https://localhost:7061/";
+url = "https://proj.ruppin.ac.il/cgroup16/test2/tar1/";
 const getLeaderBoard = url + "api/MusicUsers/GetTopFiveScoreBoard";
 const getAllTheSongs = url + "api/Songs/GetAllSongs";
 const getUserScoresURL = url + "api/MusicUsers/GetUserScores?userId=";
@@ -7,6 +7,7 @@ getAllArtistsAPI = url + "api/Artists/GetAllArtists";
 insertScoreURL = url + "api/MusicUsers/InsertScore";
 allSongs = [];
 allArtists = [];
+var saveCorrectAnswerId = 0;
 $(document).ready(function () {
   getAllSongsFromDB();
   getAllArtistsFromDB();
@@ -224,6 +225,8 @@ function renderQuestion(question) {
   answer = document.getElementById("answer" + randomBtn);
   answer.innerHTML = question.correctAnswer;
   answer.setAttribute("onclick", "correctAnswer(this.id)");
+  saveCorrectAnswerId = answer.id;
+  console.log(saveCorrectAnswerId);
   wrongIdx = 0;
   for (var i = 1; i < 5; i++) {
     answer = document.getElementById("answer" + i);
@@ -343,6 +346,7 @@ function correctAnswer(buttonId) {
 }
 
 function wrongAnswer(buttonId) {
+  document.getElementById(saveCorrectAnswerId).style.backgroundColor = "green";
   for (var i = 1; i < 5; i++) {
     answer = document.getElementById("answer" + i);
     answer.disabled = true;

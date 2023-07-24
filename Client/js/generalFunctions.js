@@ -22,11 +22,7 @@ function clickFavorites() {
 function logIn() {
   ajaxCall(
     "POST",
-    api +
-      "/MusicUsers/LogIn?emailOrUserNameToLogin=" +
-      $("#email").val() +
-      "&passwordToLogin=" +
-      $("#pass").val(),
+    loginURL + $("#email").val() + "&passwordToLogin=" + $("#pass").val(),
     "",
     successLoginCB,
     errorLoginCB
@@ -45,5 +41,6 @@ function errorLoginCB(error) {
 }
 
 function saveUserData(data) {
+  console.log(data);
   localStorage.setItem("user", JSON.stringify(data));
 }

@@ -11,7 +11,7 @@ function ajaxCall(method, api, data, successCB, errorCB) {
   });
 }
 
-url = "https://localhost:7061/";
+url = "https://proj.ruppin.ac.il/cgroup16/test2/tar1/";
 
 addSongApi = url + "api/Songs/AddSong";
 addArtistApi = url + "api/Artists/AddArtist?artName=";

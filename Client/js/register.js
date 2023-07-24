@@ -1,5 +1,5 @@
-const api = "https://localhost:7061/api";
-const getAllFavorites = api + "/MusicUsers/GetFavorites?userId=";
+const api = "https://proj.ruppin.ac.il/cgroup16/test2/tar1/";
+const getAllFavorites = api + "api/MusicUsers/GetFavorites?userId=";
 var user;
 $(document).ready(function () {
   $("#signup-form").submit(function (e) {

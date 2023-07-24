@@ -1,4 +1,4 @@
-url = "https://localhost:7061/";
+url = "https://proj.ruppin.ac.il/cgroup16/test2/tar1/";
 getAllSongs = url + "api/Songs/GetAllSongs";
 getAllFavorites = url + "api/MusicUsers/GetFavorites?userId=";
 addToFavorite = url + "api/MusicUsers/AddToFavorites?userId=";
@@ -188,15 +188,6 @@ function AddSongToFavoriteSuccess(songId) {
   document
     .getElementById("song_" + songId)
     .setAttribute("src", "images/like.png");
-  Swal.fire({
-    position: "center",
-    icon: "success",
-    title: "Song added to favorites!",
-    showConfirmButton: false,
-    scrollbarPadding: false,
-    heightAuto: false,
-    timer: 2500,
-  });
 }
 function AddSongToFavoriteFailed(error) {
   console.log(error);
@@ -205,15 +196,6 @@ function songRemoved(songId) {
   document
     .getElementById("song_" + songId)
     .setAttribute("src", "images/disLike.png");
-  Swal.fire({
-    position: "center",
-    icon: "error",
-    title: "Song removed from favorites!",
-    showConfirmButton: false,
-    scrollbarPadding: false,
-    heightAuto: false,
-    timer: 2500,
-  });
 }
 
 function songNotRemoved() {
@@ -282,3 +264,5 @@ function gotSongPopularity(data) {
 function errorSongPopularity(error) {
   console.log(error);
 }
+
+
