@@ -26,6 +26,7 @@ function getAccessToken() {
     .then((response) => {
       accessToken = response.data.access_token;
       expiresIn = response.data.expires_in;
+      //console.log(expiresIn); REMOVE COMMENT TO SEE EXIPRIATION
       return accessToken;
     })
     .catch((error) => {

@@ -1,6 +1,13 @@
 var apiKey = "AIzaSyCecHt3c45ivu3h00dhKj9HvTQS86E4h-E";
 var player;
 
+function init() {
+  gapi.client.setApiKey(apiKey);
+  gapi.client.load("youtube", "v3", function () {
+    // API is ready
+  });
+}
+
 function onYouTubeIframeAPIReady() {
   player = new YT.Player("player", {
     height: "360",
@@ -11,8 +18,7 @@ function onYouTubeIframeAPIReady() {
   });
 }
 
-function searchVideo(query) {
-  console.log(query);
+function searchVideo(query) {//מורכב משם השיר והאמן
   // Make the API call to search for videos
   var request = gapi.client.youtube.search.list({
     q: query,
@@ -24,8 +30,7 @@ function searchVideo(query) {
 
   // Process the response and display the player in a Fancybox modal
   request.execute(function (response) {
-    console.log(response);
-    var videoId = response.items[0].id.videoId;
+    var videoId = response.items[0].id.videoId;//בחירת האופציה הראשונה
     var videoURL = "https://www.youtube.com/embed/" + videoId + "?autoplay=1";
     $.fancybox.open({
       src: videoURL,
@@ -46,9 +51,4 @@ function searchVideo(query) {
   });
 }
 
-function init() {
-  gapi.client.setApiKey(apiKey);
-  gapi.client.load("youtube", "v3", function () {
-    // API is ready
-  });
-}
+

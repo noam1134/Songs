@@ -1,3 +1,9 @@
+url = "https://proj.ruppin.ac.il/cgroup16/test2/tar1/";
+addSongApi = url + "api/Songs/AddSong";
+addArtistApi = url + "api/Artists/AddArtist?artName=";
+
+//use in ==>importArtists&Songs.html
+
 function ajaxCall(method, api, data, successCB, errorCB) {
   $.ajax({
     type: method,
@@ -10,11 +16,6 @@ function ajaxCall(method, api, data, successCB, errorCB) {
     error: errorCB,
   });
 }
-
-url = "https://proj.ruppin.ac.il/cgroup16/test2/tar1/";
-
-addSongApi = url + "api/Songs/AddSong";
-addArtistApi = url + "api/Artists/AddArtist?artName=";
 
 function importAllArtists() {
   array.forEach((song) => {
@@ -42,7 +43,6 @@ function addArtistError(error) {
 
 
 //remove from comment to execute
-//importAllSongs();
 //importAllArtists();
 
 function importAllSongs() {

@@ -1,5 +1,8 @@
 const api = "https://proj.ruppin.ac.il/cgroup16/test2/tar1/";
 const getAllFavorites = api + "api/MusicUsers/GetFavorites?userId=";
+const registerUserURL = api + "api/MusicUsers/Registration";
+const loginURL = api + "api/MusicUsers/LogIn?emailOrUserNameToLogin=";
+
 var user;
 $(document).ready(function () {
   $("#signup-form").submit(function (e) {
@@ -14,57 +17,7 @@ $(document).ready(function () {
     const password = $("#pass").val();
 
     // Perform validations
-    if (userName.trim() === "") {
-      Swal.fire({
-        position: "center",
-        icon: "warning",
-        title: "Please enter a valid user name",
-        showConfirmButton: false,
-        scrollbarPadding: false,
-        heightAuto: false,
-        timer: 2500,
-      });
-      return;
-    }
-
-    if (firstName.trim() === "") {
-      Swal.fire({
-        position: "center",
-        icon: "warning",
-        title: "Please enter a valid first name",
-        showConfirmButton: false,
-        scrollbarPadding: false,
-        heightAuto: false,
-        timer: 2500,
-      });
-      return;
-    }
-
-    if (lastName.trim() === "") {
-      Swal.fire({
-        position: "center",
-        icon: "warning",
-        title: "Please enter a vali last name",
-        showConfirmButton: false,
-        scrollbarPadding: false,
-        heightAuto: false,
-        timer: 2500,
-      });
-      return;
-    }
-
-    if (email.trim() === "") {
-      Swal.fire({
-        position: "center",
-        icon: "warning",
-        title: "Please enter a valid email address",
-        showConfirmButton: false,
-        scrollbarPadding: false,
-        heightAuto: false,
-        timer: 2500,
-      });
-      return;
-    } else if (!validateEmail(email)) {
+    if (!validateEmail(email)) {
       Swal.fire({
         position: "center",
         icon: "warning",
@@ -76,11 +29,7 @@ $(document).ready(function () {
       });
       return;
     }
-
-    if (phoneNumber.trim() === "") {
-      alert("Please enter your phone number.");
-      return;
-    } else if (!validatePhoneNumber(phoneNumber)) {
+    if (!validatePhoneNumber(phoneNumber)) {
       Swal.fire({
         position: "center",
         icon: "warning",
@@ -92,21 +41,37 @@ $(document).ready(function () {
       });
       return;
     }
-
-    if (password.trim() === "") {
+    if (!validatePassword(password)) {
       Swal.fire({
         position: "center",
         icon: "warning",
-        title: "Please enter a password...",
+        title:
+          "Please enter a valid password with at least 8 characters, including one digit.",
         showConfirmButton: false,
         scrollbarPadding: false,
         heightAuto: false,
-        timer: 2500,
+        timer: 3000,
       });
       return;
     }
+    // Function to validate the email format
+    function validateEmail(email) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(email);
+    }
+
+    // Function to validate the phone number format
+    function validatePhoneNumber(phoneNumber) {
+      const phoneRegex = /^05\d{8}$/;
+      return phoneRegex.test(phoneNumber);
+    }
+    function validatePassword(password) {
+      const passRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+      return passRegex.test(password);
+    }
+
+    //keep all user data in user object
     user = {
-      // Id:parseInt($("#userId").val()),
       firstName: String($("#firstName").val()),
       lastName: String($("#lastName").val()),
       email: String($("#email").val()),
@@ -114,9 +79,10 @@ $(document).ready(function () {
       phone: String($("#phone").val()),
       userName: String($("#userName").val()),
     };
+    //use ajaxCall to register User
     ajaxCall(
       "POST",
-      api + "/MusicUsers/Registration",
+      registerUserURL,
       JSON.stringify(user),
       successRegisterCB,
       errorRegisterCB
@@ -124,10 +90,9 @@ $(document).ready(function () {
     e.preventDefault();
   });
 });
+//success RegisterCB
 function successRegisterCB(data) {
   localStorage.setItem("indicator", "home");
-  localStorage.setItem("favoriteSongs", "");
-  
   localStorage.setItem("favoriteSongs", []);
   Swal.fire({
     position: "center",
@@ -140,10 +105,12 @@ function successRegisterCB(data) {
   });
   // Delay the redirect by 1.5 seconds
   setTimeout(function () {
-    logIn()
+    //logIn in generalFunctions JS file
+    logIn();
   }, 1000);
 }
 
+//success LoginCB
 function successLoginCB(data) {
   localStorage.setItem("user", JSON.stringify(data)); // Pass the data as an argument to the saveUserData function
   // Delay the redirect by 1.5 seconds
@@ -152,7 +119,7 @@ function successLoginCB(data) {
   }, 1000);
 }
 
-
+//error RegisterCB
 function errorRegisterCB(error) {
   Swal.fire({
     position: "center",
@@ -164,4 +131,3 @@ function errorRegisterCB(error) {
     timer: 2500,
   });
 }
-

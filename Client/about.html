@@ -175,7 +175,20 @@
                   </ul>
                 </div>
                 <p class="py-3" id="artistSummary">summary about artist</p>
-                <p class="py-3" id="genres">Genres: </p>
+                <script></script>
+                <p>Select voice: 
+                  <select id="voiceList" class="dropdown">
+                    <option class="dropdown-btn" value="ShalomBijoi">ShalomBijoi</option>
+                    <option class="dropdown-btn" value="Bouton">Bouton</option>
+                    <option class="dropdown-btn" value="Saadon">Saadon</option>
+                    <option class="dropdown-btn" value="Wini">Wini</option>
+                    <option class="dropdown-btn" value="Yoav">Yoav</option>
+                  </select>
+                  <button id="speak" onclick="speakText()">
+                    Click To Listen!
+                  </button>
+                </p>
+                <p class="py-3" id="genres">Genres:</p>
               </div>
             </div>
           </div>
@@ -208,7 +221,7 @@
           &copy; Copyright <strong><span>RonNoam</span></strong
           >. All Rights Reserved
         </div>
-        <div class="credits">Designed by <a>RonNoam</a></div>
+        <div class="credits">Designed by <a id="ronoam">RonNoam</a></div>
       </div>
     </footer>
     <!-- End Footer -->
@@ -224,6 +237,7 @@
     </div>
 
     <!-- Vendor JS Files -->
+    <script src="js/textToSpeech.js"></script>
     <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
     <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
@@ -236,7 +250,6 @@
     <script src="js/showArtistImage.js"></script>
     <script src="js/showAllArtists.js"></script>
     <script src="js/generalFunctions.js"></script>
-
     <!-- Template Main JS File -->
     <script src="assets/js/main.js"></script>
   </body>

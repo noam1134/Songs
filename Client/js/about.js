@@ -1,12 +1,10 @@
-var artist;
-
 url = "https://proj.ruppin.ac.il/cgroup16/test2/tar1/";
 getArtistInfoByName = url + "api/Artists/GetArtistInfoByName?artistName=";
 getAllSongsOfArtist = url + "api/Songs/GetAllSongsByArtistName?artistName=";
-
+var artist;
 $(document).ready(function () {
   artist = JSON.parse(localStorage.getItem("song")).artistName;
-  getArtistImage(artist);
+  getArtistImage(artist); //showArtistImage js
   renderArtistInfo();
   document.getElementById("popularity").innerHTML = artist.popularity;
   document.getElementById("quizBtn").setAttribute("class", "notActive");
@@ -35,16 +33,15 @@ function gotAllSongsCB(data) {
   var counter = 1;
   document.getElementById("songsInDb").innerHTML = data.length;
   data.forEach((song) => {
-    // Create the main container div
+    // create the main container div
     var containerDiv = document.createElement("div");
     containerDiv.className = "swiper-slide";
     containerDiv.setAttribute("role", "group");
-    containerDiv.setAttribute("aria-label", "3 / 5");
     containerDiv.style.width = "696px";
     containerDiv.style.marginRight = "40px";
     containerDiv.setAttribute("data-swiper-slide-index", counter);
     counter++;
-    // Create the testimonial item div
+    // create the testimonial item div
     var testimonialItemDiv = document.createElement("div");
     testimonialItemDiv.className = "testimonial-item";
 
@@ -53,19 +50,19 @@ function gotAllSongsCB(data) {
       "background-image: url('images/genericMusicPic.jpg')"
     );
 
-    // Create the paragraph element
+    // create the paragraph element
     var paragraph = document.createElement("p");
     paragraph.setAttribute("class", "songText");
 
     paragraph.textContent = song.songName;
 
-    // Create the profile div
+    // create the profile div
     var profileDiv = document.createElement("div");
     profileDiv.className = "profile mt-auto";
 
-    // Create the image element
+    // create the image element
     var image = document.createElement("img");
-    image.src = "assets/img/testimonials/testimonials-3.jpg";
+    image.src = "assets/img/testimonials/testimonials-3.jpg"; //תמונת נקודה
     image.className = "testimonial-img";
     image.alt = "";
 
@@ -121,19 +118,20 @@ function getLastFMInfo() {
     .then((data) => {
       const artistInfo = data.artist;
 
-      if (artistInfo.stats && artistInfo.stats.playcount) {
+      if (artistInfo.stats.playcount) {
         const playCount = artistInfo.stats.playcount;
-        document.getElementById("playCount").innerHTML = `${playCount}`;
+        document.getElementById("playCount").innerHTML = playCount;
         document.getElementById("artistSummary").innerHTML =
           artistInfo.bio.summary;
+        
       } else {
         document.getElementById("playCount").innerHTML =
           "Play count data not available.";
       }
 
-      if (artistInfo.stats && artistInfo.stats.listeners) {
+      if (artistInfo.stats.listeners) {
         const listeners = artistInfo.stats.listeners;
-        document.getElementById("listeners").innerHTML = `${listeners}`;
+        document.getElementById("listeners").innerHTML = listeners;
       } else {
         document.getElementById("listeners").innerHTML =
           "Listeners data not available.";

@@ -11,7 +11,7 @@ function getAllArtists() {
 
 function gotAllArtists(data) {
   localStorage.setItem("artists", JSON.stringify(data));
-  const artists = JSON.parse(localStorage.getItem("artists"));
+  const artists = data;
 
   // Sort the artists alphabetically by name
   artists.sort((a, b) => a.name.localeCompare(b.name));

@@ -1,13 +1,13 @@
 updateUser = url + "api/MusicUsers/UpdateUserDetails";
 
 var user;
+var firstName;
+var lastName;
+var email;
+var phone;
+var userName;
+var password;
 function showDetails() {
-  var firstName;
-  var lastName;
-  var email;
-  var phone;
-  var userName;
-  var password;
   const dateOfRegistration = JSON.parse(
     localStorage.getItem("user")
   ).dateOfRegistration;
@@ -43,6 +43,10 @@ function showDetails() {
       }
       if (phone !== "" && !isValidPhoneNumber(phone)) {
         errorMsg += "Please enter a valid phone number</br>";
+      }
+      if (!validatePassword(password)) {
+        errorMsg +=
+          "Please enter a valid password with at least 8 characters, including one digit.</br>";
       }
       if (
         email == "" ||
@@ -94,31 +98,38 @@ function showDetails() {
       console.log(result.value);
     }
   });
-  function isValidEmail(email) {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  }
+}
 
-  // Function to validate the phone number format
-  function isValidPhoneNumber(phoneNumber) {
-    const phoneRegex = /^05\d{8}$/;
-    return phoneRegex.test(phoneNumber);
-  }
-  function updateSuccess(data) {
-    localStorage.setItem("user", JSON.stringify(user));
-    Swal.fire({
-      title: "User Updated!",
-      icon: "success",
-      scrollbarPadding: false,
-    });
-    document.getElementById("userFirstName").innerHTML = user.firstName;
-  }
-  function updateFail(error) {
-    Swal.fire({
-      icon: "error",
-      title: "Oops...",
-      text: "Email/UserName already taken.",
-      scrollbarPadding: false,
-    });
-  }
+function validatePassword(password) {
+  const passRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+  return passRegex.test(password);
+}
+
+function isValidEmail(email) {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+}
+
+// Function to validate the phone number format
+function isValidPhoneNumber(phoneNumber) {
+  const phoneRegex = /^05\d{8}$/;
+  return phoneRegex.test(phoneNumber);
+}
+
+function updateSuccess(data) {
+  localStorage.setItem("user", JSON.stringify(user));
+  Swal.fire({
+    title: "User Updated!",
+    icon: "success",
+    scrollbarPadding: false,
+  });
+  document.getElementById("userFirstName").innerHTML = user.firstName;
+}
+function updateFail(error) {
+  Swal.fire({
+    icon: "error",
+    title: "Oops...",
+    text: "Email/UserName already taken.",
+    scrollbarPadding: false,
+  });
 }

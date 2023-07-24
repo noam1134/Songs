@@ -3,7 +3,7 @@ var url = "https://proj.ruppin.ac.il/cgroup16/test2/tar1/";
 const fullUrl = url + "api/Songs/";
 
 // Get the element to display the search results
-const showing = document.getElementById("showing");
+const showing = document.getElementById("showing");//הכיתוב מעל השירים
 
 // Function to handle the search button click event
 function searchClick() {
@@ -32,7 +32,7 @@ function searchClick() {
     scrollbarPadding: false,
     heightAuto: false,
     preConfirm: () => {
-      // Set the active class for the search button when searching
+      // set the active class for the search button when searching
       document.getElementById("homeBtn").setAttribute("class", "notActive");
       document.getElementById("favBtn").setAttribute("class", "notActive");
       document.getElementById("searchBtn").setAttribute("class", "active");

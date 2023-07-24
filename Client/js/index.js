@@ -6,6 +6,7 @@ getAllSongsApi = url + "api/Songs/GetAllSongs";
 removeFromFavorites = url + "api/MusicUsers/RemoveFromFavorites?userId=";
 getSongPop = url + "api/Songs/GetSongPopularityBySongId?songId=";
 
+//בדיקה מה האינדיקטור לרנדור הדף
 function whatToRender() {
   if (localStorage.getItem("indicator") == "favorites") {
     renderFavorites();
@@ -20,6 +21,7 @@ function renderAllSongs() {
     return;
   }
 
+  //הפיכת כלל הכפתורים להיות תואמים לאתר
   document.getElementById("homeBtn").setAttribute("class", "active");
   document.getElementById("favBtn").setAttribute("class", "notActive");
   document.getElementById("searchBtn").setAttribute("class", "notActive");
@@ -27,9 +29,11 @@ function renderAllSongs() {
   document.getElementById("quizBtn").setAttribute("class", "notActive");
   document.getElementById("allSongs").innerHTML = "";
   document.getElementById("showing").innerHTML = "Showing All Songs";
+  //קבלת כלל השירים
   ajaxCall("GET", getAllSongs, "", GetAllSongsSuccess, ErrorGetAllSongs);
 }
 
+//שגיאה בקבלת כלל השירים
 function ErrorGetAllSongs(error) {
   Swal.fire({
     position: "center",
@@ -41,6 +45,7 @@ function ErrorGetAllSongs(error) {
   });
 }
 
+//רנדור השירים המועדפים- ממש זהה לרנדור השירים
 function renderFavorites() {
   document.getElementById("searchBtn").setAttribute("class", "notActive");
   document.getElementById("quizBtn").setAttribute("class", "notActive");
@@ -58,6 +63,7 @@ function renderFavorites() {
   );
 }
 
+//קבלת כלל השירים צלחה
 function GetAllSongsSuccess(data) {
   allSongs = document.getElementById("allSongs");
   allSongs.innerHTML = "";
@@ -66,14 +72,17 @@ function GetAllSongsSuccess(data) {
   });
 }
 
+//רנדור שיר לפי שיר ספציפי
 function renderSong(song) {
   // Create the necessary elements
   const divCol = document.createElement("div");
   divCol.classList.add("col-xl-2", "col-lg-4", "col-md-6");
 
+  //כל בלוק שיר
   const divGalleryItem = document.createElement("div");
   divGalleryItem.classList.add("gallery-item", "h-100");
 
+  //הכנסת תמונה
   const img = document.createElement("img");
   img.src = "images/genericMusicPic.jpg";
   img.classList.add("img-fluid");
@@ -149,6 +158,7 @@ function renderSong(song) {
   return divCol;
 }
 
+//הורדה/הוספה של שיר ממועדפים
 function favoriteFunction(songId) {
   const userId = JSON.parse(localStorage.getItem("user")).id;
   var songElement = document.getElementById("song_" + songId);
@@ -165,6 +175,8 @@ function favoriteFunction(songId) {
   }
   event.stopPropagation();
 }
+
+//הסרת שיר ממועדפים
 function removeFavorite(userId, songId) {
   ajaxCall(
     "POST",
@@ -175,6 +187,7 @@ function removeFavorite(userId, songId) {
   );
 }
 
+//הוספת שיר למועדפים
 function addFavorite(userId, songId) {
   ajaxCall(
     "POST",
@@ -192,6 +205,8 @@ function AddSongToFavoriteSuccess(songId) {
 function AddSongToFavoriteFailed(error) {
   console.log(error);
 }
+
+//בשביל לשנות את התמונה
 function songRemoved(songId) {
   document
     .getElementById("song_" + songId)
@@ -210,6 +225,7 @@ function songNotRemoved() {
   });
 }
 
+//בשביל הלוקל סטוראג'
 function updateFavorites() {
   ajaxCall(
     "POST",
@@ -226,6 +242,7 @@ function errorSaveAllFavoritesCB(error) {
   console.log(error);
 }
 
+//בשביל המסך מידע
 function getSongPopularity() {
   songId = JSON.parse(localStorage.getItem("song")).songId;
   ajaxCall(
@@ -236,7 +253,7 @@ function getSongPopularity() {
     errorSongPopularity
   );
 }
-
+//רנדור מסך מידע!!!
 function gotSongPopularity(data) {
   song = JSON.parse(localStorage.getItem("song"));
   Swal.fire({
