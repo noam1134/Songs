@@ -8,24 +8,25 @@ var voice = {
 
 // Function to initiate text-to-speech
 function speakText() {
-  speakBtn = document.getElementById("speak");
+  var speakBtn = document.getElementById("speak");
   speakBtn.innerHTML = "Stop Reading";
   speakBtn.setAttribute("onclick", "stopSpeak()");
-  // document.getElementById("speak").style.visibility = "hidden";
 
-  var textToSpeech = document.getElementById("artistSummary").innerHTML;
+  var textToSpeech = document.getElementById("artistSummary").innerText; // Use innerText instead of innerHTML to get only the text content
   textToSpeech = textToSpeech.split("<")[0];
   const msg = new SpeechSynthesisUtterance(textToSpeech);
+  msg.lang = "he-IL";
   msg.voice =
     speechSynthesis.getVoices()[
       voice[document.getElementById("voiceList").value]
     ];
+
   // Speak the text
   speechSynthesis.speak(msg);
 }
 
 function stopSpeak() {
-  speakBtn = document.getElementById("speak");
+  var speakBtn = document.getElementById("speak");
   speakBtn.innerHTML = "Click To Listen!";
   speakBtn.setAttribute("onclick", "speakText()");
   speechSynthesis.cancel();
