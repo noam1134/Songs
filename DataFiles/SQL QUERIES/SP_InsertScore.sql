@@ -32,6 +32,10 @@ BEGIN
     BEGIN
         THROW 50004, 'User Id Or User name do not exists!', 1;
     END;
+	IF EXISTS (SELECT 1 FROM Scoreboard where score = @score and userId = @userId and userName = @userName)
+	BEGIN
+		THROW 50004, 'That score for that user already exists!', 1;
+	END
 
     INSERT INTO Scoreboard (score, userId, userName)
     VALUES (@score, @userId, @userName);

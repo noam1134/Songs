@@ -2,7 +2,6 @@ url = "https://localhost:7061/";
 const getLeaderBoard = url + "api/MusicUsers/GetTopFiveScoreBoard";
 const getAllTheSongs = url + "api/Songs/GetAllSongs";
 const getUserScoresURL = url + "api/MusicUsers/GetUserScores?userId=";
-const getRandomSongURL = url + "api/Songs/GetRandomSong";
 const get3ArtistsURL = url + "api/Artists/Get3RandomsArtists?artistName=";
 getAllArtistsAPI = url + "api/Artists/GetAllArtists";
 insertScoreURL = url + "api/MusicUsers/InsertScore";
@@ -103,21 +102,18 @@ function loadQuizPage() {
   window.open("quiz.html", "_self");
 }
 function generateQuestion() {
-  questionTypeNumber = 2; //Math.floor(Math.random() * 5) + 1;
+  questionTypeNumber = Math.floor(Math.random() * 4) + 1;
   switch (questionTypeNumber) {
     case 1:
       whoWroteTheSong();
       break;
     case 2:
-      //which song is the longest?
-      whichSongIsTheLongest();
+      whichSongHasTheMostLyrics();
       break;
     case 3:
-      //which artist has the most listeners?
-      whoHasTheMostListeners();
+      whichSongWrittenBy();
       break;
     case 4:
-      //which artist is the most popular?
       whichArtistIsTheMostPopular();
       break;
     case 5:
@@ -130,12 +126,59 @@ function generateQuestion() {
   }
 }
 
+// Global variables
+var timerValue = 0;
+var bonusPoints = 30;
+var timerInterval;
+
+function updateTimer() {
+  if (timerValue == 41) {
+    clearInterval(timerInterval);
+    gameTimeEnded();
+  } else {
+    timerValue++;
+    if (bonusPoints > 0) bonusPoints--;
+  }
+  console.log("bonus: " + bonusPoints, "timer: " + timerValue);
+}
+
+function gameTimeEnded() {
+  nextBtn = document.getElementById("nextBtn");
+  nextBtn.innerHTML = "Finish quiz!";
+  nextBtn.style.visibility = "visible";
+  nextBtn.setAttribute("onclick", "endGame()");
+  Swal.fire({
+    icon: "info",
+    title: "Time ended!",
+    showConfirmButton: true,
+  }).then((result) => {
+    if (result.isConfirmed) {
+      // Handle the action when "Show More Info" is clicked
+      endGame();
+    }
+  });
+}
+
 function startQuiz() {
+  timerValue = 0;
+  bonusPoints = 30;
+  // Start the timer
+  timerInterval = setInterval(updateTimer, 1000);
   count = 0;
   score = 0;
+  setTimeout(renderForm, 200);
+  updatePlayerScore();
+  updateQuestionCounter();
+  loadQuestions();
+  setTimeout(renderAllQuestions, 200);
+  Swal.close();
+}
+function renderForm() {
   quizDiv = document.getElementById("quizDiv");
   quizDiv.innerHTML = `<div class="container"><div style="margin:5vh">
     <h1 id = "questionHeader">Quiz Form</h1></div>
+    <div id = "timerHeader" class="countdown"><svg viewBox="-50 -50 100 100" stroke-width="10"><circle r="35"></circle>
+    <circle r="35" pathLength="1"></circle></div>
     <div id="quizContainer">
       <div id="questionContainer"></div>
       <button class="quizAnswerBtn" id="answer1">NA</button>
@@ -146,18 +189,11 @@ function startQuiz() {
     </div>
     <div id="resultContainer"></div>
   </div>`;
-  updatePlayerScore();
-  updateQuestionCounter();
-  loadQuestions();
-  renderAllQuestions();
-  Swal.close();
 }
-
 function loadQuestions() {
   for (var i = 0; i < 6; i++) {
     generateQuestion();
   }
-  console.log(questions);
 }
 
 function startQuestionTimer() {
@@ -191,7 +227,6 @@ function renderQuestion(question) {
   wrongIdx = 0;
   for (var i = 1; i < 5; i++) {
     answer = document.getElementById("answer" + i);
-    console.log(answer.innerHTML);
     if (answer.innerHTML == "NA") {
       answer.innerHTML = question.wrongAnswers[wrongIdx];
       wrongIdx++;
@@ -225,6 +260,15 @@ function nextQuestion(question) {
   }
 }
 function endGame() {
+  timerAnimation = document.getElementById("timerHeader");
+  timerAnimation.setAttribute("class", "timerNone");
+  timerAnimation.innerHTML = "";
+
+  disableButtons();
+  clearInterval(timerInterval); //stop the timer
+  score += bonusPoints;
+  bonusPoints = 0;
+  updatePlayerScore();
   Swal.fire({
     title: "Your score: " + score,
     html: '<button class="quizBtn" id="play-now-btn" onclick="startQuiz()">Play again?</button><br><button class="quizBtn" id="leaderboard-btn" onclick="getLeaderBoardData()">Show leaderboard!</button>',
@@ -266,36 +310,6 @@ function uploadError(error) {
   console.log(error);
 }
 
-function whichSongIsTheLongest() {
-  fourSongs = get4Songs();
-  longestSong = returnTheLongestSong(fourSongs);
-
-  question = {
-    questionTxt: "Which song is the longest?",
-    correctAnswer: fourSongs.splice(fourSongs[longestSong], 1),
-    wrongAnswers: fourSongs,
-  };
-  questions.push(question);
-}
-function returnTheLongestSong(fourSongs) {
-  songsLength = [];
-  fourSongs.forEach((song) => {
-    songLen = getLastFMTrackInfo(song.artistName, song.songName);
-    while (songLen == 0) {
-      songLen = getLastFMTrackInfo(song.artistName, song.songName);
-    }
-    songsLength.push(songLen);
-  });
-  console.log(songsLength);
-  longestIndex = 0;
-  for (var i = 0; i < songsLength.length; i++) {
-    if (songsLength[i] > songsLength[longestIndex]) {
-      longestIndex = i;
-    }
-  }
-  return longestIndex;
-}
-
 function get4Songs() {
   fourSongs = [];
   while (fourSongs.length < 4) {
@@ -309,18 +323,20 @@ function get4Songs() {
 }
 
 function getSongLenth() {}
-
-function whoHasTheMostListeners() {}
-function whichArtistIsTheMostPopular() {}
-function whichArtistIsTheMostPlayer() {}
-
-function correctAnswer(buttonId) {
-  score += 1;
-  updatePlayerScore();
+function disableButtons() {
   for (var i = 1; i < 5; i++) {
     answer = document.getElementById("answer" + i);
     answer.disabled = true;
   }
+}
+function whoHasTheMostListeners() {}
+
+function whichArtistIsTheMostPlayer() {}
+
+function correctAnswer(buttonId) {
+  score += 10;
+  updatePlayerScore();
+  disableButtons();
   document.getElementById(buttonId).style.backgroundColor = "green";
   document.getElementById("nextBtn").style.visibility = "visible";
   count++;
@@ -383,10 +399,6 @@ function errorAllArtistsFromDB(error) {
   console.log(error);
 }
 
-function getRandomSong() {
-  ajaxCall("GET", getRandomSongURL, "", gotSong, errorSong);
-}
-
 function gotSong(song) {}
 function errorSong(error) {
   console.log(error);
@@ -413,21 +425,114 @@ function updateQuestionCounter() {
     ", question number " + (count + 1) + "/6";
 }
 
-function getLastFMTrackInfo(artist, track) {
+function whichSongHasTheMostLyrics() {
+  fourSongs = get4Songs();
+  longestSong = getTheSongWithMostLyrics(fourSongs).songName;
+
+  wrongAnswersNames = [];
+  fourSongs.forEach((song) => {
+    wrongAnswersNames.push(song.songName);
+  });
+  question = {
+    questionTxt: "Which song has the most lyrics?",
+    correctAnswer: wrongAnswersNames.splice(longestSong, 1),
+    wrongAnswers: wrongAnswersNames,
+  };
+  questions.push(question);
+}
+
+//return which Song Has The Most Lyrics
+function getTheSongWithMostLyrics(songsArray) {
+  maxLyrics = 0;
+  songToRet = songsArray[0];
+  songsArray.forEach((song) => {
+    if (song.lyrics.split(" ").length > songToRet.lyrics.split(" ").length) {
+      songToRet = song;
+    }
+  });
+  return songToRet;
+}
+
+function get3SongsFromDifferentArtists(artName) {
+  threeSongs = [];
+  while (threeSongs.length < 3) {
+    var randomSongNumber = Math.floor(Math.random() * allSongs.length);
+    potentialSong = allSongs[randomSongNumber];
+    if (
+      potentialSong.artistName != artName &&
+      !threeSongs.includes(potentialSong)
+    ) {
+      threeSongs.push(potentialSong);
+    }
+  }
+  retSongsNames = [];
+  threeSongs.forEach((song) => {
+    retSongsNames.push(song.songName);
+  });
+  return retSongsNames;
+}
+
+function whichSongWrittenBy() {
+  var randomSongNumber = Math.floor(Math.random() * allSongs.length);
+  randomArtist = allSongs[randomSongNumber].artistName;
+  randomSong = allSongs[randomSongNumber];
+  wrongAnswersNames = get3SongsFromDifferentArtists(randomSong.artistName);
+  question = {
+    questionTxt: "Which song was written by " + randomSong.artistName + "?",
+    correctAnswer: randomSong.songName,
+    wrongAnswers: wrongAnswersNames,
+  };
+  questions.push(question);
+}
+
+async function whichArtistIsTheMostPopular() {
+  fourRandomArtists = get4Artists();
+  var fourArtists = [];
+  // Fetch listener data for each artist concurrently
+  const fetchPromises = fourRandomArtists.map((artist) =>
+    getArtistLastFMArtistListeners(artist)
+  );
+  const listenersData = await Promise.all(fetchPromises);
+
+  // Combine artist and listener data
+  for (let i = 0; i < fourRandomArtists.length; i++) {
+    const artist = fourRandomArtists[i];
+    const listeners = listenersData[i];
+    art = {
+      artistName: artist,
+      artistPop: listeners,
+    };
+    fourArtists.push(art);
+  }
+  fourArtists.sort((a, b) => b.artistPop - a.artistPop);
+  var threeArtists = fourArtists.slice(1, 4).map((artist) => artist.artistName);
+
+  question = {
+    questionTxt: "Which artist is the most popular?",
+    correctAnswer: fourArtists[0].artistName,
+    wrongAnswers: threeArtists,
+  };
+
+  questions.push(question);
+}
+
+async function getArtistLastFMArtistListeners(artistName) {
   const apiKey = "645890a09eebe9cd0d7bce90c41ff1f1";
-  fetch(
-    `https://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=${apiKey}&artist=${artist}&track=${track}&format=json`
-  )
-    .then((response) => response.json())
-    .then((data) => {
-      console.log(data);
-      // const songInfo = data.song;
-      // return data.song.track.duration;
-    })
-    .catch((error) => {
-      console.error("Error fetching data:", error);
-      const playCountContainer = document.getElementById("playCountContainer");
-      playCountContainer.innerHTML =
-        "Error fetching data. Please try again later.";
-    });
+  const response = await fetch(
+    `https://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=${artistName}&api_key=${apiKey}&format=json`
+  );
+  const data = await response.json();
+  return data.artist.stats.listeners;
+}
+
+function get4Artists() {
+  fourArtists = [];
+  while (fourArtists.length < 4) {
+    randomArtistNumber = Math.floor(Math.random() * allArtists.length);
+    potentialArtist = allArtists[randomArtistNumber].name;
+    if (!fourArtists.includes(potentialArtist)) {
+      fourArtists.push(potentialArtist);
+    }
+  }
+  return fourArtists;
 }
