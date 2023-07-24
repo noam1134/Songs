@@ -6,11 +6,12 @@ const getRandomSongURL = url + "api/Songs/GetRandomSong";
 const get3ArtistsURL = url + "api/Artists/Get3RandomsArtists?artistName=";
 getAllArtistsAPI = url + "api/Artists/GetAllArtists";
 insertScoreURL = url + "api/MusicUsers/InsertScore";
-
 allSongs = [];
 allArtists = [];
-getAllSongsFromDB();
-getAllArtistsFromDB();
+$(document).ready(function () {
+  getAllSongsFromDB();
+  getAllArtistsFromDB();
+});
 var questions = [];
 var count = 0;
 var score = 0;
@@ -25,7 +26,12 @@ function openQuizPage() {
     scrollbarPadding: false,
   }).then((result) => {
     if (result.isConfirmed) {
-      Swal.fire("Game Started!", "Have fun playing the game!", "success");
+      Swal.fire({
+        title: "Game Started!",
+        text: "Have fun playing the game!",
+        icon: "success",
+        scrollbarPadding: false,
+      });
     } else if (result.isDismissed) {
       // Handle the modal being closed without clicking the buttons (e.g., clicking outside the modal)
       console.log("Modal closed without clicking buttons.");
@@ -280,7 +286,7 @@ function returnTheLongestSong(fourSongs) {
     }
     songsLength.push(songLen);
   });
-  console.log(songsLength)
+  console.log(songsLength);
   longestIndex = 0;
   for (var i = 0; i < songsLength.length; i++) {
     if (songsLength[i] > songsLength[longestIndex]) {
@@ -414,7 +420,7 @@ function getLastFMTrackInfo(artist, track) {
   )
     .then((response) => response.json())
     .then((data) => {
-      console.log(data);      
+      console.log(data);
       // const songInfo = data.song;
       // return data.song.track.duration;
     })

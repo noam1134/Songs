@@ -5,14 +5,6 @@ addToFavorite = url + "api/MusicUsers/AddToFavorites?userId=";
 getAllSongsApi = url + "api/Songs/GetAllSongs";
 removeFromFavorites = url + "api/MusicUsers/RemoveFromFavorites?userId=";
 getSongPop = url + "api/Songs/GetSongPopularityBySongId?songId=";
-function clickHome() {
-  localStorage.setItem("indicator", "home");
-  whatToRender();
-}
-function clickFavorites() {
-  localStorage.setItem("indicator", "favorites");
-  whatToRender();
-}
 
 function whatToRender() {
   if (localStorage.getItem("indicator") == "favorites") {
@@ -247,7 +239,6 @@ function updateFavorites() {
 }
 function successSaveAllFavoritesCB(data) {
   localStorage.setItem("favoriteSongs", JSON.stringify(data));
-  console.log(data.length);
 }
 function errorSaveAllFavoritesCB(error) {
   console.log(error);

@@ -40,6 +40,8 @@ function addArtistError(error) {
   console.log("error");
 }
 
+
+//remove from comment to execute
 //importAllSongs();
 //importAllArtists();
 

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-<meta charset="utf-8" />
+  <meta charset="utf-8" />
+  <head>
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
 
     <title>MusicHub</title>
@@ -18,13 +19,13 @@
       href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Cardo:ital,wght@0,400;0,700;1,400&display=swap"
       rel="stylesheet"
     />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,700;1,800&family=Vollkorn+SC:wght@600;700&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,700;1,800&family=Vollkorn+SC:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
     <!-- Vendor CSS Files -->
     <link
       href="assets/vendor/bootstrap/css/bootstrap.min.css"
@@ -49,7 +50,7 @@
       rel="stylesheet"
     />
 
-  <script src="js/jquery.min.js"></script>
+    <script src="js/jquery.min.js"></script>
     <script
       src="https://code.jquery.com/jquery-3.6.4.min.js"
       integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8="
@@ -62,32 +63,46 @@
     </script>
     <script src="js/about.js"></script>
     <script src="js/quiz.js"></script>
-</head>
+  </head>
 
-<body background="./assets/img/bg.jpg">
-
-  <!-- ======= Header ======= -->
-  <header id="header" class="header d-flex align-items-center fixed-top">
-    <div class="container-fluid d-flex align-items-center justify-content-between">
-
-      <a href="index.html" onclick="clickHome()" class="logo d-flex align-items-center  me-auto me-lg-0">
+  <body background="./assets/img/bg.jpg">
+    <!-- ======= Header ======= -->
+    <header id="header" class="header d-flex align-items-center fixed-top">
+      <div
+        class="container-fluid d-flex align-items-center justify-content-between"
+      >
+        <a
+          href="index.html"
+          onclick="clickHome()"
+          class="logo d-flex align-items-center me-auto me-lg-0"
+        >
           <!-- Uncomment the line below if you also wish to use an image logo -->
           <!-- <img src="assets/img/logo.png" alt=""> -->
           <img src="./assets/img/logo.gif" />
           <h1>MusicHub</h1>
         </a>
 
-          <nav id="navbar" class="navbar" style="padding-right: 10vh;">
-            <ul>
-              <li><a onclick="homeAll()" class="notActive" id="homeBtn">Home</a></li>
-              <li><a onclick="homeFavorites()" class="notActive" id="favBtn">Favorites</a></li>
-              <li><a onclick="getAllArtists()" id="artistsBtn" class="notActive">ShowAllArtists</a></li>
-              <li><a onclick="openQuizPage()()" id="quizBtn">Quiz</a></li>
-            </ul>
-          </nav>
+        <nav id="navbar" class="navbar" style="padding-right: 10vh">
+          <ul>
+            <li>
+              <a onclick="homeAll()" class="notActive" id="homeBtn">Home</a>
+            </li>
+            <li>
+              <a onclick="homeFavorites()" class="notActive" id="favBtn"
+                >Favorites</a
+              >
+            </li>
+            <li>
+              <a onclick="getAllArtists()" id="artistsBtn" class="notActive"
+                >ShowAllArtists</a
+              >
+            </li>
+            <li><a onclick="openQuizPage()()" id="quizBtn">Quiz</a></li>
+          </ul>
+        </nav>
         <!-- .navbar -->
 
-      <div class="header-social-links">
+        <div class="header-social-links">
           <img
             src="./assets/img/gear.png"
             onclick="showDetails()"
@@ -101,119 +116,128 @@
     </header>
     <!-- End Header -->
 
-  <main id="main" data-aos="fade" data-aos-delay="1500">
+    <main id="main" data-aos="fade" data-aos-delay="1500">
+      <!-- ======= End Page Header ======= -->
+      <div class="page-header d-flex align-items-center">
+        <div class="container position-relative">
+          <div class="row d-flex justify-content-center">
+            <div class="col-lg-6 text-center">
+              <h2 id="aboutArtist"><br /></h2>
+              <p>information about the artist</p>
 
-    <!-- ======= End Page Header ======= -->
-    <div class="page-header d-flex align-items-center">
-      <div class="container position-relative">
-        <div class="row d-flex justify-content-center">
-          <div class="col-lg-6 text-center">
-            <h2 id="aboutArtist"><br></h2>
-            <p>information about the artist</p>
-
-            <a class="cta-btn" id="linkToSpotify">link to Spotify</a>
-
-          </div>
-        </div>
-      </div>
-    </div><!-- End Page Header -->
-
-    <!-- ======= About Section ======= -->
-    <section id="about" class="about">
-      <div class="container">
-
-        <div class="row gy-4 justify-content-center">
-          <div class="col-lg-4">
-            <img src="images/artistImage.jpg" id="artistImg" class="img-fluid" alt="" >
-          </div>
-          <div class="col-lg-5 content">
-            
-            <div class="row">
-              <div class="col-lg-6">
-                <ul>
-                  <li><i class="bi bi-chevron-right"></i> <strong>PlayCount:</strong> <span id="playCount">INSERT PLAYCOUNT</span></li>
-                  <li><i class="bi bi-chevron-right"></i> <strong>Listeners:</strong> <span id="listeners">INSERT LISTENERS</span></li>                  
-                </ul>
-              </div>
-              <div class="col-lg-6">
-                <ul>
-                  <li><i class="bi bi-chevron-right"></i> <strong>Popularity:</strong> <span id="popularity">INSERT POPULARITY</span></li>
-                  <li><i class="bi bi-chevron-right"></i> <strong>Songs in Database:</strong> <span id ="songsInDb">INSERT # OF SONGS IN DB</spanis></li>
-                </ul>
-              </div>
-              <p class="py-3" id="artistSummary">
-              summary about artist
-            </p>
-            <p class="py-3" id="genres">
-              Genres: 
-            </p>
+              <a class="cta-btn" id="linkToSpotify">link to Spotify</a>
             </div>
           </div>
         </div>
-
       </div>
-    </section><!-- End About Section -->
+      <!-- End Page Header -->
 
-    <!-- ======= Testimonials Section ======= -->
-    <section id="testimonials" class="testimonials">
-      <div class="container">
-
-        <div class="section-header">
-          <h2></h2>
-          <p>More Songs by this Artist</p>
-        </div>
-
-        <div class="slides-3 swiper" id="slidesContainer">
-          <div class="swiper-wrapper" id="allSongs">
-
-            
-
+      <!-- ======= About Section ======= -->
+      <section id="about" class="about">
+        <div class="container">
+          <div class="row gy-4 justify-content-center">
+            <div class="col-lg-4">
+              <img
+                src="images/artistImage.jpg"
+                id="artistImg"
+                class="img-fluid"
+                alt=""
+              />
+            </div>
+            <div class="col-lg-5 content">
+              <div class="row">
+                <div class="col-lg-6">
+                  <ul>
+                    <li>
+                      <i class="bi bi-chevron-right"></i>
+                      <strong>PlayCount:</strong>
+                      <span id="playCount">INSERT PLAYCOUNT</span>
+                    </li>
+                    <li>
+                      <i class="bi bi-chevron-right"></i>
+                      <strong>Listeners:</strong>
+                      <span id="listeners">INSERT LISTENERS</span>
+                    </li>
+                  </ul>
+                </div>
+                <div class="col-lg-6">
+                  <ul>
+                    <li>
+                      <i class="bi bi-chevron-right"></i>
+                      <strong>Popularity:</strong>
+                      <span id="popularity">INSERT POPULARITY</span>
+                    </li>
+                    <li>
+                      <i class="bi bi-chevron-right"></i>
+                      <strong>Songs in Database:</strong>
+                      <span id="songsInDb">INSERT # OF SONGS IN DB</span>
+                    </li>
+                  </ul>
+                </div>
+                <p class="py-3" id="artistSummary">summary about artist</p>
+                <p class="py-3" id="genres">Genres:</p>
+              </div>
+            </div>
           </div>
-          <div class="swiper-pagination"></div>
         </div>
-      </div>
-      
-    </section><!-- End Testimonials Section -->
+      </section>
+      <!-- End About Section -->
 
-  </main><!-- End #main -->
+      <!-- ======= Testimonials Section ======= -->
+      <section id="testimonials" class="testimonials">
+        <div class="container">
+          <div class="section-header">
+            <h2></h2>
+            <p>More Songs by this Artist</p>
+          </div>
 
-  <!-- ======= Footer ======= -->
+          <div class="slides-3 swiper" id="slidesContainer">
+            <div class="swiper-wrapper" id="allSongs"></div>
+            <div class="swiper-pagination"></div>
+          </div>
+        </div>
+      </section>
+      <!-- End Testimonials Section -->
+    </main>
+    <!-- End #main -->
+
+    <!-- ======= Footer ======= -->
     <footer id="footer" class="footer">
       <div class="container">
         <div class="copyright">
           &copy; Copyright <strong><span>RonNoam</span></strong
           >. All Rights Reserved
         </div>
-        <div class="credits">
-          Designed by <a>RonNoam</a>
-        </div>
+        <div class="credits">Designed by <a>RonNoam</a></div>
       </div>
     </footer>
     <!-- End Footer -->
 
-  <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+    <a
+      href="#"
+      class="scroll-top d-flex align-items-center justify-content-center"
+      ><i class="bi bi-arrow-up-short"></i
+    ></a>
 
-  <div id="preloader">
-    <div class="line"></div>
-  </div>
+    <div id="preloader">
+      <div class="line"></div>
+    </div>
 
-  <!-- Vendor JS Files -->
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="assets/vendor/aos/aos.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
-  <script src="./js/updateUserDetails.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <script src="js/search.js"></script>
-  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-  <script src="js/showArtistImage.js"></script>
-  <script src="js/showAllArtists.js"></script>
+    <!-- Vendor JS Files -->
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="assets/vendor/aos/aos.js"></script>
+    <script src="assets/vendor/php-email-form/validate.js"></script>
+    <script src="./js/updateUserDetails.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="js/search.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="js/showArtistImage.js"></script>
+    <script src="js/showAllArtists.js"></script>
+    <script src="js/generalFunctions.js"></script>
 
-
-  <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
-
-</body>
-
+    <!-- Template Main JS File -->
+    <script src="assets/js/main.js"></script>
+  </body>
 </html>

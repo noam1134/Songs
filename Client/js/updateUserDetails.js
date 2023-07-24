@@ -97,8 +97,12 @@ function showDetails() {
   }
   function updateSuccess(data) {
     localStorage.setItem("user", JSON.stringify(user));
-    Swal.fire("User Updated!", "", "success");
-    document.getElementById("userFirstName").innerHTML = user.firstName;    
+    Swal.fire({
+      title: "User Updated!",
+      icon: "success",
+      scrollbarPadding: false,
+    });
+    document.getElementById("userFirstName").innerHTML = user.firstName;
   }
   function updateFail(error) {
     Swal.fire({
@@ -108,9 +112,4 @@ function showDetails() {
       scrollbarPadding: false,
     });
   }
-}
-
-function logOut() {
-  localStorage.removeItem("user");
-  window.open("login.html", "_self");
 }

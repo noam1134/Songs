@@ -25,8 +25,7 @@ function getAccessToken() {
     .post("https://accounts.spotify.com/api/token", body, { headers })
     .then((response) => {
       accessToken = response.data.access_token;
-      expiresIn = response.data.expires_in;
-      console.log("Access token refreshed. " + expiresIn);
+      expiresIn = response.data.expires_in; 
       return accessToken;
     })
     .catch((error) => {

@@ -2,17 +2,7 @@ const api = "https://localhost:7061/api";
 const getAllFavorites = api + "/MusicUsers/GetFavorites?userId=";
 $(document).ready(function () {
   $("#signin-form").submit(function (e) {
-    ajaxCall(
-      "POST",
-      api +
-        "/MusicUsers/LogIn?emailOrUserNameToLogin=" +
-        $("#email").val() +
-        "&passwordToLogin=" +
-        $("#pass").val(),
-      "",
-      successLoginCB,
-      errorLoginCB
-    );
+    logIn();
     e.preventDefault();
   });
 });
@@ -47,21 +37,4 @@ function successSaveAllFavoritesCB(data) {
 }
 function errorSaveAllFavoritesCB(error) {
   console.log(error);
-}
-
-function saveUserData(data) {
-  console.log(data);
-  localStorage.setItem("user", JSON.stringify(data));
-}
-
-function errorLoginCB(error) {
-  Swal.fire({
-    position: "center",
-    icon: "error",
-    title: "Oops! something went wrong!\nCheck the details please!",
-    showConfirmButton: false,
-    scrollbarPadding: false,
-    heightAuto: false,
-    timer: 2500,
-  });
 }

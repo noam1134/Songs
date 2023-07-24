@@ -127,14 +127,8 @@ $(document).ready(function () {
 function successRegisterCB(data) {
   localStorage.setItem("indicator", "home");
   localStorage.setItem("favoriteSongs", "");
-  //add all favorites songs to chach
-  ajaxCall(
-    "POST",
-    getAllFavorites + data.id,
-    "",
-    successSaveAllFavoritesCB,
-    errorSaveAllFavoritesCB
-  );
+  
+  localStorage.setItem("favoriteSongs", []);
   Swal.fire({
     position: "center",
     icon: "success",
@@ -144,27 +138,9 @@ function successRegisterCB(data) {
     heightAuto: false,
     timer: 2500,
   });
-
-  function successSaveAllFavoritesCB(data) {
-    localStorage.setItem("favoriteSongs", JSON.stringify(data));
-  }
-  function errorSaveAllFavoritesCB(error) {
-    console.log(error);
-  }
   // Delay the redirect by 1.5 seconds
-
   setTimeout(function () {
-    ajaxCall(
-      "POST",
-      api +
-        "/MusicUsers/LogIn?emailOrUserNameToLogin=" +
-        $("#email").val() +
-        "&passwordToLogin=" +
-        $("#pass").val(),
-      "",
-      successLoginCB,
-      errorLoginCB
-    );
+    logIn()
   }, 1000);
 }
 
@@ -176,17 +152,6 @@ function successLoginCB(data) {
   }, 1000);
 }
 
-function errorLoginCB(error) {
-  Swal.fire({
-    position: "center",
-    icon: "error",
-    title: "Oops! something went wrong!\nCheck the details please!",
-    showConfirmButton: false,
-    scrollbarPadding: false,
-    heightAuto: false,
-    timer: 2500,
-  });
-}
 
 function errorRegisterCB(error) {
   Swal.fire({
@@ -200,7 +165,3 @@ function errorRegisterCB(error) {
   });
 }
 
-function saveUserData() {
-  console.log(user);
-  localStorage.setItem("user", JSON.stringify(user));
-}

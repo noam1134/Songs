@@ -6,11 +6,10 @@ getAllSongsOfArtist = url + "api/Songs/GetAllSongsByArtistName?artistName=";
 
 $(document).ready(function () {
   artist = JSON.parse(localStorage.getItem("song")).artistName;
-  getArtistImage(artist);  
+  getArtistImage(artist);
   renderArtistInfo();
   document.getElementById("popularity").innerHTML = artist.popularity;
   document.getElementById("quizBtn").setAttribute("class", "notActive");
-
 });
 
 function renderArtistInfo() {
@@ -121,11 +120,12 @@ function getLastFMInfo() {
     .then((response) => response.json())
     .then((data) => {
       const artistInfo = data.artist;
-      
+
       if (artistInfo.stats && artistInfo.stats.playcount) {
         const playCount = artistInfo.stats.playcount;
         document.getElementById("playCount").innerHTML = `${playCount}`;
-        document.getElementById("artistSummary").innerHTML = artistInfo.bio.summary
+        document.getElementById("artistSummary").innerHTML =
+          artistInfo.bio.summary;
       } else {
         document.getElementById("playCount").innerHTML =
           "Play count data not available.";
@@ -146,15 +146,3 @@ function getLastFMInfo() {
         "Error fetching data. Please try again later.";
     });
 }
-
-function homeAll() {
-  localStorage.setItem("indicator", "home");
-  window.open("index.html", "_self");
-}
-
-function homeFavorites() {
-  localStorage.setItem("indicator", "favorites");
-  window.open("index.html", "_self");
-}
-
-
