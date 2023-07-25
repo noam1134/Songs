@@ -15,13 +15,14 @@ function speakText() {
   var textToSpeech = document.getElementById("artistSummary").innerText; // Use innerText instead of innerHTML to get only the text content
   textToSpeech = textToSpeech.split("<")[0];
   const msg = new SpeechSynthesisUtterance(textToSpeech);
-  msg.lang = "he-IL";
+
   msg.voice =
     speechSynthesis.getVoices()[
       voice[document.getElementById("voiceList").value]
     ];
 
   // Speak the text
+  console.log(msg);
   speechSynthesis.speak(msg);
 }
 
